@@ -1,4 +1,4 @@
-import Header from "../comonents/GNB/Header";
+import Header from "../components/GNB/Header";
 import { Outlet } from "react-router-dom";
 import { cn } from "../lib/utils";
 
