@@ -16,7 +16,7 @@ const FormContainer = ({ children, onSubmit, move }: FormContainerProps) => {
     >
       <div className="flex flex-col items-center">링크드아웃</div>
       {children}
-      <Button>제출</Button>
+      <Button type="submit">제출</Button>
       {move && <a href={move.to}>{move.label}</a>}
     </form>
   );
