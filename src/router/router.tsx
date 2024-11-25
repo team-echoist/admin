@@ -9,6 +9,8 @@ import EssayList from "../pages/essay/List";
 import LoginPage from "../pages/auth/Login";
 import NotFound from "../pages/errors/NotFound";
 import RegisterPage from "../pages/auth/Regsiter";
+import checkAuthLoader from "../layouts/AuthLoader";
+import checkDefaultLoader from "../layouts/DefaultLoader";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -16,7 +18,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <DefaultLayout />,
     errorElement: <ErrorPage />,
-
+    loader: checkDefaultLoader,
     children: [
       { path: DefaultPaths.DASHBOARD, element: <Dashboard /> },
       {
@@ -30,7 +32,7 @@ const router = createBrowserRouter([
     path: "/auth",
     element: <AuthLayout />,
     errorElement: <ErrorPage />,
-
+    loader: checkAuthLoader,
     children: [
       { path: AuthPaths.LOGIN, element: <LoginPage /> },
       { path: AuthPaths.REGISTER, element: <RegisterPage /> },
