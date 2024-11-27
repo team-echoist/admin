@@ -12,6 +12,7 @@ import RegisterPage from "../pages/auth/Regsiter";
 import checkAuthLoader from "../layouts/AuthLoader";
 import checkDefaultLoader from "../layouts/DefaultLoader";
 import { createBrowserRouter } from "react-router-dom";
+import { essayDetailLoader } from "../pages/essay/DetailLoader";
 import { essayListLoader } from "../pages/essay/ListLoader";
 
 const router = createBrowserRouter([
@@ -26,7 +27,11 @@ const router = createBrowserRouter([
         element: <EssayList />,
         loader: essayListLoader,
       },
-      { path: DefaultPaths.ESSAY.DETAIL, element: <EssayDetail /> },
+      {
+        path: DefaultPaths.ESSAY.DETAIL,
+        element: <EssayDetail />,
+        loader: essayDetailLoader,
+      },
     ],
   },
   {

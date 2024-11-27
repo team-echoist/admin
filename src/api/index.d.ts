@@ -10,4 +10,4 @@ export type ResponsePaginationType = {
   totalPage: number;
 };
 
-export type AuthorType = Pick<UserType, "id" | "nickname">;
+export type AuthorType = Pick<UserType, "id" | "nickname" | "email">;

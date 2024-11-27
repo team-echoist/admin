@@ -81,7 +81,7 @@ const EssayListItem = ({
   views,
 }: EssayListItemProps) => {
   return (
-    <div className="grid grid-cols-5 h-[50px]">
+    <div className="grid grid-cols-5 h-[50px] hover:bg-gray">
       <div className="text-center">{id}</div>
       <Link className="text-center" to={`/essays/${id}`}>
         {title}
