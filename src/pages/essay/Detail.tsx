@@ -20,6 +20,7 @@ import ItemContainer from "../../components/Detail/ItemContainer";
 import { Label } from "../../components/ui/label";
 import UIErrorBoundary from "../../components/fallback/UIErrorBoundary";
 import essayQueryOptions from "../../queries/essayQueryOptions";
+import sprite from "../../assets/SVGsprite.svg";
 import { useLoaderData } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
@@ -76,11 +77,11 @@ function EssayDetailContent() {
             <div>{data.id}</div>
           </ItemContainer>
           <ItemContainer label="에세이 상태">
-            <div className="flex">
+            <div className="flex gap-[10px]">
               <div>{data.status}</div>
               <Dialog>
                 <DialogTrigger>
-                  <Button>변경</Button>
+                  <Button variant="secondary">변경</Button>
                 </DialogTrigger>
                 <DialogContent>
                   <DialogHeader>
@@ -111,13 +112,19 @@ function EssayDetailContent() {
         <div className="absolute right-0 bottom-0">
           <Dialog>
             <DialogTrigger>
-              <Button>삭제</Button>
+              <Button variant="destructive">
+                <svg width={30} height={30}>
+                  <use href={`${sprite}#trash`}></use>
+                </svg>
+                삭제
+              </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>에세이를 삭제하시겠습니까?</DialogTitle>
-                <DialogDescription className="flex justify-center">
-                  <Button className="w-[100px]">삭제하기</Button>
+                <DialogDescription className="flex flex-col gap-[20px] justify-center">
+                  <div>한번 삭제한 에세이는 되돌릴 수 없습니다.</div>
+                  <Button variant="destructive">삭제하기</Button>
                 </DialogDescription>
               </DialogHeader>
             </DialogContent>
