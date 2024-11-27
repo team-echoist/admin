@@ -3,7 +3,7 @@ import Header from "./Header";
 import RowContainer from "./RowContainer";
 
 export default function List({ children }: React.PropsWithChildren) {
-  return <div className="flex flex-col gap-[15px]">{children}</div>;
+  return <article className="flex flex-col gap-[15px]">{children}</article>;
 }
 
 List.Header = Header;

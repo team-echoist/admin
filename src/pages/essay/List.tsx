@@ -1,18 +1,37 @@
+import APIErrorProvider, {
+  useAPIError,
+} from "../../components/fallback/APIErrorProvider";
+import APILoadingProvider, {
+  useAPILoading,
+} from "../../components/fallback/APILoadingProvider";
 import { Link, useLoaderData } from "react-router-dom";
 
-import ErrorFallback from "../../components/fallback/ErrorFallback";
 import { EssayListResponseType } from "../../api/essays/getEssayList";
 import { EssayListType } from "../../api/essays";
 import List from "../../components/List";
-import LoadingFallback from "../../components/fallback/LoadingFallback";
 import Pagination from "../../components/Pagination";
+import UIErrorBoundary from "../../components/fallback/UIErrorBoundary";
 import essayQueryOptions from "../../queries/essayQueryOptions";
 import usePagination from "../../components/Pagination/usePagination";
 import { useQuery } from "@tanstack/react-query";
 
 const EssayListColumns = ["ID", "에세이 제목", "저자", "발행일자", "조회수"];
 
-const EssayList = () => {
+export default function EssayList() {
+  return (
+    <UIErrorBoundary>
+      <APIErrorProvider>
+        <APILoadingProvider>
+          <EssayListContent />
+        </APILoadingProvider>
+      </APIErrorProvider>
+    </UIErrorBoundary>
+  );
+}
+
+const EssayListContent = () => {
+  const { setAPIError } = useAPIError();
+  const { setAPILoading } = useAPILoading();
   const initialData = useLoaderData<EssayListResponseType>();
   const { currentPage, handlePaginationEvent } = usePagination(
     initialData.totalPage
@@ -25,30 +44,32 @@ const EssayList = () => {
     initialData: { data: initialData },
   });
 
-  if (isLoading) return <LoadingFallback />;
-  if (error instanceof Error) return <ErrorFallback />;
+  if (isLoading) {
+    setAPILoading();
+    return;
+  }
+  if (error instanceof Error) {
+    setAPIError(error.message);
+    return;
+  }
 
   return (
-    <main>
-      <List>
-        <List.Header totalCount={data.data.total} label="에세이" />
-        <List.ColumnContainer headers={EssayListColumns} row={5} />
-        <List.RowContainer>
-          {data.data.essays.map((essay) => (
-            <EssayListItem key={essay.id} {...essay} />
-          ))}
-        </List.RowContainer>
-        <Pagination
-          totalPages={data.data.totalPage}
-          currentPage={currentPage}
-          handlePaginationEvent={handlePaginationEvent}
-        />
-      </List>
-    </main>
+    <List>
+      <List.Header totalCount={data.data.total} label="에세이" />
+      <List.ColumnContainer headers={EssayListColumns} row={5} />
+      <List.RowContainer>
+        {data.data.essays.map((essay) => (
+          <EssayListItem key={essay.id} {...essay} />
+        ))}
+      </List.RowContainer>
+      <Pagination
+        totalPages={data.data.totalPage}
+        currentPage={currentPage}
+        handlePaginationEvent={handlePaginationEvent}
+      />
+    </List>
   );
 };
-
-export default EssayList;
 
 type EssayListItemProps = EssayListType;
 
