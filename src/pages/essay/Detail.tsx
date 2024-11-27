@@ -12,17 +12,20 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../../components/ui/dialog";
+import { EssayStatusType, EssayType } from "../../api/essays";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 import Blank from "../../components/fallback/Blank";
 import { Button } from "../../components/ui/button";
-import { EssayType } from "../../api/essays";
 import ItemContainer from "../../components/Detail/ItemContainer";
 import { Label } from "../../components/ui/label";
 import UIErrorBoundary from "../../components/fallback/UIErrorBoundary";
+import deleteEssay from "../../api/essays/deleteEssay";
 import essayQueryOptions from "../../queries/essayQueryOptions";
+import { queryClient } from "../../App";
 import sprite from "../../assets/SVGsprite.svg";
+import updateEssayStatus from "../../api/essays/updateEssayStatus";
 import { useLoaderData } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 
 export default function EssayDetail() {
   return (
@@ -38,7 +41,7 @@ export default function EssayDetail() {
 
 function EssayDetailContent() {
   const { setAPIError } = useAPIError();
-  const { setAPILoading } = useAPILoading();
+  const { setAPILoading, clearAPILoading } = useAPILoading();
   const { data: essayData, id } = useLoaderData<{
     data: EssayType;
     id: number;
@@ -49,6 +52,38 @@ function EssayDetailContent() {
     initialData: essayData,
   });
 
+  const deleteMutation = useMutation({
+    mutationFn: () => deleteEssay(id),
+    onMutate: () => {
+      setAPILoading();
+    },
+    onSuccess: () => {
+      clearAPILoading();
+      const queryKey = essayQueryOptions.getEssayDetail({ id }).queryKey;
+      queryClient.resetQueries({ queryKey });
+    },
+    onError: (error: Error) => {
+      clearAPILoading();
+      setAPIError(error.message || "에세이 삭제 중 오류가 발생했습니다.");
+    },
+  });
+
+  const updateStatusTypeMutation = useMutation({
+    mutationFn: (status: EssayStatusType) => updateEssayStatus(id, status),
+    onMutate: () => {
+      setAPILoading();
+    },
+    onSuccess: () => {
+      clearAPILoading();
+      const queryKey = essayQueryOptions.getEssayDetail({ id }).queryKey;
+      queryClient.resetQueries({ queryKey });
+    },
+    onError: (error: Error) => {
+      clearAPILoading();
+      setAPIError(error.message || "에세이 삭제 중 오류가 발생했습니다.");
+    },
+  });
+
   if (isLoading) {
     setAPILoading();
     return;
@@ -57,6 +92,14 @@ function EssayDetailContent() {
     setAPIError(error.message);
     return;
   }
+
+  const onClickDeleteEssayButton = () => {
+    deleteMutation.mutate();
+  };
+
+  const onClickUpdateStatusButton = (status: EssayStatusType) => {
+    updateStatusTypeMutation.mutate(status);
+  };
 
   return (
     <div>
@@ -87,9 +130,24 @@ function EssayDetailContent() {
                   <DialogHeader>
                     <DialogTitle>에세이 상태 변경하기</DialogTitle>
                     <DialogDescription className="flex justify-evenly">
-                      <Button className="w-[100px]">공개</Button>
-                      <Button className="w-[100px]">비공개</Button>
-                      <Button className="w-[100px]">링크드아웃</Button>
+                      <Button
+                        className="w-[100px]"
+                        onClick={() => onClickUpdateStatusButton("published")}
+                      >
+                        공개
+                      </Button>
+                      <Button
+                        className="w-[100px]"
+                        onClick={() => onClickUpdateStatusButton("private")}
+                      >
+                        비공개
+                      </Button>
+                      <Button
+                        className="w-[100px]"
+                        onClick={() => onClickUpdateStatusButton("linkedout")}
+                      >
+                        링크드아웃
+                      </Button>
                     </DialogDescription>
                   </DialogHeader>
                 </DialogContent>
@@ -124,7 +182,12 @@ function EssayDetailContent() {
                 <DialogTitle>에세이를 삭제하시겠습니까?</DialogTitle>
                 <DialogDescription className="flex flex-col gap-[20px] justify-center">
                   <div>한번 삭제한 에세이는 되돌릴 수 없습니다.</div>
-                  <Button variant="destructive">삭제하기</Button>
+                  <Button
+                    variant="destructive"
+                    onClick={onClickDeleteEssayButton}
+                  >
+                    삭제하기
+                  </Button>
                 </DialogDescription>
               </DialogHeader>
             </DialogContent>
