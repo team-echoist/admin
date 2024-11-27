@@ -1,5 +1,7 @@
+import DefaultLayout from "../../layouts/DefaultLayout";
+
 const ErrorPage = () => {
-  return <main>에러가 발생했습니다.</main>;
+  return <div>에러가 발생했습니다.</div>;
 };
 
 export default ErrorPage;

@@ -15,7 +15,17 @@ import { useQuery } from "@tanstack/react-query";
 
 const EssayListColumns = ["ID", "에세이 제목", "저자", "발행일자", "조회수"];
 
-const EssayList = () => {
+export default function EssayList() {
+  return (
+    <UIErrorBoundary>
+      <APIErrorProvider>
+        <EssayListContent />
+      </APIErrorProvider>
+    </UIErrorBoundary>
+  );
+}
+
+const EssayListContent = () => {
   const { setAPIError } = useAPIError();
   const initialData = useLoaderData<EssayListResponseType>();
   const { currentPage, handlePaginationEvent } = usePagination(
@@ -36,28 +46,22 @@ const EssayList = () => {
   }
 
   return (
-    <UIErrorBoundary>
-      <APIErrorProvider>
-        <List>
-          <List.Header totalCount={data.data.total} label="에세이" />
-          <List.ColumnContainer headers={EssayListColumns} row={5} />
-          <List.RowContainer>
-            {data.data.essays.map((essay) => (
-              <EssayListItem key={essay.id} {...essay} />
-            ))}
-          </List.RowContainer>
-          <Pagination
-            totalPages={data.data.totalPage}
-            currentPage={currentPage}
-            handlePaginationEvent={handlePaginationEvent}
-          />
-        </List>
-      </APIErrorProvider>
-    </UIErrorBoundary>
+    <List>
+      <List.Header totalCount={data.data.total} label="에세이" />
+      <List.ColumnContainer headers={EssayListColumns} row={5} />
+      <List.RowContainer>
+        {data.data.essays.map((essay) => (
+          <EssayListItem key={essay.id} {...essay} />
+        ))}
+      </List.RowContainer>
+      <Pagination
+        totalPages={data.data.totalPage}
+        currentPage={currentPage}
+        handlePaginationEvent={handlePaginationEvent}
+      />
+    </List>
   );
 };
-
-export default EssayList;
 
 type EssayListItemProps = EssayListType;
 

@@ -18,7 +18,6 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <DefaultLayout />,
-    errorElement: <ErrorPage />,
     loader: checkDefaultLoader,
     children: [
       { path: DefaultPaths.DASHBOARD, element: <Dashboard /> },
