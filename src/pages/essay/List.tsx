@@ -1,11 +1,14 @@
+import APIErrorProvider, {
+  useAPIError,
+} from "../../components/fallback/APIErrorProvider";
 import { Link, useLoaderData } from "react-router-dom";
 
-import ErrorFallback from "../../components/fallback/ErrorFallback";
 import { EssayListResponseType } from "../../api/essays/getEssayList";
 import { EssayListType } from "../../api/essays";
 import List from "../../components/List";
 import LoadingFallback from "../../components/fallback/LoadingFallback";
 import Pagination from "../../components/Pagination";
+import UIErrorBoundary from "../../components/fallback/UIErrorBoundary";
 import essayQueryOptions from "../../queries/essayQueryOptions";
 import usePagination from "../../components/Pagination/usePagination";
 import { useQuery } from "@tanstack/react-query";
@@ -13,6 +16,7 @@ import { useQuery } from "@tanstack/react-query";
 const EssayListColumns = ["ID", "에세이 제목", "저자", "발행일자", "조회수"];
 
 const EssayList = () => {
+  const { setAPIError } = useAPIError();
   const initialData = useLoaderData<EssayListResponseType>();
   const { currentPage, handlePaginationEvent } = usePagination(
     initialData.totalPage
@@ -26,25 +30,30 @@ const EssayList = () => {
   });
 
   if (isLoading) return <LoadingFallback />;
-  if (error instanceof Error) return <ErrorFallback />;
+  if (error instanceof Error) {
+    setAPIError(error.message);
+    return;
+  }
 
   return (
-    <main>
-      <List>
-        <List.Header totalCount={data.data.total} label="에세이" />
-        <List.ColumnContainer headers={EssayListColumns} row={5} />
-        <List.RowContainer>
-          {data.data.essays.map((essay) => (
-            <EssayListItem key={essay.id} {...essay} />
-          ))}
-        </List.RowContainer>
-        <Pagination
-          totalPages={data.data.totalPage}
-          currentPage={currentPage}
-          handlePaginationEvent={handlePaginationEvent}
-        />
-      </List>
-    </main>
+    <UIErrorBoundary>
+      <APIErrorProvider>
+        <List>
+          <List.Header totalCount={data.data.total} label="에세이" />
+          <List.ColumnContainer headers={EssayListColumns} row={5} />
+          <List.RowContainer>
+            {data.data.essays.map((essay) => (
+              <EssayListItem key={essay.id} {...essay} />
+            ))}
+          </List.RowContainer>
+          <Pagination
+            totalPages={data.data.totalPage}
+            currentPage={currentPage}
+            handlePaginationEvent={handlePaginationEvent}
+          />
+        </List>
+      </APIErrorProvider>
+    </UIErrorBoundary>
   );
 };
 
