@@ -7,7 +7,7 @@ const DefaultLayout = () => {
     <>
       <Header />
       <Nav />
-      <main className="mt-[50px]">
+      <main className="mt-[50px] ml-[250px] p-[20px]">
         <Outlet />
       </main>
     </>

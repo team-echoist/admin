@@ -1,21 +1,73 @@
-import { AxiosResponse } from "axios";
+import { Link, useLoaderData } from "react-router-dom";
+
+import ErrorFallback from "../../components/fallback/ErrorFallback";
+import { EssayListResponseType } from "../../api/essays/getEssayList";
+import { EssayListType } from "../../api/essays";
+import List from "../../components/List";
+import LoadingFallback from "../../components/fallback/LoadingFallback";
+import Pagination from "../../components/Pagination";
 import essayQueryOptions from "../../queries/essayQueryOptions";
-import { useLoaderData } from "react-router-dom";
+import usePagination from "../../components/Pagination/usePagination";
 import { useQuery } from "@tanstack/react-query";
 
+const EssayListColumns = ["ID", "에세이 제목", "저자", "발행일자", "조회수"];
+
 const EssayList = () => {
-  const initialData = useLoaderData() as AxiosResponse;
+  const initialData = useLoaderData<EssayListResponseType>();
+  const { currentPage, handlePaginationEvent } = usePagination(
+    initialData.totalPage
+  );
 
   const { data, error, isLoading } = useQuery({
-    ...essayQueryOptions.getEssayList({ pagination: { page: 1, perPage: 10 } }),
-    initialData,
+    ...essayQueryOptions.getEssayList({
+      pagination: { page: currentPage, perPage: 10 },
+    }),
+    initialData: { data: initialData },
   });
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error instanceof Error) return <div>{error.message}</div>;
+  if (isLoading) return <LoadingFallback />;
+  if (error instanceof Error) return <ErrorFallback />;
 
-  console.log(data);
-  return <main>에세이 리스트 페이지</main>;
+  return (
+    <main>
+      <List>
+        <List.Header totalCount={data.data.total} label="에세이" />
+        <List.ColumnContainer headers={EssayListColumns} row={5} />
+        <List.RowContainer>
+          {data.data.essays.map((essay) => (
+            <EssayListItem key={essay.id} {...essay} />
+          ))}
+        </List.RowContainer>
+        <Pagination
+          totalPages={data.data.totalPage}
+          currentPage={currentPage}
+          handlePaginationEvent={handlePaginationEvent}
+        />
+      </List>
+    </main>
+  );
 };
 
 export default EssayList;
+
+type EssayListItemProps = EssayListType;
+
+const EssayListItem = ({
+  id,
+  title,
+  author,
+  createdDate,
+  views,
+}: EssayListItemProps) => {
+  return (
+    <div className="grid grid-cols-5 h-[50px]">
+      <div className="text-center">{id}</div>
+      <Link className="text-center" to={`/essays/${id}`}>
+        {title}
+      </Link>
+      <div className="text-center">{author.nickname}</div>
+      <div className="text-center">{createdDate}</div>
+      <div className="text-center">{views}</div>
+    </div>
+  );
+};

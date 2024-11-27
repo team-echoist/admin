@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1732719139290" clover="3.2.0">
+  <project timestamp="1732719139291" name="All files">
+    <metrics statements="19" coveredstatements="19" conditionals="3" coveredconditionals="3" methods="7" coveredmethods="7" elements="29" coveredelements="29" complexity="0" loc="19" ncloc="19" packages="2" files="2" classes="2"/>
+    <package name="components.Pagination">
+      <metrics statements="15" coveredstatements="15" conditionals="3" coveredconditionals="3" methods="6" coveredmethods="6"/>
+      <file name="index.tsx" path="C:\Users\a_hon\github\admin-2\src\components\Pagination\index.tsx">
+        <metrics statements="15" coveredstatements="15" conditionals="3" coveredconditionals="3" methods="6" coveredmethods="6"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="15" count="4" type="stmt"/>
+        <line num="17" count="4" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="31" count="20" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="66" count="4" type="stmt"/>
+        <line num="68" count="4" type="stmt"/>
+        <line num="70" count="4" type="stmt"/>
+        <line num="71" count="4" type="stmt"/>
+        <line num="72" count="20" type="stmt"/>
+        <line num="75" count="4" type="stmt"/>
+      </file>
+    </package>
+    <package name="lib">
+      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="utils.ts" path="C:\Users\a_hon\github\admin-2\src\lib\utils.ts">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="20" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

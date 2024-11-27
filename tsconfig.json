@@ -5,7 +5,10 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
     "baseUrl": ".",
+    "types": ["jest", "node", "@testing-library/jest-dom"],
     "paths": {
       "@/*": ["./src/*"]
     }

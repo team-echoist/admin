@@ -10,7 +10,7 @@ export const essayListLoader = async ({ request }: { request: Request }) => {
     pagination: { page: Number(page), perPage: Number(perPage) },
   };
 
-  const data = await getEssayList(params);
+  const { data } = await getEssayList(params);
 
   return data;
 };
