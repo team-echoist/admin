@@ -1,7 +1,7 @@
 import { Link, useLoaderData } from "react-router-dom";
 
-import { AxiosResponse } from "axios";
 import ErrorFallback from "../../components/fallback/ErrorFallback";
+import { EssayListResponseType } from "../../api/essays/getEssayList";
 import { EssayListType } from "../../api/essays";
 import List from "../../components/List";
 import LoadingFallback from "../../components/fallback/LoadingFallback";
@@ -13,14 +13,16 @@ import { useQuery } from "@tanstack/react-query";
 const EssayListColumns = ["ID", "에세이 제목", "저자", "발행일자", "조회수"];
 
 const EssayList = () => {
-  const initialData = useLoaderData() as AxiosResponse;
-  const { currentPage, goToNext, goToPrev, goToPageIndex } = usePagination();
+  const initialData = useLoaderData<EssayListResponseType>();
+  const { currentPage, handlePaginationEvent } = usePagination(
+    initialData.totalPage
+  );
 
   const { data, error, isLoading } = useQuery({
     ...essayQueryOptions.getEssayList({
       pagination: { page: currentPage, perPage: 10 },
     }),
-    initialData,
+    initialData: { data: initialData },
   });
 
   if (isLoading) return <LoadingFallback />;
@@ -29,19 +31,17 @@ const EssayList = () => {
   return (
     <main>
       <List>
-        <List.Header totalCount={data.data.data.total} label="에세이" />
+        <List.Header totalCount={data.data.total} label="에세이" />
         <List.ColumnContainer headers={EssayListColumns} row={5} />
         <List.RowContainer>
-          {data.data.data.essays.map((essay) => (
+          {data.data.essays.map((essay) => (
             <EssayListItem key={essay.id} {...essay} />
           ))}
         </List.RowContainer>
         <Pagination
-          totalPages={data.data.data.total}
+          totalPages={data.data.totalPage}
           currentPage={currentPage}
-          goToNext={goToNext}
-          goToPrev={goToPrev}
-          goToPageIndex={goToPageIndex}
+          handlePaginationEvent={handlePaginationEvent}
         />
       </List>
     </main>

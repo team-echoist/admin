@@ -9,6 +9,7 @@ const config: Config = {
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
   },
+  setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"],
 };
 
 export default config;

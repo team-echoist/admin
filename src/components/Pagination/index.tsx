@@ -1,25 +1,29 @@
+import { PaginationEvent } from "./pagination";
 import { cn } from "../../lib/utils";
 
 type PaginationProps = {
   currentPage: number;
   totalPages: number;
-  goToNext: () => void;
-  goToPrev: () => void;
-  goToPageIndex: (index: number) => void;
+  handlePaginationEvent: (event: PaginationEvent) => void;
 };
 
 const Pagination = ({
   currentPage,
   totalPages,
-  goToNext,
-  goToPageIndex,
-  goToPrev,
+  handlePaginationEvent,
 }: PaginationProps) => {
   const show_page = getPaginationItemArray(currentPage, totalPages);
 
   return (
     <div id="pagination" className="m-auto flex gap-[15px]">
-      <button id="prevBtn" onClick={goToPrev}>
+      <button
+        id="prevBtn"
+        data-testid="prevBtn"
+        disabled={currentPage === 1}
+        onClick={() => {
+          handlePaginationEvent({ type: "click_prev_btn" });
+        }}
+      >
         이전
       </button>
       <div className="flex gap-[10px]">
@@ -31,14 +35,21 @@ const Pagination = ({
               currentPage === page ? "bg-lightblue" : ""
             )}
             onClick={() => {
-              goToPageIndex(page);
+              handlePaginationEvent({ type: "jump_to_page", page });
             }}
           >
             {page}
           </button>
         ))}
       </div>
-      <button id="nextBtn" onClick={goToNext}>
+      <button
+        id="nextBtn"
+        data-testid="nextBtn"
+        disabled={currentPage === totalPages}
+        onClick={() => {
+          handlePaginationEvent({ type: "click_next_btn" });
+        }}
+      >
         다음
       </button>
     </div>
@@ -47,9 +58,14 @@ const Pagination = ({
 
 export default Pagination;
 
-function getPaginationItemArray(currentPage: number, totalPage: number) {
-  const startPage = Math.max(1, currentPage - 2);
-  const endPage = totalPage > 5 ? Math.max(5, currentPage + 2) : totalPage;
+function getPaginationItemArray(
+  currentPage: number,
+  totalPage: number,
+  SIZE = 10
+) {
+  const startPage = Math.floor((currentPage - 1) / SIZE) * SIZE + 1;
+
+  const endPage = Math.min(startPage + SIZE - 1, totalPage);
 
   const pages = [];
   for (let i = startPage; i <= endPage; i++) {
