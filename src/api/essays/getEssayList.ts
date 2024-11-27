@@ -1,13 +1,11 @@
 import AxiosInstance from "../AxiosInstance";
 import { EssayListType } from "./index.d";
 import { ListParams } from "../../types/params";
+import { ResponsePaginationType } from "..";
 
 export type EssayListResponseType = {
   essays: EssayListType[];
-  total: number;
-  page: number;
-  totalPage: number;
-};
+} & ResponsePaginationType;
 
 export default async function getEssayList(params: ListParams) {
   const { page, perPage } = params.pagination;
