@@ -17,4 +17,7 @@
   <symbol xmlns="http://www.w3.org/2000/svg" fill="#5f6368" viewBox="0 -960 960 960" id="home">
     <path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"></path>
   </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" fill="#ffffff" viewBox="0 -960 960 960" id="trash">
+    <path d="M760-240H200v-560h560v560ZM400-360h160v-40H400v40ZM240-760h480v40H240v-40ZM280-640v360h400V-640H280Z"></path>
+  </symbol>
 </svg>
