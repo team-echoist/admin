@@ -3,6 +3,7 @@ import APIErrorProvider, {
 } from "../../components/fallback/APIErrorProvider";
 import { Link, useLoaderData } from "react-router-dom";
 
+import APILoadingProvider from "../../components/fallback/APILoadingProvider";
 import { EssayListResponseType } from "../../api/essays/getEssayList";
 import { EssayListType } from "../../api/essays";
 import List from "../../components/List";
@@ -19,7 +20,9 @@ export default function EssayList() {
   return (
     <UIErrorBoundary>
       <APIErrorProvider>
-        <EssayListContent />
+        <APILoadingProvider>
+          <EssayListContent />
+        </APILoadingProvider>
       </APIErrorProvider>
     </UIErrorBoundary>
   );
