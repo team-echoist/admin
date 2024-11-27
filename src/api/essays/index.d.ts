@@ -44,7 +44,10 @@ export type EssayType = {
   ];
 };
 
-export type EssayListType = Pick<EssayType, "id" | "title"> & {
+export type EssayListType = Pick<
+  EssayType,
+  "id" | "title" | "createdDate" | "views"
+> & {
   author: Pick<EssayType["author"], "nickname">;
 };
 

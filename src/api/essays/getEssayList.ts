@@ -10,8 +10,12 @@ export default async function getEssayList(params: ListParams) {
   const url = `/admin-management/essays?page=${page}&limit=${perPage}&filter=${filter}`;
 
   const response = await AxiosInstance.get<{
-    data: EssayListType[];
-    total: number;
+    data: {
+      essays: EssayListType[];
+      total: number;
+      page: number;
+      totalPage: number;
+    };
   }>(url);
 
   return response;

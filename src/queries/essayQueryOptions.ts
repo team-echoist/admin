@@ -7,7 +7,7 @@ import { queryOptions } from "@tanstack/react-query";
 const essayQueryOptions = {
   getEssayList: (params: ListParams) =>
     queryOptions({
-      queryKey: ["essay", "list"],
+      queryKey: ["essay", "list", params],
       queryFn: () => getEssayList(params),
     }),
   getEssayDetail: (params: DetailParams) =>

@@ -1,3 +1,5 @@
+import { AuthPaths } from "../../router/paths";
+import { Link } from "react-router-dom";
 import { cn } from "../../lib/utils";
 
 const Header = () => {
@@ -11,7 +13,9 @@ const Header = () => {
       <h1 className="text-white text-2xl">링크드아웃</h1>
       <div className="flex gap-[15px]">
         <div className="text-white">My Page</div>
-        <div className="text-white">Logout</div>
+        <Link className="text-white" to={`/auth/${AuthPaths.LOGIN}`}>
+          Logout
+        </Link>
       </div>
     </header>
   );
