@@ -1,13 +1,14 @@
 import APIErrorProvider, {
   useAPIError,
 } from "../../components/fallback/APIErrorProvider";
+import APILoadingProvider, {
+  useAPILoading,
+} from "../../components/fallback/APILoadingProvider";
 import { Link, useLoaderData } from "react-router-dom";
 
-import APILoadingProvider from "../../components/fallback/APILoadingProvider";
 import { EssayListResponseType } from "../../api/essays/getEssayList";
 import { EssayListType } from "../../api/essays";
 import List from "../../components/List";
-import LoadingFallback from "../../components/fallback/LoadingFallback";
 import Pagination from "../../components/Pagination";
 import UIErrorBoundary from "../../components/fallback/UIErrorBoundary";
 import essayQueryOptions from "../../queries/essayQueryOptions";
@@ -30,6 +31,7 @@ export default function EssayList() {
 
 const EssayListContent = () => {
   const { setAPIError } = useAPIError();
+  const { setAPILoading } = useAPILoading();
   const initialData = useLoaderData<EssayListResponseType>();
   const { currentPage, handlePaginationEvent } = usePagination(
     initialData.totalPage
@@ -42,7 +44,10 @@ const EssayListContent = () => {
     initialData: { data: initialData },
   });
 
-  if (isLoading) return <LoadingFallback />;
+  if (isLoading) {
+    setAPILoading();
+    return;
+  }
   if (error instanceof Error) {
     setAPIError(error.message);
     return;
