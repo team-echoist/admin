@@ -7,7 +7,7 @@ export default {
       colors: {
         blue: "rgb(24, 31, 71)",
         lightblue: "rgb(209, 215, 239)",
-        red: "rgb(255, 0, 0)",
+        red: { 500: "rgb(173, 8, 8)", 300: "rgb(255, 0, 0)" },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

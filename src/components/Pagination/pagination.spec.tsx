@@ -22,6 +22,12 @@ describe("페이지네이션 동작 테스트", () => {
     jest.clearAllMocks();
   });
 
+  it("데이터가 없으면 1 페이지만을 보여준다", () => {
+    setup(1, 0);
+    expect(screen.getByText(1)).toBeInTheDocument();
+    expect(screen.queryByText(2)).toBeNull();
+  });
+
   it("10단위로 페이지 이동 버튼을 보여준다", () => {
     setup(11, 15);
 

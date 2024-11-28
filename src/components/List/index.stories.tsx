@@ -14,7 +14,7 @@ export const Default = {
     <List>
       <List.Header totalCount={47} label="책" />
       <List.ColumnContainer headers={headers} row={5} />
-      <List.RowContainer>
+      <List.RowContainer row={10}>
         {books.map((book) => (
           <ListItemStory key={book.id} {...book} />
         ))}
