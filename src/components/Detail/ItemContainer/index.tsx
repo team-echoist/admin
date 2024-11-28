@@ -14,7 +14,7 @@ export default function ItemContainer({
 }: ItemContainerProps) {
   return (
     <div className={cn("flex flex-col", className)}>
-      <Label>{label}</Label>
+      <Label className="flex-shrink-0">{label}</Label>
       {children}
     </div>
   );

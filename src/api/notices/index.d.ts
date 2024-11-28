@@ -1,8 +1,14 @@
-import { AuthorType } from "..";
-
 export type NoticeType = {
-  id: string;
+  id?: number;
   title: string;
   content: string;
-  author: AuthorType;
+  createdDate: string;
+  processor: {
+    id: number;
+    email: string;
+    name: string;
+    profileImage: string;
+    activated: true;
+    info: null | string;
+  };
 };

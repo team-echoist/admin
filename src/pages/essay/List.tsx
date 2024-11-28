@@ -57,7 +57,7 @@ const EssayListContent = () => {
     <List>
       <List.Header totalCount={data.data.total} label="에세이" />
       <List.ColumnContainer headers={EssayListColumns} row={5} />
-      <List.RowContainer>
+      <List.RowContainer row={10}>
         {data.data.essays.map((essay) => (
           <EssayListItem key={essay.id} {...essay} />
         ))}

@@ -65,7 +65,8 @@ function getPaginationItemArray(
 ) {
   const startPage = Math.floor((currentPage - 1) / SIZE) * SIZE + 1;
 
-  const endPage = Math.min(startPage + SIZE - 1, totalPage);
+  const endPage =
+    totalPage === 0 ? 1 : Math.min(startPage + SIZE - 1, totalPage);
 
   const pages = [];
   for (let i = startPage; i <= endPage; i++) {

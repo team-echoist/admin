@@ -16,5 +16,5 @@ export default async function getNoticeList(params: ListParams) {
   const response = await AxiosInstance.get<
     ResponseType<NoticeListResponseType>
   >(url);
-  return response;
+  return response.data.data;
 }

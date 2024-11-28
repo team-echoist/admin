@@ -4,8 +4,8 @@ import { NoticeType } from ".";
 import { ResponseType } from "..";
 
 export default async function getNoticeDetail(params: DetailParams) {
-  const url = `/admin-management/notices/${params.id}`;
+  const url = `/admin-support/notices/${params.id}`;
 
   const response = await AxiosInstance.get<ResponseType<NoticeType>>(url);
-  return response;
+  return response.data.data;
 }
