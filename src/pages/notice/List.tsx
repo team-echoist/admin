@@ -113,7 +113,7 @@ const NoticeListContent = () => {
 
 type NoticeListItemProps = NoticeType;
 
-const NoticeListItem = ({ id, title, author }: NoticeListItemProps) => {
+const NoticeListItem = ({ id, title }: NoticeListItemProps) => {
   return (
     <Link
       to={`/notices/${id}`}
@@ -121,7 +121,6 @@ const NoticeListItem = ({ id, title, author }: NoticeListItemProps) => {
     >
       <div className="text-center">{id}</div>
       <div className="text-center">{title}</div>
-      <div className="text-center">{author.nickname}</div>
     </Link>
   );
 };
