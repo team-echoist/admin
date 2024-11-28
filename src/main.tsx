@@ -1,5 +1,4 @@
 import "./styles/tailwind.css";
-import "./styles/react-quill.css";
 
 import App from "./App.tsx";
 import { StrictMode } from "react";
