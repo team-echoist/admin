@@ -32,9 +32,9 @@ export default function NoticeForm({
       const queryKey = noticeQueryOptions.getNoticeList({
         pagination: { page: 1, perPage: 10 },
       }).queryKey;
-      queryClient.invalidateQueries({ queryKey });
       reset();
       onCloseNoticeFormDialog();
+      queryClient.resetQueries({ queryKey });
     } catch (e) {
       console.error(e);
     }
@@ -45,15 +45,20 @@ export default function NoticeForm({
       onSubmit={handleSubmit(onClickSubmitNotice)}
       className="flex flex-col gap-[20px]"
     >
-      <ItemContainer label="제목" className="flex-row items-center gap-[10px]">
-        <Input
-          placeholder="공지사항의 제목을 입력해주세요"
-          {...register("title")}
-        />
+      <div>
+        <ItemContainer
+          label="제목"
+          className="flex-row items-center gap-[10px]"
+        >
+          <Input
+            placeholder="공지사항의 제목을 입력해주세요"
+            {...register("title")}
+          />
+        </ItemContainer>
         {errors.title && (
           <span className="text-red-500">{errors.title.message}</span>
         )}
-      </ItemContainer>
+      </div>
       <ItemContainer label="내용" className="h-[500px]">
         <Controller
           name="content"

@@ -59,7 +59,7 @@ function NoticeDetailContent() {
     onSuccess: () => {
       const queryKey = noticeQueryOptions.getNoticeDetail({ id }).queryKey;
       queryClient.invalidateQueries({ queryKey });
-      navigate(DefaultPaths.NOTICE.LIST);
+      navigate(`/${DefaultPaths.NOTICE.LIST}`);
     },
     onError: (error: Error) => {
       setAPIError(error.message || "에세이 삭제 중 오류가 발생했습니다.");
