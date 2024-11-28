@@ -20,4 +20,43 @@
   <symbol xmlns="http://www.w3.org/2000/svg" fill="#ffffff" viewBox="0 -960 960 960" id="trash">
     <path d="M760-240H200v-560h560v560ZM400-360h160v-40H400v40ZM240-760h480v40H240v-40ZM280-640v360h400V-640H280Z"></path>
   </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" fill="#5f6368" viewBox="0 0 24 24" id="user-list">
+    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" fill="#5f6368" viewBox="0 0 24 24" id="essay-list">
+    <path d="M4 4h16v2H4V4zm0 4h16v2H4V8zm0 4h10v2H4v-2zm0 4h8v2H4v-2z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" fill="#5f6368" viewBox="0 0 24 24" id="report-list">
+    <path d="M13 3H6c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-7-5zm-1 15H8v-2h4v2zm4-4H8v-2h8v2zm0-4H8V8h8v2zm-3-5v4h4l-4-4z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" fill="#5f6368" viewBox="0 0 24 24" id="release-list">
+    <path d="M12 3v2H4v2h8v2h2V7h8V5h-8V3h-2zm-2 7h2v6h-2v-6zm-4 2h2v4H6v-4zm8 0h2v4h-2v-4zm4-2h2v6h-2v-6z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" fill="#5f6368" viewBox="0 0 24 24" id="notice">
+    <path d="M11 7h2v2h-2zm0 4h2v6h-2zm-1 9h4v2h-4z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" fill="#5f6368" viewBox="0 0 24 24" id="query">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v2h-2zm0 4h2v6h-2z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" fill="#5f6368" viewBox="0 0 24 24" id="manager-list">
+    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+  </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" fill="#5f6368" viewBox="0 -960 960 960" id="photo">
+    <path d="M360-400h400L622-580l-92 120-62-80-108 140Zm-40 160q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" fill="#5f6368" viewBox="0 0 24 24" id="smile">
+    <circle cx="12" cy="12" r="10" stroke="black" stroke-width="2" fill="none"></circle>
+    <path d="M8 14c1.33 2 4.67 2 6 0" stroke="black" stroke-width="2" fill="none"></path>
+    <circle cx="9" cy="9" r="1" fill="black"></circle>
+    <circle cx="15" cy="9" r="1" fill="black"></circle>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" fill="#5f6368" viewBox="0 0 24 24" id="pencil">
+    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm2.41-1.41L14.06 7.2l1.41 1.41L6.83 17.25H5.41v-1.41zM18.37 3.63l2 2c.39.39.39 1.03 0 1.41l-1.41 1.41-3.75-3.75 1.41-1.41c.39-.39 1.03-.39 1.41 0z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" fill="#5f6368" viewBox="0 0 24 24" id="folder">
+    <path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" fill="#5f6368" viewBox="0 0 24 24" id="warning">
+    <path d="M1 21h22L12 2 1 21zM12 16v2h0-2v-2h2zm0-6v4h0-2v-4h2z"></path>
+  </symbol>
 </svg>
