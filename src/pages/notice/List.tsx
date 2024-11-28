@@ -6,42 +6,41 @@ import APILoadingProvider, {
 } from "../../components/fallback/APILoadingProvider";
 import { Link, useLoaderData } from "react-router-dom";
 
-import { EssayListResponseType } from "../../api/essays/getEssayList";
-import { EssayListType } from "../../api/essays";
+import Blank from "../../components/fallback/Blank";
 import List from "../../components/List";
+import { NoticeListResponseType } from "../../api/notices/getNoticeList";
+import { NoticeType } from "../../api/notices";
 import Pagination from "../../components/Pagination";
 import UIErrorBoundary from "../../components/fallback/UIErrorBoundary";
-import essayQueryOptions from "../../queries/essayQueryOptions";
+import noticeQueryOptions from "../../queries/noticeQueryOptions";
 import usePagination from "../../components/Pagination/usePagination";
 import { useQuery } from "@tanstack/react-query";
 
-const EssayListColumns = ["ID", "에세이 제목", "저자", "발행일자", "조회수"];
-
-export default function EssayList() {
+export default function NoticeList() {
   return (
     <UIErrorBoundary>
       <APIErrorProvider>
         <APILoadingProvider>
-          <EssayListContent />
+          <NoticeListContent />
         </APILoadingProvider>
       </APIErrorProvider>
     </UIErrorBoundary>
   );
 }
 
-const EssayListContent = () => {
+const NoticeListContent = () => {
   const { setAPIError } = useAPIError();
   const { setAPILoading } = useAPILoading();
-  const initialData = useLoaderData<EssayListResponseType>();
+  const initialData = useLoaderData<NoticeListResponseType>();
   const { currentPage, handlePaginationEvent } = usePagination(
     initialData.totalPage
   );
 
   const { data, error, isLoading } = useQuery({
-    ...essayQueryOptions.getEssayList({
+    ...noticeQueryOptions.getNoticeList({
       pagination: { page: currentPage, perPage: 10 },
     }),
-    initialData: { data: initialData },
+    initialData: initialData,
   });
 
   if (isLoading) {
@@ -55,15 +54,19 @@ const EssayListContent = () => {
 
   return (
     <List>
-      <List.Header totalCount={data.data.total} label="에세이" />
-      <List.ColumnContainer headers={EssayListColumns} row={5} />
-      <List.RowContainer row={10}>
-        {data.data.essays.map((essay) => (
-          <EssayListItem key={essay.id} {...essay} />
-        ))}
-      </List.RowContainer>
+      <List.Header totalCount={data.total} label="공지사항" />
+      <List.ColumnContainer headers={[]} row={5} />
+      {data.Notices.length === 0 ? (
+        <Blank />
+      ) : (
+        <List.RowContainer row={10}>
+          {data.Notices.map((notice) => (
+            <NoticeListItem key={notice.id} {...notice} />
+          ))}
+        </List.RowContainer>
+      )}
       <Pagination
-        totalPages={data.data.totalPage}
+        totalPages={data.totalPage}
         currentPage={currentPage}
         handlePaginationEvent={handlePaginationEvent}
       />
@@ -71,25 +74,17 @@ const EssayListContent = () => {
   );
 };
 
-type EssayListItemProps = EssayListType;
+type NoticeListItemProps = NoticeType;
 
-const EssayListItem = ({
-  id,
-  title,
-  author,
-  createdDate,
-  views,
-}: EssayListItemProps) => {
+const NoticeListItem = ({ id, title, author }: NoticeListItemProps) => {
   return (
     <Link
-      to={`/essays/${id}`}
+      to={`/notices/${id}`}
       className="grid grid-cols-5 items-center h-[50px] m-[10px] hover:bg-gray-300 rounded-[8px]"
     >
       <div className="text-center">{id}</div>
       <div className="text-center">{title}</div>
       <div className="text-center">{author.nickname}</div>
-      <div className="text-center">{createdDate}</div>
-      <div className="text-center">{views}</div>
     </Link>
   );
 };

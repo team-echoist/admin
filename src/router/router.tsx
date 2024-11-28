@@ -8,6 +8,8 @@ import EssayDetail from "../pages/essay/Detail";
 import EssayList from "../pages/essay/List";
 import LoginPage from "../pages/auth/Login";
 import NotFound from "../pages/errors/NotFound";
+import NoticeList from "../pages/notice/List";
+import { NoticeListLoader } from "../pages/notice/ListLoader";
 import RegisterPage from "../pages/auth/Regsiter";
 import checkAuthLoader from "../layouts/AuthLoader";
 import checkDefaultLoader from "../layouts/DefaultLoader";
@@ -31,6 +33,11 @@ const router = createBrowserRouter([
         path: DefaultPaths.ESSAY.DETAIL,
         element: <EssayDetail />,
         loader: essayDetailLoader,
+      },
+      {
+        path: DefaultPaths.NOTICE.LIST,
+        element: <NoticeList />,
+        loader: NoticeListLoader,
       },
     ],
   },

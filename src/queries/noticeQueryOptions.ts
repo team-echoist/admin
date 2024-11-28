@@ -4,7 +4,7 @@ import getNoticeDetail from "../api/notices/getNoticeDetail";
 import getNoticeList from "../api/notices/getNoticeList";
 import { queryOptions } from "@tanstack/react-query";
 
-const essayQueryOptions = {
+const noticeQueryOptions = {
   getNoticeList: (params: ListParams) =>
     queryOptions({
       queryKey: ["notice", "list", params],
@@ -17,4 +17,4 @@ const essayQueryOptions = {
     }),
 };
 
-export default essayQueryOptions;
+export default noticeQueryOptions;
