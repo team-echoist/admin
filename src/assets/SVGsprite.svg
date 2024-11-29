@@ -59,4 +59,8 @@
   <symbol xmlns="http://www.w3.org/2000/svg" fill="#5f6368" viewBox="0 0 24 24" id="warning">
     <path d="M1 21h22L12 2 1 21zM12 16v2h0-2v-2h2zm0-6v4h0-2v-4h2z"></path>
   </symbol>
+  <svg xmlns="http://www.w3.org/2000/svg" fill="#5f6368" viewBox="0 0 24 24" id="star">
+  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+</svg>
+
 </svg>

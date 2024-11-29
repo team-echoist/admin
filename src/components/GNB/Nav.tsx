@@ -26,6 +26,7 @@ const items: NavItemType[] = [
   { iconId: "pencil", label: "관리자 기록", to: DefaultPaths.MANAGER.HISTORY },
   { iconId: "gifts", label: "글로키 목록", to: DefaultPaths.GEULROQUIS.LIST },
   { iconId: "smile", label: "테마 목록", to: DefaultPaths.THEME.LIST },
+  { iconId: "star", label: "아이템 목록", to: DefaultPaths.ITEM.LIST },
   { iconId: "release-list", label: "버전 관리", to: DefaultPaths.VERSION },
   { iconId: "user-list", label: "마이 페이지", to: DefaultPaths.MY },
 ];

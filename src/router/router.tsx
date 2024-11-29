@@ -8,6 +8,7 @@ import EssayDetail from "../pages/essay/Detail";
 import EssayList from "../pages/essay/List";
 import GeulroquisList from "../pages/geulroquis/List";
 import LoginPage from "../pages/auth/Login";
+import LogoutPage from "../pages/auth/Logout";
 import ManagerDetail from "../pages/manager/Detail";
 import ManagerList from "../pages/manager/List";
 import ManagerLog from "../pages/manager/Log";
@@ -92,6 +93,38 @@ const router = createBrowserRouter([
         loader: geulroquisListLoader,
       },
       {
+        path: DefaultPaths.REPORT.LIST,
+        element: <div>레포트 리스트 페이지</div>,
+      },
+      {
+        path: DefaultPaths.REPORT.DETAIL,
+        element: <div>레포트 리스트 페이지</div>,
+      },
+      {
+        path: DefaultPaths.RELEASE.LIST,
+        element: <div>릴리즈 리스트 페이지</div>,
+      },
+      {
+        path: DefaultPaths.RELEASE.DETAIL,
+        element: <div>릴리즈 리스트 페이지</div>,
+      },
+      {
+        path: DefaultPaths.ITEM.LIST,
+        element: <div>아이템 리스트 페이지</div>,
+      },
+      {
+        path: DefaultPaths.ITEM.DETAIL,
+        element: <div>아이템 리스트 페이지</div>,
+      },
+      {
+        path: DefaultPaths.QUERY.LIST,
+        element: <div>문의사항 리스트 페이지</div>,
+      },
+      {
+        path: DefaultPaths.QUERY.DETAIL,
+        element: <div>문의사항 리스트 페이지</div>,
+      },
+      {
         path: DefaultPaths.VERSION,
         element: <Version />,
         loader: VersionLoader,
@@ -99,6 +132,10 @@ const router = createBrowserRouter([
       {
         path: DefaultPaths.THEME.LIST,
         element: <ThemeList />,
+      },
+      {
+        path: DefaultPaths.MY,
+        element: <div>마이 페이지</div>,
       },
     ],
   },

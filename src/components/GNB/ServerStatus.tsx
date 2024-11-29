@@ -6,7 +6,6 @@ import { cn } from "../../lib/utils";
 export default function ServerStatus() {
   const [status, setStatus] = useState<StatusType>();
 
-  console.log(status);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -16,8 +15,10 @@ export default function ServerStatus() {
         console.log(e);
       }
     };
+
     fetchData();
   }, []);
+
   return (
     <div
       className={cn(

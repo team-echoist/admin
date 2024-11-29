@@ -11,6 +11,7 @@ export const DefaultPaths = {
   REPORT: { LIST: "reports", DETAIL: "reports/:id" },
   RELEASE: { LIST: "releases", DETAIL: "releases/:id" },
   QUERY: { LIST: "queries", DETAIL: "queries/:id" },
+  ITEM: { LIST: "items", DETAIL: "items/:id" },
   MANAGER: {
     LIST: "managers",
     DETAIL: "managers/:id",
