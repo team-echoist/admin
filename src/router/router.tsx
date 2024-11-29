@@ -12,12 +12,16 @@ import NoticeDetail from "../pages/notice/Detail";
 import NoticeList from "../pages/notice/List";
 import { NoticeListLoader } from "../pages/notice/ListLoader";
 import RegisterPage from "../pages/auth/Regsiter";
+import UserDetail from "../pages/user/Detail";
+import UserList from "../pages/user/List";
 import checkAuthLoader from "../layouts/AuthLoader";
 import checkDefaultLoader from "../layouts/DefaultLoader";
 import { createBrowserRouter } from "react-router-dom";
 import { essayDetailLoader } from "../pages/essay/DetailLoader";
 import { essayListLoader } from "../pages/essay/ListLoader";
 import { noticeDetailLoader } from "../pages/notice/DetailLoader";
+import { userDetailLoader } from "../pages/user/DetailLoader";
+import userListLoader from "../pages/user/ListLoader";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +49,16 @@ const router = createBrowserRouter([
         path: DefaultPaths.NOTICE.DETAIL,
         element: <NoticeDetail />,
         loader: noticeDetailLoader,
+      },
+      {
+        path: DefaultPaths.USER.LIST,
+        element: <UserList />,
+        loader: userListLoader,
+      },
+      {
+        path: DefaultPaths.USER.DETAIL,
+        element: <UserDetail />,
+        loader: userDetailLoader,
       },
     ],
   },

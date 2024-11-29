@@ -13,7 +13,7 @@ export default function ItemContainer({
   className,
 }: ItemContainerProps) {
   return (
-    <div className={cn("flex flex-col", className)}>
+    <div className={cn("flex flex-col gap-[20px]", className)}>
       <Label className="flex-shrink-0">{label}</Label>
       {children}
     </div>
