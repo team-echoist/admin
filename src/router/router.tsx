@@ -18,6 +18,8 @@ import { NoticeListLoader } from "../pages/notice/ListLoader";
 import RegisterPage from "../pages/auth/Regsiter";
 import UserDetail from "../pages/user/Detail";
 import UserList from "../pages/user/List";
+import Version from "../pages/version/Version";
+import { VersionLoader } from "../pages/version/VersionLoader";
 import checkAuthLoader from "../layouts/AuthLoader";
 import checkDefaultLoader from "../layouts/DefaultLoader";
 import { createBrowserRouter } from "react-router-dom";
@@ -87,6 +89,11 @@ const router = createBrowserRouter([
         path: DefaultPaths.GEULROQUIS.LIST,
         element: <GeulroquisList />,
         loader: geulroquisListLoader,
+      },
+      {
+        path: DefaultPaths.VERSION,
+        element: <Version />,
+        loader: VersionLoader,
       },
     ],
   },
