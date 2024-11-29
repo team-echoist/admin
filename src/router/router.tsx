@@ -16,6 +16,7 @@ import NoticeDetail from "../pages/notice/Detail";
 import NoticeList from "../pages/notice/List";
 import { NoticeListLoader } from "../pages/notice/ListLoader";
 import RegisterPage from "../pages/auth/Regsiter";
+import ThemeList from "../pages/theme/List";
 import UserDetail from "../pages/user/Detail";
 import UserList from "../pages/user/List";
 import Version from "../pages/version/Version";
@@ -94,6 +95,10 @@ const router = createBrowserRouter([
         path: DefaultPaths.VERSION,
         element: <Version />,
         loader: VersionLoader,
+      },
+      {
+        path: DefaultPaths.THEME.LIST,
+        element: <ThemeList />,
       },
     ],
   },
