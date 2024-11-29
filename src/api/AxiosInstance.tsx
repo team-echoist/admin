@@ -1,7 +1,5 @@
 import axios from "axios";
-import { baseApiUrl } from "../constants/env";
 
-console.log(baseApiUrl);
 const AxiosInstance = axios.create({
   baseURL: "https://linkedoutapp.com/api",
 });

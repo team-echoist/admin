@@ -6,6 +6,7 @@ import DefaultLayout from "../layouts/DefaultLayout";
 import ErrorPage from "../pages/errors/Error";
 import EssayDetail from "../pages/essay/Detail";
 import EssayList from "../pages/essay/List";
+import GeulroquisList from "../pages/geulroquis/List";
 import LoginPage from "../pages/auth/Login";
 import ManagerDetail from "../pages/manager/Detail";
 import ManagerList from "../pages/manager/List";
@@ -22,6 +23,7 @@ import checkDefaultLoader from "../layouts/DefaultLoader";
 import { createBrowserRouter } from "react-router-dom";
 import { essayDetailLoader } from "../pages/essay/DetailLoader";
 import { essayListLoader } from "../pages/essay/ListLoader";
+import { geulroquisListLoader } from "../pages/geulroquis/ListLoader";
 import { managerDetailLoader } from "../pages/manager/DetailLoader";
 import { managerListLoader } from "../pages/manager/ListLoader";
 import { managerLogLoader } from "../pages/manager/LogLoader";
@@ -80,6 +82,11 @@ const router = createBrowserRouter([
         path: DefaultPaths.MANAGER.HISTORY,
         element: <ManagerLog />,
         loader: managerLogLoader,
+      },
+      {
+        path: DefaultPaths.GEULROQUIS.LIST,
+        element: <GeulroquisList />,
+        loader: geulroquisListLoader,
       },
     ],
   },
