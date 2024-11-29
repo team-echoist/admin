@@ -7,6 +7,9 @@ import ErrorPage from "../pages/errors/Error";
 import EssayDetail from "../pages/essay/Detail";
 import EssayList from "../pages/essay/List";
 import LoginPage from "../pages/auth/Login";
+import ManagerDetail from "../pages/manager/Detail";
+import ManagerList from "../pages/manager/List";
+import ManagerLog from "../pages/manager/Log";
 import NotFound from "../pages/errors/NotFound";
 import NoticeDetail from "../pages/notice/Detail";
 import NoticeList from "../pages/notice/List";
@@ -19,6 +22,9 @@ import checkDefaultLoader from "../layouts/DefaultLoader";
 import { createBrowserRouter } from "react-router-dom";
 import { essayDetailLoader } from "../pages/essay/DetailLoader";
 import { essayListLoader } from "../pages/essay/ListLoader";
+import { managerDetailLoader } from "../pages/manager/DetailLoader";
+import { managerListLoader } from "../pages/manager/ListLoader";
+import { managerLogLoader } from "../pages/manager/LogLoader";
 import { noticeDetailLoader } from "../pages/notice/DetailLoader";
 import { userDetailLoader } from "../pages/user/DetailLoader";
 import userListLoader from "../pages/user/ListLoader";
@@ -59,6 +65,21 @@ const router = createBrowserRouter([
         path: DefaultPaths.USER.DETAIL,
         element: <UserDetail />,
         loader: userDetailLoader,
+      },
+      {
+        path: DefaultPaths.MANAGER.DETAIL,
+        element: <ManagerDetail />,
+        loader: managerDetailLoader,
+      },
+      {
+        path: DefaultPaths.MANAGER.LIST,
+        element: <ManagerList />,
+        loader: managerListLoader,
+      },
+      {
+        path: DefaultPaths.MANAGER.HISTORY,
+        element: <ManagerLog />,
+        loader: managerLogLoader,
       },
     ],
   },

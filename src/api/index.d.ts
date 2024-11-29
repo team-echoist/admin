@@ -11,3 +11,4 @@ export type ResponsePaginationType = {
 };
 
 export type AuthorType = Pick<UserType, "id" | "nickname" | "email">;
+export type ProcessorType = { name: string } & Pick<UserType, "id" | "email">;
