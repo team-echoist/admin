@@ -1,8 +1,8 @@
 {
   "ci": {
     "collect": {
-      "url": ["http://localhost:5173"],
-      "startServerCommand": "npm run dev",
+      "url": ["http://localhost:4173"],
+      "startServerCommand": "npm run preview",
       "numberOfRuns": 3
     },
     "assert": {
