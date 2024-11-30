@@ -2,7 +2,8 @@ import { FormHTMLAttributes, PropsWithChildren } from "react";
 
 import { Button } from "../../../components/ui/button";
 import { cn } from "../../../lib/utils";
-import logo from "../../../assets/black_logo.png";
+import logoPNG from "../../../assets/black_logo.png";
+import logoWEBP from "../../../assets/black_logo.webp";
 
 type FormContainerProps = PropsWithChildren<{
   move?: { label: string; to: string };
@@ -19,9 +20,11 @@ const FormContainer = ({ children, onSubmit, move }: FormContainerProps) => {
       )}
     >
       <div className="rounded-[20px] overflow-hidden">
-        <img src={logo} alt="링크드아웃 로고" width={150} />
+        <picture>
+          <source srcSet={logoWEBP} type="image/webp" />
+          <img src={logoPNG} alt="링크드아웃 로고" width={150} height={150} />
+        </picture>
       </div>
-
       {children}
       <Button type="submit" className="w-full">
         제출
