@@ -9,7 +9,7 @@
   font-family: "Pretendard";
   src: local("Pretendard ExtraBold"),
     url("../assets/fonts/Pretendard-ExtraBold.woff") format("woff"),
-    url("../assets/fonts/Pretendard-ExtraBold2.woff2") format("woff2");
+    url("../assets/fonts/Pretendard-ExtraBold.woff2") format("woff2");
 }
 
 * {
