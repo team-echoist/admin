@@ -1,4 +1,5 @@
-import { FormHTMLAttributes, PropsWithChildren } from "react";
+import { FormHTMLAttributes, PropsWithChildren, useEffect } from "react";
+import { PRELOADED_IMAGES, preloadImage } from "../../../lib/preloadImage";
 
 import { Button } from "../../../components/ui/button";
 import { cn } from "../../../lib/utils";
@@ -11,6 +12,14 @@ type FormContainerProps = PropsWithChildren<{
   FormHTMLAttributes<HTMLFormElement>;
 
 const FormContainer = ({ children, onSubmit, move }: FormContainerProps) => {
+  useEffect(() => {
+    preloadImage([logoWEBP, logoPNG]);
+
+    return () => {
+      PRELOADED_IMAGES.length = 0;
+    };
+  }, []);
+
   return (
     <form
       onSubmit={onSubmit}
