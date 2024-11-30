@@ -3,7 +3,7 @@ name: Run Lighthouse CI and Comment on PR
 on:
   pull_request:
     branches:
-      - 'main'
+      - "main"
 
 jobs:
   run-lighthouse-and-comment:
@@ -35,7 +35,10 @@ jobs:
         run: |
           npm install -g @lhci/cli
           lhci autorun || echo "Fail to Run Lighthouse CI!"
-
+      - name: Check LHCI Output
+        run: |
+          echo "Checking lhci_reports directory..."
+          ls -la ./lhci_reports || echo "lhci_reports directory does not exist"
       - name: Format Lighthouse Score
         id: format_lighthouse_score
         uses: actions/github-script@v3
@@ -43,7 +46,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
-            const results = JSON.parse(fs.readFileSync("/home/runner/work/medipot_front/medipot_front/lhci_reports/manifest.json"));
+            const results = JSON.parse(fs.readFileSync("/home/runner/work/admin-2/admin-2/lhci_reports/manifest.json"));
             let comments = "";
 
             results.forEach((result) => {
@@ -83,6 +86,6 @@ jobs:
       - name: Comment on PR
         uses: unsplash/comment-on-pr@v1.3.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
         with:
           msg: ${{ steps.format_lighthouse_score.outputs.comments }}
