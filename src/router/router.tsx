@@ -8,7 +8,6 @@ import EssayDetail from "../pages/essay/Detail";
 import EssayList from "../pages/essay/List";
 import GeulroquisList from "../pages/geulroquis/List";
 import LoginPage from "../pages/auth/Login";
-import LogoutPage from "../pages/auth/Logout";
 import ManagerDetail from "../pages/manager/Detail";
 import ManagerList from "../pages/manager/List";
 import ManagerLog from "../pages/manager/Log";
