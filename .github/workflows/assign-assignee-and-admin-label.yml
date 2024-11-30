@@ -3,7 +3,7 @@ name: Auto Assign Assignee and Admin Label
 on:
   pull_request:
     branches:
-      - 'main'
+      - "main"
 
 jobs:
   assign-reviewers-and-labels:
@@ -15,7 +15,7 @@ jobs:
       - name: Assign PR to yourself
         run: |
           curl -X PATCH \
-          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Authorization: Bearer ${{ secrets.LHCI_GITHUB_APP_TOKEN }}" \
           -H "Accept: application/vnd.github.v3+json" \
           -d '{"assignees":["a-honey"]}' \
           "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}"
@@ -23,7 +23,7 @@ jobs:
       - name: Add label Domain:Admin
         run: |
           curl -X POST \
-          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Authorization: Bearer ${{ secrets.LHCI_GITHUB_APP_TOKEN }}" \
           -H "Accept: application/vnd.github.v3+json" \
           -d '{"labels":["Domain: Admin"]}' \
           "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels"
