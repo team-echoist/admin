@@ -5,42 +5,30 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  label-pr-size:
+  labeler:
+    permissions:
+      pull-requests: write
+      contents: read
+      issues: write
     runs-on: ubuntu-latest
+    name: Label the PR size
     steps:
-      - name: Checkout the PR code
-        uses: actions/checkout@v2
-
-      - name: Get PR diff and calculate size
-        id: calculate_size
-        run: |
-          # Get the number of lines changed in the PR
-          CHANGED_LINES=$(git diff --shortstat ${{ github.event.before }} ${{ github.sha }} | grep -o '[0-9]\+ inserted' | awk '{print $1}')
-          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | wc -l)
-          
-          echo "Changed files: $CHANGED_FILES"
-          echo "Changed lines: $CHANGED_LINES"
-
-          # Based on lines changed, set the size
-          if [ "$CHANGED_LINES" -le 50 ]; then
-            echo "Labeling as tiny"
-            echo "::set-output name=label::size: tiny"
-          elif [ "$CHANGED_LINES" -le 200 ]; then
-            echo "Labeling as small"
-            echo "::set-output name=label::size: small"
-          elif [ "$CHANGED_LINES" -le 500 ]; then
-            echo "Labeling as medium"
-            echo "::set-output name=label::size: medium"
-          elif [ "$CHANGED_LINES" -le 1000 ]; then
-            echo "Labeling as large"
-            echo "::set-output name=label::size: large"
-          else
-            echo "Labeling as huge"
-            echo "::set-output name=label::size: huge"
-          fi
-
-      - name: Apply the label
-        uses: github-actions/github-action-labeler@v2
+      - uses: codelytv/pr-size-labeler@v1
         with:
-          repo-token: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-          label: ${{ steps.calculate_size.outputs.label }}
+          GITHUB_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          xs_label: "size: tiny"
+          xs_max_size: "10"
+          s_label: "size: small"
+          s_max_size: "100"
+          m_label: "size: medium"
+          m_max_size: "500"
+          l_label: "size: large"
+          l_max_size: "1000"
+          xl_label: "size: huge"
+          fail_if_xl: "false"
+          message_if_xl: >
+            This PR exceeds the recommended size of 1000 lines.
+            Please make sure you are NOT addressing multiple issues with one PR.
+            Note this PR might be rejected due to its size.
+          github_api_url: "https://api.github.com"
+          files_to_ignore: ""
