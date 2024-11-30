@@ -1,50 +1,42 @@
-# React + TypeScript + Vite
+# Linked Out 관리자 페이지
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Linked Out의 iOS, Android, 및 Desktop 앱을 관리하는 페이지입니다. 이 페이지는 앱의 전반적인 관리와 모니터링을 지원하며, 사용자 관리, 데이터 분석, 및 설정 조정을 쉽게 수행할 수 있도록 설계되었습니다.
 
-Currently, two official plugins are available:
+## 설치
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+애플리케이션 의존성을 설치하려면 다음을 실행하세요.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```sh
+pnpm install
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## 환경 변수
+애플리케이션의 환경 변수를 설정하기 위해 프로젝트 루트에 .env 파일을 추가하세요.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```sh
+VITE_BASE_API_URL="API 주소"
 ```
+
+## 개발모드
+
+개발 모드에서 애플리케이션을 시작하려면 다음을 실행하세요.
+
+```sh
+pnpm run dev
+```
+
+## 프로덕션
+
+프로덕션 모드에서 애플리케이션을 빌드하려면 다음을 실행하세요.
+
+```sh
+pnpm run build
+```
+
+## 추가 기능
+- 사용자 관리: 앱 내 사용자 정보를 쉽게 조회하고 관리할 수 있습니다.
+- 데이터 분석: 유저 가입 통계, 에세이 작성 통계 등을 통하여 인사이트를 얻을 수 있습니다.
+- 앱 버전 관리: 각 앱 버전을 설정하고 변경할 수 있습니다.
+- 아이템 및 테마 관리: 앱에서 사용가능한 아이템들을 설정 및 관리할 수 있습니다.
+
+앱의 성능을 극대화하고 사용자 경험을 개선하기 위해 지속적으로 업데이트 및 개선을 진행하고 있습니다. 관리자 계정 추가는 서버 관리자에게 직접 문의해주세요.
