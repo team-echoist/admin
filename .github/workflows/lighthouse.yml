@@ -3,7 +3,7 @@ name: Run Lighthouse CI and Comment on PR
 on:
   pull_request:
     branches:
-      - 'main'
+      - "main"
 
 jobs:
   run-lighthouse-and-comment:
@@ -35,7 +35,10 @@ jobs:
         run: |
           npm install -g @lhci/cli
           lhci autorun || echo "Fail to Run Lighthouse CI!"
-
+      - name: Check LHCI Output
+        run: |
+          echo "Checking lhci_reports directory..."
+          ls -la ./lhci_reports || echo "lhci_reports directory does not exist"
       - name: Format Lighthouse Score
         id: format_lighthouse_score
         uses: actions/github-script@v3
