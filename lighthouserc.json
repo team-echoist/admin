@@ -1,7 +1,7 @@
 {
   "ci": {
     "collect": {
-      "url": ["http://localhoust:4173/"],
+      "url": ["http://localhost:4173/"],
       "startServerCommand": "npm run preview",
       "numberOfRuns": 3
     },
@@ -11,6 +11,10 @@
     "upload": {
       "target": "filesystem",
       "outputDir": "./lhci_reports"
+    },
+    "settings": {
+      "onlyCategories": ["performance"],
+      "chromeFlags": "--allow-insecure-localhost"
     }
   }
 }
