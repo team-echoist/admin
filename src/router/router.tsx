@@ -11,6 +11,7 @@ import LoginPage from "../pages/auth/Login";
 import ManagerDetail from "../pages/manager/Detail";
 import ManagerList from "../pages/manager/List";
 import ManagerLog from "../pages/manager/Log";
+import MyPage from "../pages/my";
 import NotFound from "../pages/errors/NotFound";
 import NoticeDetail from "../pages/notice/Detail";
 import NoticeList from "../pages/notice/List";
@@ -134,7 +135,7 @@ const router = createBrowserRouter([
       },
       {
         path: DefaultPaths.MY,
-        element: <div>마이 페이지</div>,
+        element: <MyPage />,
       },
     ],
   },

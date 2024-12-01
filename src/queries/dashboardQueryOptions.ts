@@ -10,7 +10,7 @@ const dashboardQueryOptions = {
     }),
   getCounts: () =>
     queryOptions({
-      queryKey: ["dashboard", "essays"],
+      queryKey: ["dashboard", "counts"],
       queryFn: () => getCounts(),
     }),
 };

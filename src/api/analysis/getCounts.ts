@@ -1,10 +1,13 @@
 import AxiosInstance from "../AxiosInstance";
+import { ResponseType } from "..";
 
 export default async function getCounts() {
   const url = `/admin-dashboard`;
 
-  const response = await AxiosInstance.get<ResponseGetCounts>(url);
-  return response;
+  const response = await AxiosInstance.get<ResponseType<ResponseGetCounts>>(
+    url
+  );
+  return response.data.data;
 }
 
 type ResponseGetCounts = {

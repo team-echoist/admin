@@ -1,9 +1,9 @@
-import ErrorFallback from ".";
+import Blank from ".";
 import type { Meta } from "@storybook/react";
 
 const meta: Meta = {
-  title: "fallback/ErrorFallback",
-  component: ErrorFallback,
+  title: "fallback/Blank",
+  component: Blank,
 };
 
 export default meta;
