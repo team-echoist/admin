@@ -30,7 +30,7 @@ export const Error = {
       <Header />
       <Nav />
       <main className="mt-[50px] ml-[250px] p-[20px]">
-        <ErrorFallback />
+        <ErrorFallback message={"Error Message Example"} />
       </main>
     </MemoryRouter>
   ),
