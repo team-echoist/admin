@@ -8,12 +8,14 @@ import { Link, useLoaderData } from "react-router-dom";
 
 import { EssayListResponseType } from "../../api/essays/getEssayList";
 import { EssayListType } from "../../api/essays";
+import KeywordSearch from "../../components/Filter/KeywordSearch";
 import List from "../../components/List";
 import Pagination from "../../components/Pagination";
 import UIErrorBoundary from "../../components/fallback/UIErrorBoundary";
 import essayQueryOptions from "../../queries/essayQueryOptions";
 import usePagination from "../../components/Pagination/usePagination";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 const EssayListColumns = ["ID", "에세이 제목", "저자", "발행일자", "조회수"];
 
@@ -33,6 +35,7 @@ const EssayListContent = () => {
   const { setAPIError } = useAPIError();
   const { setAPILoading } = useAPILoading();
   const initialData = useLoaderData<EssayListResponseType>();
+  const [essaySearchKeyword, setEssaySearchKeyword] = useState("");
   const { currentPage, handlePaginationEvent } = usePagination(
     initialData.totalPage
   );
@@ -40,6 +43,7 @@ const EssayListContent = () => {
   const { data, error, isLoading } = useQuery({
     ...essayQueryOptions.getEssayList({
       pagination: { page: currentPage, perPage: 10 },
+      filter: { keyword: essaySearchKeyword },
     }),
     initialData: { data: initialData },
   });
@@ -55,7 +59,12 @@ const EssayListContent = () => {
 
   return (
     <List>
-      <List.Header totalCount={data.data.total} label="에세이" />
+      <List.Header totalCount={data.data.total} label="에세이">
+        <KeywordSearch
+          keyword={essaySearchKeyword}
+          onKeywordChange={setEssaySearchKeyword}
+        />
+      </List.Header>
       <List.ColumnContainer headers={EssayListColumns} row={5} />
       <List.RowContainer row={10}>
         {data.data.essays.map((essay) => (
@@ -87,7 +96,7 @@ const EssayListItem = ({
     >
       <div className="text-center">{id}</div>
       <div className="text-center">{title}</div>
-      <div className="text-center">{author.nickname}</div>
+      <div className="text-center">{author?.nickname}</div>
       <div className="text-center">{createdDate}</div>
       <div className="text-center">{views}</div>
     </Link>

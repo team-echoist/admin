@@ -54,6 +54,7 @@ export const Variants = () => (
 
 export const Sizes = () => (
   <div className="flex flex-col justify-center items-center gap-4">
+    <Button size="xs">x</Button>
     <Button size="sm">Small</Button>
     <Button size="default">Default</Button>
     <Button size="lg">Large</Button>

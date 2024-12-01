@@ -10,10 +10,11 @@ export type EssayListResponseType = {
 
 export default async function getEssayList(params: ListParams) {
   const { page, perPage } = params.pagination;
+  const keyword = params.filter?.keyword || "";
 
-  const filter = "all";
-
-  const url = `/admin-management/essays?page=${page}&limit=${perPage}&filter=${filter}`;
+  const url = keyword
+    ? `/admin-management/essays/search?page=${page}&limit=${perPage}&keyword=${keyword}`
+    : `/admin-management/essays?page=${page}&limit=${perPage}`;
 
   const response = await AxiosInstance.get<ResponseType<EssayListResponseType>>(
     url
