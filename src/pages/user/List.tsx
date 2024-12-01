@@ -90,7 +90,7 @@ function UserListItem({ id, nickname, email, status, createdDate }: UserType) {
   return (
     <Link
       to={`/users/${id}`}
-      className="grid grid-cols-5 items-center h-[50px] m-[10px] hover:bg-gray-300 rounded-[8px]"
+      className="grid grid-cols-5 items-center h-[50px] m-[10px] hover:bg-lightGray rounded-[8px]"
     >
       <div className="text-center">{id}</div>
       <div className="text-center">{nickname}</div>

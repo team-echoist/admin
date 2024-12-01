@@ -99,7 +99,7 @@ export default function Dashboard() {
               }}
               className={cn(
                 "py-[5px] px-[10px] rounded-[20px]",
-                graphMode === "year" ? "" : "bg-gray-200"
+                graphMode === "year" ? "" : "bg-lightGray"
               )}
             >
               Month
@@ -110,7 +110,7 @@ export default function Dashboard() {
               }}
               className={cn(
                 "py-[5px] px-[15px] rounded-[20px]",
-                graphMode === "year" ? "bg-gray-200" : ""
+                graphMode === "year" ? "bg-lightGray" : ""
               )}
             >
               Year
