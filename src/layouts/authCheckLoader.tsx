@@ -1,7 +1,7 @@
 import { AuthPaths, DefaultPaths } from "../router/paths";
 
 import { ResponseErrorType } from "../api";
-import getMyInfo from "../api/auth/getMyInfo";
+import getUserPermission from "../api/auth/getUserPermission";
 import { redirect } from "react-router-dom";
 
 type LoaderContext = "AuthLayout" | "DefaultLayout";
@@ -17,7 +17,7 @@ export default async function authCheckLoader(context: LoaderContext) {
           return null;
         }
 
-        const response = await getMyInfo();
+        const response = await getUserPermission();
         sessionStorage.setItem("redirected", "true");
 
         if (response && response.id !== undefined) {
@@ -40,7 +40,7 @@ export default async function authCheckLoader(context: LoaderContext) {
     }
 
     try {
-      const response = await getMyInfo();
+      const response = await getUserPermission();
       if (response && response.id !== undefined) {
         localStorage.setItem("isRootAccount", `${response.id === 0}`);
         return null;
