@@ -23,7 +23,7 @@ jobs:
 
       - name: Install packages
         run: |
-          yarn install --production
+          yarn install --production --ignore-engines
 
       - name: Build
         run: |
