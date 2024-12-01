@@ -20,7 +20,7 @@ const Header = () => {
         <div className="rounded-[8px] overflow-hidden">
           <img src={logo} alt="링크드아웃 로고" width={40} />
         </div>
-        <h1 className="text-white text-2xl">Linked Out</h1>
+        <h1 className="text-white text-2xl">Linked Out Admin Page</h1>
       </div>
       <div className="flex gap-[15px] items-center">
         {isLogin ? (
