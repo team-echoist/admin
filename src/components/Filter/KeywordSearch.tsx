@@ -65,7 +65,7 @@ type KeywordLabelProps = {
 
 function KeywordLabel({ keyword, onDelete }: KeywordLabelProps) {
   return (
-    <Label className="flex bg-gray-300 p-[5px] rounded-[20px]">
+    <Label className="flex bg-lightGray p-[5px] rounded-[20px]">
       <div className="flex-shrink-0">{keyword}</div>
       <Button variant="secondary" size="xs" onClick={onDelete}>
         X

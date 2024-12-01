@@ -20,7 +20,7 @@ export const Default = {
         <input
           type="text"
           id="name"
-          className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          className="mt-1 block w-full rounded-md border border-lightGray shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         />
       </div>
       <div>
@@ -28,7 +28,7 @@ export const Default = {
         <input
           type="email"
           id="email"
-          className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          className="mt-1 block w-full rounded-md border border-lightGray shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         />
       </div>
     </div>
@@ -46,7 +46,7 @@ export const Disabled = {
           type="text"
           id="disabled-input"
           disabled
-          className="mt-1 block w-full rounded-md border border-gray-300 bg-gray-100 shadow-sm sm:text-sm"
+          className="mt-1 block w-full rounded-md border border-lightGray bg-gray-100 shadow-sm sm:text-sm"
         />
       </div>
     </div>

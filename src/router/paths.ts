@@ -21,4 +21,5 @@ export const DefaultPaths = {
   THEME: { LIST: "themes" },
   VERSION: "version",
   MY: "my-page",
+  MONITORING: "monitoring",
 };

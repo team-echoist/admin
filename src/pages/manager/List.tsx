@@ -82,7 +82,7 @@ const ManagerListItem = ({
   return (
     <Link
       to={`/managers/${id}`}
-      className="grid grid-cols-4 items-center h-[50px] m-[10px] hover:bg-gray-300 rounded-[8px]"
+      className="grid grid-cols-4 items-center h-[50px] m-[10px] hover:bg-lightGray rounded-[8px]"
     >
       <div className="text-center">{id}</div>
       <div className="text-center">{name}</div>

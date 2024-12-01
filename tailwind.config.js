@@ -6,7 +6,7 @@ export default {
     extend: {
       colors: {
         gray: "rgb(140, 140, 140)",
-        lightGray: "rgb(231, 231, 231)",
+        lightGray: "rgb(199, 199, 199)",
         blue: "rgb(24, 31, 71)",
         lightblue: "rgb(209, 215, 239)",
         errorMessage: "rgb(173, 8, 8)",

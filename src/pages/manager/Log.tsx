@@ -82,7 +82,7 @@ function LogListItem({
   const actionFormatted = getAction(actionType);
 
   return (
-    <div className="grid grid-cols-4 items-center h-[50px] m-[10px] rounded-[8px]">
+    <div className="grid grid-cols-4 items-center h-[50px] m-[10px] rounded-[8px] hover:bg-lightGray">
       <div className="text-center">{id}</div>
 
       <div className="text-center">
