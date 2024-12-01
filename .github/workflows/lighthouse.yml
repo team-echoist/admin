@@ -12,10 +12,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Use Node.js 20.9.0
+      - name: Use Node.js 14
         uses: actions/setup-node@v1
         with:
-          node-version: 20.9.0
+          node-version: 14
 
       - name: Set yarn version 1.22.19
         run: |
