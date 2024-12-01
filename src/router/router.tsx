@@ -38,7 +38,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <DefaultLayout />,
-    loader: authCheckLoader,
+    loader: () => authCheckLoader("DefaultLayout"),
     children: [
       { path: DefaultPaths.DASHBOARD, element: <Dashboard /> },
       {
@@ -142,7 +142,7 @@ const router = createBrowserRouter([
     path: "/auth",
     element: <AuthLayout />,
     errorElement: <ErrorPage />,
-    loader: authCheckLoader,
+    loader: () => authCheckLoader("AuthLayout"),
     children: [
       { path: AuthPaths.LOGIN, element: <LoginPage /> },
       { path: AuthPaths.REGISTER, element: <RegisterPage /> },
