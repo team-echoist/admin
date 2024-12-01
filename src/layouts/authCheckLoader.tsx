@@ -12,13 +12,13 @@ export default async function authCheckLoader() {
   }
 
   try {
-    const isAlreadyRedirected = localStorage.getItem("redirected");
+    const isAlreadyRedirected = sessionStorage.getItem("redirected");
     if (isAlreadyRedirected) {
       return null;
     }
 
     const response = await getMyInfo();
-    localStorage.setItem("redirected", "true");
+    sessionStorage.setItem("redirected", "true");
 
     if (response && response.id !== undefined) {
       localStorage.setItem("isRootAccount", `${response.id === 0}`);
