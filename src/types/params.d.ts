@@ -5,10 +5,13 @@ export interface Pagination {
 
 export interface ListParams {
   pagination: Pagination;
-  filter?: string;
+  filter?: FilterParams;
 }
 
 export interface DetailParams {
   id?: number;
-  filter?: string;
+  filter?: FilterParams;
+}
+export interface FilterParams {
+  keyword: string;
 }
