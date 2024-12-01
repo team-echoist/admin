@@ -34,7 +34,7 @@ jobs:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
         run: |
           npm install -g @lhci/cli
-          lhci autorun --url http://127.0.0.1:4173/ || echo "Fail to Run Lighthouse CI!"
+          lhci autorun || echo "Fail to Run Lighthouse CI!"
       - name: Check LHCI Output
         run: |
           echo "Checking lhci_reports directory..."
