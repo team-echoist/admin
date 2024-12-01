@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "@chromatic-com/playwright";
 
 test.describe("페이지 접근 리다이렉트 테스트", () => {
   test("토큰이 없는 유저 접근 시 로그인 페이지로 리다이렉트한다.", async ({
