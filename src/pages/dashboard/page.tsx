@@ -10,6 +10,10 @@ export default function Dashboard() {
 
   const today = new Date();
 
+  const { data: countData } = useQuery({
+    ...dashboardQueryOptions.getCounts(),
+  });
+
   const {
     data: grahpData,
     error,
@@ -21,6 +25,8 @@ export default function Dashboard() {
   if (error) return;
   if (isLoading) return;
 
+  if (!countData) return;
+  if (!grahpData) return;
   return (
     <main className="m-[50px] flex flex-col gap-[40px] max-w-[1200px]">
       <div className="flex gap-[30px]">
@@ -30,19 +36,51 @@ export default function Dashboard() {
             "border p-[20px] rounded-[8px]"
           )}
         >
-          <DashboardTextItem type="total" label="가입자 수" value={0} />
-          <DashboardTextItem type="total" label="에세이 수" value={0} />
+          <DashboardTextItem
+            type="total"
+            label="가입자 수"
+            value={countData?.totalUser}
+          />
+          <DashboardTextItem
+            type="total"
+            label="에세이 수"
+            value={countData.totalEssays}
+          />
 
-          <DashboardTextItem type="today" label="가입자 수" value={0} />
-          <DashboardTextItem type="today" label="에세이 수" value={0} />
+          <DashboardTextItem
+            type="today"
+            label="구독자 수"
+            value={countData.todaySubscribers}
+          />
+          <DashboardTextItem
+            type="today"
+            label="에세이 수"
+            value={countData.todayEssays}
+          />
         </div>
         <div className="flex-shrink-0 border p-[20px] rounded-[8px]">
-          <DashboardTextItem type="linkedOut" label="에세이 수" value={0} />
-          <DashboardTextItem type="public" label="에세이 수" value={0} />
+          <DashboardTextItem
+            type="linkedOut"
+            label="에세이 수"
+            value={countData.linkedOutEssays}
+          />
+          <DashboardTextItem
+            type="public"
+            label="에세이 수"
+            value={countData.publishedEssays}
+          />
         </div>
         <div className="flex-shrink-0 border p-[20px] rounded-[8px]">
-          <DashboardTextItem label="처리되지 않은 레포트" value={0} unit="건" />
-          <DashboardTextItem label="처리되지 않은 리뷰" value={0} unit="건" />
+          <DashboardTextItem
+            label="처리되지 않은 레포트"
+            value={countData.unprocessedReports}
+            unit="건"
+          />
+          <DashboardTextItem
+            label="처리되지 않은 리뷰"
+            value={countData.unprocessedReviews}
+            unit="건"
+          />
         </div>
       </div>
       <div className="flex flex-col py-[20px] relative gap-[20px]">
@@ -79,38 +117,37 @@ export default function Dashboard() {
             </button>
           </div>
         </div>
-        {grahpData &&
-          (graphMode === "month" ? (
-            <div className="grid grid-cols-3">
-              <DashboardChartItem
-                label={`에세이 작성 수`}
-                data={grahpData.essays.daily}
-              />
-              <DashboardChartItem
-                label={`에세이 작성 수`}
-                data={grahpData.users.daily}
-              />
-              <DashboardChartItem
-                label={`에세이 작성 수`}
-                data={grahpData.payments.daily}
-              />
-            </div>
-          ) : (
-            <div className="grid grid-cols-3 gap-[20px]">
-              <DashboardChartItem
-                label={`에세이 작성 수`}
-                data={grahpData.essays.monthly}
-              />
-              <DashboardChartItem
-                label={`에세이 작성 수`}
-                data={grahpData.users.monthly}
-              />
-              <DashboardChartItem
-                label={`에세이 작성 수`}
-                data={grahpData.payments.monthly}
-              />
-            </div>
-          ))}
+        {graphMode === "month" ? (
+          <div className="grid grid-cols-3">
+            <DashboardChartItem
+              label={`에세이 작성 수`}
+              data={grahpData.essays.daily}
+            />
+            <DashboardChartItem
+              label={`에세이 작성 수`}
+              data={grahpData.users.daily}
+            />
+            <DashboardChartItem
+              label={`에세이 작성 수`}
+              data={grahpData.payments.daily}
+            />
+          </div>
+        ) : (
+          <div className="grid grid-cols-3 gap-[20px]">
+            <DashboardChartItem
+              label={`에세이 작성 수`}
+              data={grahpData.essays.monthly}
+            />
+            <DashboardChartItem
+              label={`에세이 작성 수`}
+              data={grahpData.users.monthly}
+            />
+            <DashboardChartItem
+              label={`에세이 작성 수`}
+              data={grahpData.payments.monthly}
+            />
+          </div>
+        )}
       </div>
     </main>
   );
