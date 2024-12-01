@@ -4,31 +4,53 @@ import { ResponseErrorType } from "../api";
 import getMyInfo from "../api/auth/getMyInfo";
 import { redirect } from "react-router-dom";
 
-export default async function authCheckLoader() {
+type LoaderContext = "AuthLayout" | "DefaultLayout";
+
+export default async function authCheckLoader(context: LoaderContext) {
   const accessToken = localStorage.getItem("accessToken");
 
-  if (!accessToken) {
-    return redirect(`/auth/${AuthPaths.LOGIN}`);
-  }
+  if (context === "AuthLayout") {
+    if (accessToken) {
+      try {
+        const isAlreadyRedirected = sessionStorage.getItem("redirected");
+        if (isAlreadyRedirected) {
+          return null;
+        }
 
-  try {
-    const isAlreadyRedirected = sessionStorage.getItem("redirected");
-    if (isAlreadyRedirected) {
+        const response = await getMyInfo();
+        sessionStorage.setItem("redirected", "true");
+
+        if (response && response.id !== undefined) {
+          localStorage.setItem("isRootAccount", `${response.id === 0}`);
+          return redirect(`/${DefaultPaths.DASHBOARD}`);
+        }
+      } catch (e) {
+        const error = e as ResponseErrorType;
+        if (error.status === 401) {
+          localStorage.removeItem("accessToken");
+          return redirect(`/auth/${AuthPaths.LOGIN}`);
+        }
+      }
+    } else {
       return null;
     }
-
-    const response = await getMyInfo();
-    sessionStorage.setItem("redirected", "true");
-
-    if (response && response.id !== undefined) {
-      localStorage.setItem("isRootAccount", `${response.id === 0}`);
-      return redirect(`/${DefaultPaths.DASHBOARD}`);
+  } else if (context === "DefaultLayout") {
+    if (!accessToken) {
+      return redirect(`/auth/${AuthPaths.LOGIN}`);
     }
-  } catch (e) {
-    const error = e as ResponseErrorType;
-    if (error.status === 401) {
-      localStorage.removeItem("accessToken");
-      return redirect("/login");
+
+    try {
+      const response = await getMyInfo();
+      if (response && response.id !== undefined) {
+        localStorage.setItem("isRootAccount", `${response.id === 0}`);
+        return null;
+      }
+    } catch (e) {
+      const error = e as ResponseErrorType;
+      if (error.status === 401) {
+        localStorage.removeItem("accessToken");
+        return redirect(`/auth/${AuthPaths.LOGIN}`);
+      }
     }
   }
 
