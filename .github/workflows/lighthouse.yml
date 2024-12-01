@@ -23,7 +23,7 @@ jobs:
 
       - name: Install packages
         run: |
-          yarn install --production --ignore-engines
+          yarn install
 
       - name: Build
         run: |
@@ -35,6 +35,12 @@ jobs:
         run: |
           npm install -g @lhci/cli
           lhci autorun || echo "Fail to Run Lighthouse CI!"
+      - name: Upload Lighthouse Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: .lighthouseci
+          include-hidden-files: true
       - name: Check LHCI Output
         run: |
           echo "Checking lhci_reports directory..."
