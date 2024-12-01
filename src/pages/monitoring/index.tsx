@@ -59,7 +59,7 @@ type WebVitalItemProps = {
 function WebVitalItem({ label, value }: WebVitalItemProps) {
   const { emoji, color } = getPerformanceStatus({ label, value });
   const description = getPerformanceDescription(label);
-
+  const unit = getUnit(label);
   return (
     <li className="flex flex-col border items-center p-[20px]">
       <div className="text-xl">{label}</div>
@@ -67,7 +67,7 @@ function WebVitalItem({ label, value }: WebVitalItemProps) {
         {description} {emoji}
       </div>
       <div className={cn(value !== null ? "font-bold" : "", color)}>
-        {value !== null ? value.toFixed(2) : "로딩중"}
+        {value !== null ? `${value.toFixed(2)} ${unit}` : "로딩중"}
       </div>
     </li>
   );
@@ -118,6 +118,20 @@ const getPerformanceDescription = (label: string) => {
     case "TTFB":
       return "서버 응답 시간";
 
+    default:
+      return "";
+  }
+};
+
+const getUnit = (label: string) => {
+  switch (label) {
+    case "CLS":
+      return "";
+    case "INP":
+    case "LCP":
+    case "FCP":
+    case "TTFB":
+      return "ms";
     default:
       return "";
   }
