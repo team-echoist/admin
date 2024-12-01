@@ -1,8 +1,8 @@
 {
   "ci": {
     "collect": {
-      "url": ["http://localhost:4173/"],
-      "startServerCommand": "yarn run preview",
+      "url": ["http://localhost:5173/"],
+      "startServerCommand": "yarn run dev",
       "numberOfRuns": 3
     },
     "assert": {
