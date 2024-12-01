@@ -38,7 +38,7 @@ jobs:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
         run: |
           npm install -g @lhci/cli
-          lhci collect --start-server-command="vite preview" --start-server-ready-pattern="http://localhost:4173/" || echo "Fail to Run Lighthouse CI!"
+          lhci collect --start-server-command="yarn run preview" --start-server-ready-pattern="http://localhost:4173/" || echo "Fail to Run Lighthouse CI!"
       - name: Check LHCI Output
         run: |
           echo "Checking lhci_reports directory..."
