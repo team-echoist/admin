@@ -2,7 +2,7 @@ import LoadingFallback from ".";
 import type { Meta } from "@storybook/react";
 
 const meta: Meta = {
-  title: "fallback/LoadingFallback",
+  title: "fallback/loadingFallback",
   component: LoadingFallback,
 };
 

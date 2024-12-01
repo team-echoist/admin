@@ -3,7 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 import type { Meta } from "@storybook/react";
 
 const meta: Meta = {
-  title: "gnb/Header",
+  title: "gnb/header",
   component: Header,
 };
 

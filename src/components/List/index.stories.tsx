@@ -2,7 +2,7 @@ import List from ".";
 import type { Meta } from "@storybook/react";
 
 const meta: Meta = {
-  title: "components/List",
+  title: "components/list",
   component: List,
   tags: ["autodocs"],
 };
