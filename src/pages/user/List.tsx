@@ -6,6 +6,7 @@ import APILoadingProvider, {
 } from "../../components/fallback/APILoadingProvider";
 import { Link, useLoaderData } from "react-router-dom";
 
+import KeywordSearch from "../../components/Filter/KeywordSearch";
 import List from "../../components/List";
 import Pagination from "../../components/Pagination";
 import UIErrorBoundary from "../../components/fallback/UIErrorBoundary";
@@ -13,6 +14,7 @@ import { UserListResponseType } from "../../api/user/getUserList";
 import { UserType } from "../../api/user";
 import usePagination from "../../components/Pagination/usePagination";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import userQueryOptions from "../../queries/userQueryOptions";
 
 export default function UserList() {
@@ -38,6 +40,7 @@ const UserListContent = () => {
   const { setAPIError } = useAPIError();
   const { setAPILoading } = useAPILoading();
   const initialData = useLoaderData<UserListResponseType>();
+  const [userSearchKeyword, setUserSearchKeyword] = useState("");
   const { currentPage, handlePaginationEvent } = usePagination(
     initialData.totalPage
   );
@@ -45,6 +48,7 @@ const UserListContent = () => {
   const { data, error, isLoading } = useQuery({
     ...userQueryOptions.getUserList({
       pagination: { page: currentPage, perPage: 10 },
+      filter: { keyword: userSearchKeyword },
     }),
     initialData,
   });
@@ -60,7 +64,13 @@ const UserListContent = () => {
 
   return (
     <List>
-      <List.Header totalCount={data.total} label="에세이" />
+      <List.Header totalCount={data.total} label="사용자">
+        <KeywordSearch
+          placeholder="이메일을 입력하세요"
+          keyword={userSearchKeyword}
+          onKeywordChange={setUserSearchKeyword}
+        />
+      </List.Header>
       <List.ColumnContainer headers={userListColumns} row={5} />
       <List.RowContainer row={10}>
         {data.users.map((user) => (

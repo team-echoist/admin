@@ -7,12 +7,18 @@ import sprite from "../../assets/SVGsprite.svg";
 
 type KeywordSearchProps = {
   keyword: string;
+
   onKeywordChange: React.Dispatch<React.SetStateAction<string>>;
-};
+} & React.DetailedHTMLProps<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+>;
 
 export default function KeywordSearch({
   keyword,
   onKeywordChange,
+  placeholder = "검색어를 입력하세요",
+  ...props
 }: KeywordSearchProps) {
   const [inputValue, setInputValue] = useState("");
 
@@ -36,10 +42,11 @@ export default function KeywordSearch({
       <div className="flex items-center gap-[10px]">
         <Input
           value={inputValue}
-          placeholder="검색어를 입력하세요"
           onChange={(e) => {
             setInputValue(e.target.value);
           }}
+          placeholder={placeholder}
+          {...props}
         />
         <button>
           <svg width={30} height={30}>
