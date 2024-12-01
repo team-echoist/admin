@@ -22,8 +22,7 @@ import UserDetail from "../pages/user/Detail";
 import UserList from "../pages/user/List";
 import Version from "../pages/version/Version";
 import { VersionLoader } from "../pages/version/VersionLoader";
-import checkAuthLoader from "../layouts/AuthLoader";
-import checkDefaultLoader from "../layouts/DefaultLoader";
+import authCheckLoader from "../layouts/authCheckLoader";
 import { createBrowserRouter } from "react-router-dom";
 import { essayDetailLoader } from "../pages/essay/DetailLoader";
 import { essayListLoader } from "../pages/essay/ListLoader";
@@ -39,7 +38,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <DefaultLayout />,
-    loader: checkDefaultLoader,
+    loader: authCheckLoader,
     children: [
       { path: DefaultPaths.DASHBOARD, element: <Dashboard /> },
       {
@@ -143,7 +142,7 @@ const router = createBrowserRouter([
     path: "/auth",
     element: <AuthLayout />,
     errorElement: <ErrorPage />,
-    loader: checkAuthLoader,
+    loader: authCheckLoader,
     children: [
       { path: AuthPaths.LOGIN, element: <LoginPage /> },
       { path: AuthPaths.REGISTER, element: <RegisterPage /> },
