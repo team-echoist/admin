@@ -11,6 +11,7 @@ const managerQueryOptions = {
       queryKey: ["dashboard", "managers", params],
       queryFn: () => getManager(params),
     }),
+
   getManagerList: (params: ListParams) =>
     queryOptions({
       queryKey: ["manager", "list", params],
