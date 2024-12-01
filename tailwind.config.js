@@ -5,8 +5,12 @@ export default {
   theme: {
     extend: {
       colors: {
+        gray: "rgb(140, 140, 140)",
+        lightGray: "rgb(231, 231, 231)",
         blue: "rgb(24, 31, 71)",
         lightblue: "rgb(209, 215, 239)",
+        errorMessage: "rgb(173, 8, 8)",
+        warningMessage: "rgb(8, 109, 10)",
         red: { 500: "rgb(173, 8, 8)", 300: "rgb(255, 0, 0)" },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

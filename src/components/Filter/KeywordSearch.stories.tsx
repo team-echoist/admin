@@ -4,7 +4,7 @@ import KeywordSearch from "./KeywordSearch";
 import { useState } from "react";
 
 const meta: Meta<typeof KeywordSearch> = {
-  title: "components/KeywordSearch",
+  title: "components/keywordSearch",
   component: KeywordSearch,
   tags: ["autodocs"],
   argTypes: {

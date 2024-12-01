@@ -12,7 +12,7 @@ import { Button } from "./button";
 import type { Meta } from "@storybook/react";
 
 const meta: Meta = {
-  title: "ui/Dialog",
+  title: "ui/dialog",
   component: Dialog,
   tags: ["autodocs"],
   parameters: {

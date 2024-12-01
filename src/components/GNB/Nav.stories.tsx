@@ -3,7 +3,7 @@ import type { Meta } from "@storybook/react";
 import Nav from "./Nav";
 
 const meta: Meta = {
-  title: "gnb/Nav",
+  title: "gnb/nav",
   component: Nav,
 };
 

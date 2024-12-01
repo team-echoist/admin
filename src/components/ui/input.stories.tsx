@@ -1,7 +1,7 @@
 import { Input } from "./input";
 
 export default {
-  title: "ui/Input",
+  title: "ui/input",
   component: Input,
   tags: ["autodocs"],
 };

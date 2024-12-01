@@ -3,7 +3,7 @@ import Pagination from ".";
 import usePagination from "./usePagination";
 
 const meta: Meta = {
-  title: "components/Pagination",
+  title: "components/pagination",
   component: Pagination,
   tags: ["autodocs"],
 };

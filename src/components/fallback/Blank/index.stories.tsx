@@ -2,7 +2,7 @@ import Blank from ".";
 import type { Meta } from "@storybook/react";
 
 const meta: Meta = {
-  title: "fallback/Blank",
+  title: "fallback/blank",
   component: Blank,
 };
 

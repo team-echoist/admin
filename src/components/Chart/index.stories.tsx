@@ -3,7 +3,7 @@ import MonthlyChart from "./MonthlyChart";
 import YearChart from "./YearChart";
 
 const meta: Meta = {
-  title: "components/Chart",
+  title: "components/chart",
 };
 
 export default meta;
