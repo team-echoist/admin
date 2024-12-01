@@ -13,7 +13,7 @@ const Header = () => {
   return (
     <header
       className={cn(
-        "fixed top-[0px] w-full h-[50px] bg-blue z-[9999]",
+        "fixed top-[0px] left-0 right-0 w-full h-[50px] bg-blue z-[9999]",
         "flex justify-between items-center px-[30px]"
       )}
     >
