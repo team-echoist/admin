@@ -23,7 +23,7 @@ jobs:
 
       - name: Install packages
         run: |
-          yarn install
+          yarn install --production
 
       - name: Build
         run: |
