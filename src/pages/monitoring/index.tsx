@@ -1,7 +1,7 @@
 import { Metric, onCLS, onFCP, onINP, onLCP, onTTFB } from "web-vitals";
 import { useEffect, useState } from "react";
 
-import ServerStatus from "../../components/GNB/ServerStatus";
+import ServerStatus from "./ServerStatus";
 import { cn } from "../../lib/utils";
 
 type WebVitals = {

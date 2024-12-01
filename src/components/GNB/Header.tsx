@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { AuthPaths } from "../../router/paths";
 import { Button } from "../ui/button";
-import ServerStatus from "./ServerStatus";
 import { cn } from "../../lib/utils";
 import logo from "../../assets/black_logo.png";
 
@@ -22,7 +21,6 @@ const Header = () => {
           <img src={logo} alt="링크드아웃 로고" width={40} />
         </div>
         <h1 className="text-white text-2xl">Linked Out</h1>
-        {isLogin && <ServerStatus />}
       </div>
       <div className="flex gap-[15px] items-center">
         {isLogin ? (
