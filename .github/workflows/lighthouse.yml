@@ -17,10 +17,6 @@ jobs:
         with:
           node-version: 18
 
-      - name: Set yarn version 1.22.19
-        run: |
-          yarn set version classic
-
       - name: Install packages
         run: |
           yarn install
@@ -35,16 +31,19 @@ jobs:
         run: |
           npm install -g @lhci/cli
           lhci autorun || echo "Fail to Run Lighthouse CI!"
+
       - name: Upload Lighthouse Results
         uses: actions/upload-artifact@v4
         with:
           name: lighthouse-report
           path: .lighthouseci
           include-hidden-files: true
+
       - name: Check LHCI Output
         run: |
           echo "Checking lhci_reports directory..."
           ls -la ./lhci_reports || echo "lhci_reports directory does not exist"
+
       - name: Format Lighthouse Score
         id: format_lighthouse_score
         uses: actions/github-script@v3
