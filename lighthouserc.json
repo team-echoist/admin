@@ -2,7 +2,7 @@
   "ci": {
     "collect": {
       "url": ["http://localhost:7070"],
-      "startServerCommand": "vite preview --port 7070",
+      "startServerCommand": "npm run preview",
       "numberOfRuns": 3
     },
     "assert": {
