@@ -1,5 +1,6 @@
 import { AuthPaths, DefaultPaths } from "../router/paths";
 
+import { ResponseErrorType } from "../api";
 import getMyInfo from "../api/auth/getMyInfo";
 import { redirect } from "react-router-dom";
 
@@ -24,7 +25,8 @@ export default async function authCheckLoader() {
       return redirect(`/${DefaultPaths.DASHBOARD}`);
     }
   } catch (e) {
-    if (e.status === 401) {
+    const error = e as ResponseErrorType;
+    if (error.status === 401) {
       localStorage.removeItem("accessToken");
       return redirect("/login");
     }

@@ -4,6 +4,11 @@ export type ResponseType<T> = {
   data: T;
 };
 
+export type ResponseErrorType = {
+  status: number;
+  message: string;
+};
+
 export type ResponsePaginationType = {
   total: number;
   page: number;
