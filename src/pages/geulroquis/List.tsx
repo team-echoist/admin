@@ -8,8 +8,6 @@ import {
 } from "../../components/ui/dialog";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-import APIErrorProvider from "../../components/fallback/APIErrorProvider";
-import APILoadingProvider from "../../components/fallback/APILoadingProvider";
 import { AxiosResponse } from "axios";
 import Blank from "../../components/fallback/Blank";
 import { Button } from "../../components/ui/button";
@@ -30,11 +28,7 @@ import { useState } from "react";
 export default function GeulroquisList() {
   return (
     <UIErrorBoundary>
-      <APIErrorProvider>
-        <APILoadingProvider>
-          <GeulroquisListContent />
-        </APILoadingProvider>
-      </APIErrorProvider>
+      <GeulroquisListContent />
     </UIErrorBoundary>
   );
 }

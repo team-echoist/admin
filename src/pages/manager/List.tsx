@@ -1,7 +1,5 @@
 import { Link, useLoaderData } from "react-router-dom";
 
-import APIErrorProvider from "../../components/fallback/APIErrorProvider";
-import APILoadingProvider from "../../components/fallback/APILoadingProvider";
 import Blank from "../../components/fallback/Blank";
 import ErrorFallback from "../../components/fallback/ErrorFallback";
 import List from "../../components/List";
@@ -19,11 +17,7 @@ const columns = ["관리자 ID", "관리자 닉네임", "관리자 이메일", "
 export default function ManagerList() {
   return (
     <UIErrorBoundary>
-      <APIErrorProvider>
-        <APILoadingProvider>
-          <ManagerListContent />
-        </APILoadingProvider>
-      </APIErrorProvider>
+      <ManagerListContent />
     </UIErrorBoundary>
   );
 }

@@ -1,16 +1,11 @@
-import APIErrorProvider, {
-  useAPIError,
-} from "../../components/fallback/APIErrorProvider";
-import APILoadingProvider, {
-  useAPILoading,
-} from "../../components/fallback/APILoadingProvider";
-import { Link, useLoaderData } from "react-router-dom";
-
+import Blank from "../../components/fallback/Blank";
+import ErrorFallback from "../../components/fallback/ErrorFallback";
 import KeywordSearch from "../../components/Filter/KeywordSearch";
+import { Link } from "react-router-dom";
 import List from "../../components/List";
+import LoadingFallback from "../../components/fallback/LoadingFallback";
 import Pagination from "../../components/Pagination";
 import UIErrorBoundary from "../../components/fallback/UIErrorBoundary";
-import { UserListResponseType } from "../../api/user/getUserList";
 import { UserType } from "../../api/user";
 import usePagination from "../../components/Pagination/usePagination";
 import { useQuery } from "@tanstack/react-query";
@@ -20,11 +15,7 @@ import userQueryOptions from "../../queries/userQueryOptions";
 export default function UserList() {
   return (
     <UIErrorBoundary>
-      <APIErrorProvider>
-        <APILoadingProvider>
-          <UserListContent />
-        </APILoadingProvider>
-      </APIErrorProvider>
+      <UserListContent />
     </UIErrorBoundary>
   );
 }
@@ -37,9 +28,6 @@ const userListColumns = [
   "가입날짜",
 ];
 const UserListContent = () => {
-  const { setAPIError } = useAPIError();
-  const { setAPILoading } = useAPILoading();
-  const initialData = useLoaderData<UserListResponseType>();
   const [userSearchKeyword, setUserSearchKeyword] = useState("");
   const { currentPage, handlePaginationEvent } = usePagination();
 
@@ -48,16 +36,17 @@ const UserListContent = () => {
       pagination: { page: currentPage, perPage: 10 },
       filter: { keyword: userSearchKeyword },
     }),
-    initialData,
   });
 
   if (isLoading) {
-    setAPILoading();
-    return;
+    return <LoadingFallback />;
   }
   if (error instanceof Error) {
-    setAPIError(error.message);
-    return;
+    return <ErrorFallback />;
+  }
+
+  if (!data) {
+    return <Blank />;
   }
 
   return (

@@ -29,7 +29,6 @@ import { managerDetailLoader } from "../pages/manager/DetailLoader";
 import { managerLogLoader } from "../pages/manager/LogLoader";
 import { noticeDetailLoader } from "../pages/notice/DetailLoader";
 import { userDetailLoader } from "../pages/user/DetailLoader";
-import userListLoader from "../pages/user/ListLoader";
 
 const router = createBrowserRouter([
   {
@@ -59,7 +58,6 @@ const router = createBrowserRouter([
       {
         path: DefaultPaths.USER.LIST,
         element: <UserList />,
-        loader: userListLoader,
       },
       {
         path: DefaultPaths.USER.DETAIL,
