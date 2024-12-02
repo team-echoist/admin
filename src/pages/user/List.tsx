@@ -41,9 +41,7 @@ const UserListContent = () => {
   const { setAPILoading } = useAPILoading();
   const initialData = useLoaderData<UserListResponseType>();
   const [userSearchKeyword, setUserSearchKeyword] = useState("");
-  const { currentPage, handlePaginationEvent } = usePagination(
-    initialData.totalPage
-  );
+  const { currentPage, handlePaginationEvent } = usePagination();
 
   const { data, error, isLoading } = useQuery({
     ...userQueryOptions.getUserList({

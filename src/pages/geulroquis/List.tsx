@@ -51,9 +51,7 @@ const GeulroquisListContent = () => {
     data: GeulroquisResponseType;
     count: GeulroquisCountType;
   }>();
-  const { currentPage, handlePaginationEvent } = usePagination(
-    initialData.totalPage
-  );
+  const { currentPage, handlePaginationEvent } = usePagination();
 
   const { data, error, isLoading } = useQuery({
     ...geulroquisQueryOptions.getGeulroquisList({

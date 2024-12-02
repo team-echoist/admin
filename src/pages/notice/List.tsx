@@ -46,9 +46,7 @@ const NoticeListContent = () => {
   const { setAPILoading } = useAPILoading();
   const [isNoticeFormDialogOpen, setIsNoticeFormDialogOpen] = useState(false);
   const initialData = useLoaderData<NoticeListResponseType>();
-  const { currentPage, handlePaginationEvent } = usePagination(
-    initialData.totalPage
-  );
+  const { currentPage, handlePaginationEvent } = usePagination();
 
   const { data, error, isLoading } = useQuery({
     ...noticeQueryOptions.getNoticeList({

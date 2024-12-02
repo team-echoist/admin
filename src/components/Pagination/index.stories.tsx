@@ -11,7 +11,7 @@ const meta: Meta = {
 export default meta;
 
 const PaginationStory: React.FC = () => {
-  const { currentPage, handlePaginationEvent } = usePagination(50);
+  const { currentPage, handlePaginationEvent } = usePagination();
 
   return (
     <Pagination

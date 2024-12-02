@@ -33,9 +33,7 @@ const ManagerListContent = () => {
   const { setAPIError } = useAPIError();
   const { setAPILoading } = useAPILoading();
   const initialData = useLoaderData<ManagerListResponseType>();
-  const { currentPage, handlePaginationEvent } = usePagination(
-    initialData.totalPage
-  );
+  const { currentPage, handlePaginationEvent } = usePagination();
 
   const { data, error, isLoading } = useQuery({
     ...managerQueryOptions.getManagerList({

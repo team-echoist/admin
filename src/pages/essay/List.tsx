@@ -36,9 +36,7 @@ const EssayListContent = () => {
   const { setAPILoading } = useAPILoading();
   const initialData = useLoaderData<EssayListResponseType>();
   const [essaySearchKeyword, setEssaySearchKeyword] = useState("");
-  const { currentPage, handlePaginationEvent } = usePagination(
-    initialData.totalPage
-  );
+  const { currentPage, handlePaginationEvent } = usePagination();
 
   const { data, error, isLoading } = useQuery({
     ...essayQueryOptions.getEssayList({

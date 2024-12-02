@@ -33,9 +33,7 @@ const ManagerLogContent = () => {
   const { setAPIError } = useAPIError();
   const { setAPILoading } = useAPILoading();
   const initialData = useLoaderData<ManagerLogResponseType>();
-  const { currentPage, handlePaginationEvent } = usePagination(
-    initialData.totalPage
-  );
+  const { currentPage, handlePaginationEvent } = usePagination();
 
   const { data, error, isLoading } = useQuery({
     ...managerQueryOptions.getManagerLog({
