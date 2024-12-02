@@ -115,7 +115,7 @@ const NavItem = ({ iconId, label, to, queryKey }: NavItemType) => {
     <Link
       className="flex gap-[15px] items-center px-[15px] py-[10px]"
       to={to}
-      onClick={handleClick}
+      onMouseOver={handleClick}
     >
       <svg width={30} height={30}>
         <use href={`${sprite}#${iconId}`}></use>
