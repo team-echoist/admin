@@ -2,9 +2,13 @@ import { DefaultPaths } from "../../router/paths";
 import { Link } from "react-router-dom";
 import { cn } from "../../lib/utils";
 import essayQueryOptions from "../../queries/essayQueryOptions";
+import geulroquisQueryOptions from "../../queries/geulroquisQueryOptions";
+import managerQueryOptions from "../../queries/managerQueryOptions";
 import { queryClient } from "../../App";
 import sprite from "../../assets/SVGsprite.svg";
+import themeQueryOptions from "../../queries/themeQueryOptions";
 import { useState } from "react";
+import userQueryOptions from "../../queries/userQueryOptions";
 
 type NavItemType = {
   iconId: string;
@@ -15,7 +19,14 @@ type NavItemType = {
 
 const items: NavItemType[] = [
   { iconId: "home", label: "대시보드", to: DefaultPaths.DASHBOARD },
-  { iconId: "user-list", label: "사용자 목록", to: DefaultPaths.USER.LIST },
+  {
+    iconId: "user-list",
+    label: "사용자 목록",
+    to: DefaultPaths.USER.LIST,
+    queryKey: userQueryOptions.getUserList({
+      pagination: { page: 0, perPage: 10 },
+    }).queryKey,
+  },
   {
     iconId: "edit",
     label: "에세이 목록",
@@ -37,9 +48,28 @@ const items: NavItemType[] = [
     label: "관리자 목록",
     to: DefaultPaths.MANAGER.LIST,
   },
-  { iconId: "pencil", label: "관리자 기록", to: DefaultPaths.MANAGER.HISTORY },
-  { iconId: "gifts", label: "글로키 목록", to: DefaultPaths.GEULROQUIS.LIST },
-  { iconId: "smile", label: "테마 목록", to: DefaultPaths.THEME.LIST },
+  {
+    iconId: "pencil",
+    label: "관리자 기록",
+    to: DefaultPaths.MANAGER.HISTORY,
+    queryKey: managerQueryOptions.getManagerList({
+      pagination: { page: 0, perPage: 10 },
+    }).queryKey,
+  },
+  {
+    iconId: "gifts",
+    label: "글로키 목록",
+    to: DefaultPaths.GEULROQUIS.LIST,
+    queryKey: geulroquisQueryOptions.getGeulroquisList({
+      pagination: { page: 0, perPage: 10 },
+    }).queryKey,
+  },
+  {
+    iconId: "smile",
+    label: "테마 목록",
+    to: DefaultPaths.THEME.LIST,
+    queryKey: themeQueryOptions.getThemeList().queryKey,
+  },
   { iconId: "star", label: "아이템 목록", to: DefaultPaths.ITEM.LIST },
   { iconId: "folder", label: "버전 관리", to: DefaultPaths.VERSION },
   { iconId: "release-list", label: "모니터링", to: DefaultPaths.MONITORING },

@@ -1,12 +1,11 @@
-import APIErrorProvider, {
-  useAPIError,
-} from "../../components/fallback/APIErrorProvider";
-import APILoadingProvider, {
-  useAPILoading,
-} from "../../components/fallback/APILoadingProvider";
 import { Link, useLoaderData } from "react-router-dom";
 
+import APIErrorProvider from "../../components/fallback/APIErrorProvider";
+import APILoadingProvider from "../../components/fallback/APILoadingProvider";
+import Blank from "../../components/fallback/Blank";
+import ErrorFallback from "../../components/fallback/ErrorFallback";
 import List from "../../components/List";
+import LoadingFallback from "../../components/fallback/LoadingFallback";
 import { ManagerListResponseType } from "../../api/manager/getManagerList";
 import { ManagerListType } from "../../api/manager";
 import Pagination from "../../components/Pagination";
@@ -30,8 +29,6 @@ export default function ManagerList() {
 }
 
 const ManagerListContent = () => {
-  const { setAPIError } = useAPIError();
-  const { setAPILoading } = useAPILoading();
   const initialData = useLoaderData<ManagerListResponseType>();
   const { currentPage, handlePaginationEvent } = usePagination();
 
@@ -43,12 +40,14 @@ const ManagerListContent = () => {
   });
 
   if (isLoading) {
-    setAPILoading();
-    return;
+    return <LoadingFallback />;
   }
   if (error instanceof Error) {
-    setAPIError(error.message);
-    return;
+    return <ErrorFallback />;
+  }
+
+  if (!data) {
+    return <Blank />;
   }
 
   return (

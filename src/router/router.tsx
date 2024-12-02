@@ -16,7 +16,6 @@ import MyPage from "../pages/my";
 import NotFound from "../pages/errors/NotFound";
 import NoticeDetail from "../pages/notice/Detail";
 import NoticeList from "../pages/notice/List";
-import { NoticeListLoader } from "../pages/notice/ListLoader";
 import RegisterPage from "../pages/auth/Regsiter";
 import ThemeList from "../pages/theme/List";
 import UserDetail from "../pages/user/Detail";
@@ -26,9 +25,7 @@ import { VersionLoader } from "../pages/version/VersionLoader";
 import authCheckLoader from "../layouts/authCheckLoader";
 import { createBrowserRouter } from "react-router-dom";
 import { essayDetailLoader } from "../pages/essay/DetailLoader";
-import { geulroquisListLoader } from "../pages/geulroquis/ListLoader";
 import { managerDetailLoader } from "../pages/manager/DetailLoader";
-import { managerListLoader } from "../pages/manager/ListLoader";
 import { managerLogLoader } from "../pages/manager/LogLoader";
 import { noticeDetailLoader } from "../pages/notice/DetailLoader";
 import { userDetailLoader } from "../pages/user/DetailLoader";
@@ -53,7 +50,6 @@ const router = createBrowserRouter([
       {
         path: DefaultPaths.NOTICE.LIST,
         element: <NoticeList />,
-        loader: NoticeListLoader,
       },
       {
         path: DefaultPaths.NOTICE.DETAIL,
@@ -78,7 +74,6 @@ const router = createBrowserRouter([
       {
         path: DefaultPaths.MANAGER.LIST,
         element: <ManagerList />,
-        loader: managerListLoader,
       },
       {
         path: DefaultPaths.MANAGER.HISTORY,
@@ -88,7 +83,6 @@ const router = createBrowserRouter([
       {
         path: DefaultPaths.GEULROQUIS.LIST,
         element: <GeulroquisList />,
-        loader: geulroquisListLoader,
       },
       {
         path: DefaultPaths.REPORT.LIST,
