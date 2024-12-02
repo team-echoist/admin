@@ -42,6 +42,7 @@ describe("페이지네이션 동작 테스트", () => {
 
     expect(handlePaginationEvent).toHaveBeenCalledWith({
       type: "click_next_btn",
+      totalPage: 5,
     });
   });
 

@@ -1,15 +1,13 @@
 import APIErrorProvider, {
   useAPIError,
 } from "../../components/fallback/APIErrorProvider";
-import APILoadingProvider, {
-  useAPILoading,
-} from "../../components/fallback/APILoadingProvider";
-import { Link, useLoaderData } from "react-router-dom";
 
-import { EssayListResponseType } from "../../api/essays/getEssayList";
+import APILoadingProvider from "../../components/fallback/APILoadingProvider";
 import { EssayListType } from "../../api/essays";
 import KeywordSearch from "../../components/Filter/KeywordSearch";
+import { Link } from "react-router-dom";
 import List from "../../components/List";
+import LoadingFallback from "../../components/fallback/LoadingFallback";
 import Pagination from "../../components/Pagination";
 import UIErrorBoundary from "../../components/fallback/UIErrorBoundary";
 import essayQueryOptions from "../../queries/essayQueryOptions";
@@ -22,39 +20,38 @@ const EssayListColumns = ["ID", "에세이 제목", "저자", "발행일자", "�
 export default function EssayList() {
   return (
     <UIErrorBoundary>
-      <APIErrorProvider>
-        <APILoadingProvider>
+      <APILoadingProvider>
+        <APIErrorProvider>
           <EssayListContent />
-        </APILoadingProvider>
-      </APIErrorProvider>
+        </APIErrorProvider>
+      </APILoadingProvider>
     </UIErrorBoundary>
   );
 }
 
 const EssayListContent = () => {
   const { setAPIError } = useAPIError();
-  const { setAPILoading } = useAPILoading();
-  const initialData = useLoaderData<EssayListResponseType>();
   const [essaySearchKeyword, setEssaySearchKeyword] = useState("");
-  const { currentPage, handlePaginationEvent } = usePagination(
-    initialData.totalPage
-  );
+  const { currentPage, handlePaginationEvent } = usePagination();
 
   const { data, error, isLoading } = useQuery({
     ...essayQueryOptions.getEssayList({
       pagination: { page: currentPage, perPage: 10 },
       filter: { keyword: essaySearchKeyword },
     }),
-    initialData: { data: initialData },
   });
 
   if (isLoading) {
-    setAPILoading();
-    return;
+    return <LoadingFallback />;
   }
+
   if (error instanceof Error) {
     setAPIError(error.message);
     return;
+  }
+
+  if (!data?.data) {
+    return null;
   }
 
   return (

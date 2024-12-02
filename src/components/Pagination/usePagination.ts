@@ -2,7 +2,7 @@ import type { ExceptPaginationEvent, PaginationEvent } from "./pagination.d.ts";
 
 import { useState } from "react";
 
-export default function usePagination(totalPages: number) {
+export default function usePagination() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const handlePaginationEvent = (
@@ -10,7 +10,7 @@ export default function usePagination(totalPages: number) {
   ) => {
     switch (event.type) {
       case "click_next_btn":
-        setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
+        setCurrentPage((prevPage) => Math.min(prevPage + 1, event.totalPage));
         break;
       case "click_prev_btn":
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));

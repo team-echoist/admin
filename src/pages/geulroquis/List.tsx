@@ -1,9 +1,3 @@
-import APIErrorProvider, {
-  useAPIError,
-} from "../../components/fallback/APIErrorProvider";
-import APILoadingProvider, {
-  useAPILoading,
-} from "../../components/fallback/APILoadingProvider";
 import {
   Dialog,
   DialogContent,
@@ -15,11 +9,12 @@ import {
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { AxiosResponse } from "axios";
+import Blank from "../../components/fallback/Blank";
 import { Button } from "../../components/ui/button";
-import { GeulroquisCountType } from "../../api/geulroquis/getGeulroquisCount";
-import { GeulroquisResponseType } from "../../api/geulroquis/getGeulroquisList";
+import ErrorFallback from "../../components/fallback/ErrorFallback";
 import { GeulroquisType } from "../../api/geulroquis";
 import { Input } from "../../components/ui/input";
+import LoadingFallback from "../../components/fallback/LoadingFallback";
 import Pagination from "../../components/Pagination";
 import UIErrorBoundary from "../../components/fallback/UIErrorBoundary";
 import UploadForm from "./UploadForm";
@@ -27,55 +22,55 @@ import geulroquisQueryOptions from "../../queries/geulroquisQueryOptions";
 import putNextGeulroquis from "../../api/geulroquis/putNextGeulroquis";
 import { queryClient } from "../../App";
 import { useForm } from "react-hook-form";
-import { useLoaderData } from "react-router-dom";
 import usePagination from "../../components/Pagination/usePagination";
 import { useState } from "react";
 
 export default function GeulroquisList() {
   return (
     <UIErrorBoundary>
-      <APIErrorProvider>
-        <APILoadingProvider>
-          <GeulroquisListContent />
-        </APILoadingProvider>
-      </APIErrorProvider>
+      <GeulroquisListContent />
     </UIErrorBoundary>
   );
 }
 
 const GeulroquisListContent = () => {
-  const { setAPIError } = useAPIError();
-  const { setAPILoading } = useAPILoading();
   const [isUploadFormDialogOpen, setIsUploadFormDialogOpen] = useState(false);
-  const { data: initialData, count } = useLoaderData<{
-    data: GeulroquisResponseType;
-    count: GeulroquisCountType;
-  }>();
-  const { currentPage, handlePaginationEvent } = usePagination(
-    initialData.totalPage
-  );
-
-  const { data, error, isLoading } = useQuery({
+  const { currentPage, handlePaginationEvent } = usePagination();
+  const {
+    data: listData,
+    error: listError,
+    isLoading: isListLoading,
+  } = useQuery({
     ...geulroquisQueryOptions.getGeulroquisList({
       pagination: { page: currentPage, perPage: 9 },
     }),
-    initialData,
   });
 
-  if (isLoading) {
-    setAPILoading();
-    return;
+  const {
+    data: countData,
+    error: countError,
+    isLoading: isCountLoading,
+  } = useQuery({
+    ...geulroquisQueryOptions.getGeulroquisCount(),
+  });
+
+  if (isListLoading || isCountLoading) {
+    return <LoadingFallback />;
   }
-  if (error instanceof Error) {
-    setAPIError(error.message);
-    return;
+  if (listError instanceof Error || countError instanceof Error) {
+    return <ErrorFallback />;
+  }
+
+  if (!listData || !countData) {
+    return <Blank />;
   }
 
   return (
     <article className="flex flex-col items-center gap-[20px]">
       <div className="w-full flex justify-between">
         <div>
-          총 글로키 수 {count.total} / 이용가능 글로키수 {count.available}
+          총 글로키 수 {countData.total} / 이용가능 글로키수{" "}
+          {countData.available}
         </div>
         <Dialog
           open={isUploadFormDialogOpen}
@@ -99,12 +94,12 @@ const GeulroquisListContent = () => {
         </Dialog>
       </div>
       <div className="max-w-[1200px] grid grid-cols-3 gap-[10px]">
-        {data.quleroquisDto.map((item) => (
+        {listData.quleroquisDto.map((item) => (
           <GeulroquisListItem key={item.id} {...item} />
         ))}
       </div>
       <Pagination
-        totalPages={Math.ceil(data.total / 9)}
+        totalPages={Math.ceil(listData.total / 9)}
         currentPage={currentPage}
         handlePaginationEvent={handlePaginationEvent}
       />

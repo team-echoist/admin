@@ -1,13 +1,8 @@
-import APIErrorProvider, {
-  useAPIError,
-} from "../../components/fallback/APIErrorProvider";
-import APILoadingProvider, {
-  useAPILoading,
-} from "../../components/fallback/APILoadingProvider";
-import { Link, useLoaderData } from "react-router-dom";
-
+import Blank from "../../components/fallback/Blank";
+import ErrorFallback from "../../components/fallback/ErrorFallback";
+import { Link } from "react-router-dom";
 import List from "../../components/List";
-import { ManagerListResponseType } from "../../api/manager/getManagerList";
+import LoadingFallback from "../../components/fallback/LoadingFallback";
 import { ManagerListType } from "../../api/manager";
 import Pagination from "../../components/Pagination";
 import UIErrorBoundary from "../../components/fallback/UIErrorBoundary";
@@ -20,37 +15,29 @@ const columns = ["관리자 ID", "관리자 닉네임", "관리자 이메일", "
 export default function ManagerList() {
   return (
     <UIErrorBoundary>
-      <APIErrorProvider>
-        <APILoadingProvider>
-          <ManagerListContent />
-        </APILoadingProvider>
-      </APIErrorProvider>
+      <ManagerListContent />
     </UIErrorBoundary>
   );
 }
 
 const ManagerListContent = () => {
-  const { setAPIError } = useAPIError();
-  const { setAPILoading } = useAPILoading();
-  const initialData = useLoaderData<ManagerListResponseType>();
-  const { currentPage, handlePaginationEvent } = usePagination(
-    initialData.totalPage
-  );
+  const { currentPage, handlePaginationEvent } = usePagination();
 
   const { data, error, isLoading } = useQuery({
     ...managerQueryOptions.getManagerList({
       pagination: { page: currentPage, perPage: 10 },
     }),
-    initialData,
   });
 
   if (isLoading) {
-    setAPILoading();
-    return;
+    return <LoadingFallback />;
   }
   if (error instanceof Error) {
-    setAPIError(error.message);
-    return;
+    return <ErrorFallback />;
+  }
+
+  if (!data) {
+    return <Blank />;
   }
 
   return (

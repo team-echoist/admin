@@ -1,5 +1,5 @@
 export type PaginationEvent =
-  | { type: "click_next_btn" }
+  | { type: "click_next_btn"; totalPage: number }
   | { type: "click_prev_btn" }
   | { type: "jump_to_page"; page: number }
   | { type: "go_to_first_page" }

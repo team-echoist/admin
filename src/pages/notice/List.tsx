@@ -1,11 +1,5 @@
 import "react-quill-new/dist/quill.snow.css";
 
-import APIErrorProvider, {
-  useAPIError,
-} from "../../components/fallback/APIErrorProvider";
-import APILoadingProvider, {
-  useAPILoading,
-} from "../../components/fallback/APILoadingProvider";
 import {
   Dialog,
   DialogContent,
@@ -13,14 +7,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../../components/ui/dialog";
-import { Link, useLoaderData } from "react-router-dom";
 
 import Blank from "../../components/fallback/Blank";
 import { Button } from "../../components/ui/button";
 import { DialogHeader } from "../../components/ui/dialog";
+import ErrorFallback from "../../components/fallback/ErrorFallback";
+import { Link } from "react-router-dom";
 import List from "../../components/List";
+import LoadingFallback from "../../components/fallback/LoadingFallback";
 import NoticeForm from "./NoticeForm";
-import { NoticeListResponseType } from "../../api/notices/getNoticeList";
 import { NoticeType } from "../../api/notices";
 import Pagination from "../../components/Pagination";
 import UIErrorBoundary from "../../components/fallback/UIErrorBoundary";
@@ -32,38 +27,30 @@ import { useState } from "react";
 export default function NoticeList() {
   return (
     <UIErrorBoundary>
-      <APIErrorProvider>
-        <APILoadingProvider>
-          <NoticeListContent />
-        </APILoadingProvider>
-      </APIErrorProvider>
+      <NoticeListContent />
     </UIErrorBoundary>
   );
 }
 
 const NoticeListContent = () => {
-  const { setAPIError } = useAPIError();
-  const { setAPILoading } = useAPILoading();
   const [isNoticeFormDialogOpen, setIsNoticeFormDialogOpen] = useState(false);
-  const initialData = useLoaderData<NoticeListResponseType>();
-  const { currentPage, handlePaginationEvent } = usePagination(
-    initialData.totalPage
-  );
+  const { currentPage, handlePaginationEvent } = usePagination();
 
   const { data, error, isLoading } = useQuery({
     ...noticeQueryOptions.getNoticeList({
       pagination: { page: currentPage, perPage: 10 },
     }),
-    initialData: initialData,
   });
 
   if (isLoading) {
-    setAPILoading();
-    return;
+    return <LoadingFallback />;
   }
   if (error instanceof Error) {
-    setAPIError(error.message);
-    return;
+    return <ErrorFallback />;
+  }
+
+  if (!data) {
+    return null;
   }
 
   const onCloseNoticeFormDialog = () => {

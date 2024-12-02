@@ -9,8 +9,6 @@ import {
   DialogTrigger,
 } from "../../components/ui/dialog";
 
-import APIErrorProvider from "../../components/fallback/APIErrorProvider";
-import APILoadingProvider from "../../components/fallback/APILoadingProvider";
 import Blank from "../../components/fallback/Blank";
 import { Button } from "../../components/ui/button";
 import { ThemeType } from "../../api/theme";
@@ -23,11 +21,7 @@ import { useState } from "react";
 export default function ThemeList() {
   return (
     <UIErrorBoundary>
-      <APIErrorProvider>
-        <APILoadingProvider>
-          <ThemeListContent />
-        </APILoadingProvider>
-      </APIErrorProvider>
+      <ThemeListContent />
     </UIErrorBoundary>
   );
 }

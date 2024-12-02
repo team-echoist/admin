@@ -47,7 +47,10 @@ const Pagination = ({
         data-testid="nextBtn"
         disabled={currentPage === totalPages}
         onClick={() => {
-          handlePaginationEvent({ type: "click_next_btn" });
+          handlePaginationEvent({
+            type: "click_next_btn",
+            totalPage: totalPages,
+          });
         }}
       >
         다음
