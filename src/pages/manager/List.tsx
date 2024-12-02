@@ -1,10 +1,8 @@
-import { Link, useLoaderData } from "react-router-dom";
-
 import Blank from "../../components/fallback/Blank";
 import ErrorFallback from "../../components/fallback/ErrorFallback";
+import { Link } from "react-router-dom";
 import List from "../../components/List";
 import LoadingFallback from "../../components/fallback/LoadingFallback";
-import { ManagerListResponseType } from "../../api/manager/getManagerList";
 import { ManagerListType } from "../../api/manager";
 import Pagination from "../../components/Pagination";
 import UIErrorBoundary from "../../components/fallback/UIErrorBoundary";
@@ -23,14 +21,12 @@ export default function ManagerList() {
 }
 
 const ManagerListContent = () => {
-  const initialData = useLoaderData<ManagerListResponseType>();
   const { currentPage, handlePaginationEvent } = usePagination();
 
   const { data, error, isLoading } = useQuery({
     ...managerQueryOptions.getManagerList({
       pagination: { page: currentPage, perPage: 10 },
     }),
-    initialData,
   });
 
   if (isLoading) {

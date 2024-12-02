@@ -1,28 +1,18 @@
-import APIErrorProvider, {
-  useAPIError,
-} from "../../components/fallback/APIErrorProvider";
-import APILoadingProvider, {
-  useAPILoading,
-} from "../../components/fallback/APILoadingProvider";
-
+import Blank from "../../components/fallback/Blank";
+import ErrorFallback from "../../components/fallback/ErrorFallback";
 import List from "../../components/List";
-import { ManagerLogResponseType } from "../../api/manager/getManagerLog";
+import LoadingFallback from "../../components/fallback/LoadingFallback";
 import { ManagerLogType } from "../../api/manager";
 import Pagination from "../../components/Pagination";
 import UIErrorBoundary from "../../components/fallback/UIErrorBoundary";
 import managerQueryOptions from "../../queries/managerQueryOptions";
-import { useLoaderData } from "react-router-dom";
 import usePagination from "../../components/Pagination/usePagination";
 import { useQuery } from "@tanstack/react-query";
 
 export default function ManagerLog() {
   return (
     <UIErrorBoundary>
-      <APIErrorProvider>
-        <APILoadingProvider>
-          <ManagerLogContent />
-        </APILoadingProvider>
-      </APIErrorProvider>
+      <ManagerLogContent />
     </UIErrorBoundary>
   );
 }
@@ -30,25 +20,22 @@ export default function ManagerLog() {
 const columns = ["로그 ID", "활동 내용", "관리자명", "비고"];
 
 const ManagerLogContent = () => {
-  const { setAPIError } = useAPIError();
-  const { setAPILoading } = useAPILoading();
-  const initialData = useLoaderData<ManagerLogResponseType>();
   const { currentPage, handlePaginationEvent } = usePagination();
-
   const { data, error, isLoading } = useQuery({
     ...managerQueryOptions.getManagerLog({
       pagination: { page: currentPage, perPage: 10 },
     }),
-    initialData,
   });
 
   if (isLoading) {
-    setAPILoading();
-    return;
+    return <LoadingFallback />;
   }
   if (error instanceof Error) {
-    setAPIError(error.message);
-    return;
+    return <ErrorFallback />;
+  }
+
+  if (!data) {
+    return <Blank />;
   }
 
   return (

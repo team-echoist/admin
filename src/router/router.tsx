@@ -26,7 +26,6 @@ import authCheckLoader from "../layouts/authCheckLoader";
 import { createBrowserRouter } from "react-router-dom";
 import { essayDetailLoader } from "../pages/essay/DetailLoader";
 import { managerDetailLoader } from "../pages/manager/DetailLoader";
-import { managerLogLoader } from "../pages/manager/LogLoader";
 import { noticeDetailLoader } from "../pages/notice/DetailLoader";
 import { userDetailLoader } from "../pages/user/DetailLoader";
 
@@ -76,7 +75,6 @@ const router = createBrowserRouter([
       {
         path: DefaultPaths.MANAGER.HISTORY,
         element: <ManagerLog />,
-        loader: managerLogLoader,
       },
       {
         path: DefaultPaths.GEULROQUIS.LIST,
