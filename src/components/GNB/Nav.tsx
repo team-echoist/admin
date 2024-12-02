@@ -1,15 +1,29 @@
 import { DefaultPaths } from "../../router/paths";
 import { Link } from "react-router-dom";
 import { cn } from "../../lib/utils";
+import essayQueryOptions from "../../queries/essayQueryOptions";
+import { queryClient } from "../../App";
 import sprite from "../../assets/SVGsprite.svg";
 import { useState } from "react";
 
-type NavItemType = { iconId: string; label: string; to: string };
+type NavItemType = {
+  iconId: string;
+  label: string;
+  to: string;
+  queryKey?: readonly unknown[];
+};
 
 const items: NavItemType[] = [
   { iconId: "home", label: "대시보드", to: DefaultPaths.DASHBOARD },
   { iconId: "user-list", label: "사용자 목록", to: DefaultPaths.USER.LIST },
-  { iconId: "edit", label: "에세이 목록", to: DefaultPaths.ESSAY.LIST },
+  {
+    iconId: "edit",
+    label: "에세이 목록",
+    to: DefaultPaths.ESSAY.LIST,
+    queryKey: essayQueryOptions.getEssayList({
+      pagination: { page: 0, perPage: 10 },
+    }).queryKey,
+  },
   { iconId: "report-list", label: "레포트 목록", to: DefaultPaths.REPORT.LIST },
   {
     iconId: "essay-list",
@@ -61,9 +75,18 @@ const Nav = () => {
 
 export default Nav;
 
-const NavItem = ({ iconId, label, to }: NavItemType) => {
+const NavItem = ({ iconId, label, to, queryKey }: NavItemType) => {
+  const handleClick = () => {
+    if (queryKey) {
+      queryClient.prefetchQuery({ queryKey });
+    }
+  };
   return (
-    <Link className="flex gap-[15px] items-center px-[15px] py-[10px]" to={to}>
+    <Link
+      className="flex gap-[15px] items-center px-[15px] py-[10px]"
+      to={to}
+      onClick={handleClick}
+    >
       <svg width={30} height={30}>
         <use href={`${sprite}#${iconId}`}></use>
       </svg>

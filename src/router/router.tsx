@@ -26,7 +26,6 @@ import { VersionLoader } from "../pages/version/VersionLoader";
 import authCheckLoader from "../layouts/authCheckLoader";
 import { createBrowserRouter } from "react-router-dom";
 import { essayDetailLoader } from "../pages/essay/DetailLoader";
-import { essayListLoader } from "../pages/essay/ListLoader";
 import { geulroquisListLoader } from "../pages/geulroquis/ListLoader";
 import { managerDetailLoader } from "../pages/manager/DetailLoader";
 import { managerListLoader } from "../pages/manager/ListLoader";
@@ -45,7 +44,6 @@ const router = createBrowserRouter([
       {
         path: DefaultPaths.ESSAY.LIST,
         element: <EssayList />,
-        loader: essayListLoader,
       },
       {
         path: DefaultPaths.ESSAY.DETAIL,
