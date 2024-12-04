@@ -1,5 +1,5 @@
-import AxiosInstance from "../AxiosInstance";
 import { ResponseType } from "..";
+import fetchData from "../fetchData";
 
 export default async function getGraphData() {
   const urls = [
@@ -14,7 +14,7 @@ export default async function getGraphData() {
   try {
     const responses = await Promise.all(
       urls.map((url) =>
-        AxiosInstance.get<ResponseType<{ [key: string]: number }>>(url)
+        fetchData<ResponseType<{ [key: string]: number }>>({ url })
       )
     );
 

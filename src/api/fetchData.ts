@@ -2,7 +2,7 @@ const apiUrl = "https://linkedoutapp.com/api";
 
 type FetchDataProps<T> = {
   url: string;
-  method?: "GET" | "POST" | "PUT";
+  method?: "GET" | "POST" | "PUT" | "DELETE";
   body?: T;
 };
 

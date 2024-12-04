@@ -1,5 +1,5 @@
-import AxiosInstance from "../AxiosInstance";
 import { ResponseType } from "..";
+import fetchData from "../fetchData";
 
 export type GeulroquisCountType = {
   total: number;
@@ -9,9 +9,7 @@ export type GeulroquisCountType = {
 export default async function getGeulroquisCount() {
   const url = `/admin-office/geulroquis/count`;
 
-  const response = await AxiosInstance.get<ResponseType<GeulroquisCountType>>(
-    url
-  );
+  const response = await fetchData<ResponseType<GeulroquisCountType>>({ url });
 
-  return response.data.data;
+  return response.data;
 }

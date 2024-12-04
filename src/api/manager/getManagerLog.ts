@@ -1,8 +1,8 @@
 import { ResponsePaginationType, ResponseType } from "..";
 
-import AxiosInstance from "../AxiosInstance";
 import { ListParams } from "../../types/params";
 import { ManagerLogType } from ".";
+import fetchData from "../fetchData";
 
 export type ManagerLogResponseType = {
   histories: ManagerLogType[];
@@ -15,9 +15,9 @@ export default async function getManagerLog(params: ListParams) {
 
   const url = `/admin-office/histories?page=${page}&limit=${perPage}&filter=${filter}`;
 
-  const response = await AxiosInstance.get<
-    ResponseType<ManagerLogResponseType>
-  >(url);
+  const response = await fetchData<ResponseType<ManagerLogResponseType>>({
+    url,
+  });
 
-  return response.data.data;
+  return response.data;
 }
