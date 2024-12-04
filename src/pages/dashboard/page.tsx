@@ -176,7 +176,7 @@ function DashboardTextItem({
         {type && (
           <span
             className={cn(
-              "bg-gray-100 text-blue text-xs rounded-[8px] py-[2px] px-[7px] mr-[5px]",
+              "bg-lightGray text-blue text-xs rounded-[8px] py-[2px] px-[7px] mr-[5px]",
               type === "today" ? "font-bold" : ""
             )}
           >
