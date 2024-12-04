@@ -1,6 +1,6 @@
-import AxiosInstance from "../AxiosInstance";
 import { ResponseType } from "..";
 import { ThemeType } from ".";
+import fetchData from "../fetchData";
 
 export type ThemeListResponseType = {
   themes: ThemeType[];
@@ -9,9 +9,9 @@ export type ThemeListResponseType = {
 export default async function getThemeList() {
   const url = `/admin-office/stores/themes`;
 
-  const response = await AxiosInstance.get<ResponseType<ThemeListResponseType>>(
-    url
-  );
+  const response = await fetchData<ResponseType<ThemeListResponseType>>({
+    url,
+  });
 
-  return response.data.data;
+  return response.data;
 }

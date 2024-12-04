@@ -1,8 +1,8 @@
 import { ResponsePaginationType, ResponseType } from "..";
 
-import AxiosInstance from "../AxiosInstance";
 import { ListParams } from "../../types/params";
 import { ManagerListType } from "./index.d";
+import fetchData from "../fetchData";
 
 export type ManagerListResponseType = {
   admins: ManagerListType[];
@@ -15,9 +15,9 @@ export default async function getManagerList(params: ListParams) {
 
   const url = `/admin-info?page=${page}&limit=${perPage}&filter=${filter}`;
 
-  const response = await AxiosInstance.get<
-    ResponseType<ManagerListResponseType>
-  >(url);
+  const response = await fetchData<ResponseType<ManagerListResponseType>>({
+    url,
+  });
 
-  return response.data.data;
+  return response.data;
 }

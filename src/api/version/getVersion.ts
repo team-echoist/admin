@@ -1,5 +1,5 @@
-import AxiosInstance from "../AxiosInstance";
 import { ResponseType } from "..";
+import fetchData from "../fetchData";
 
 export type VersionItemType = {
   id: 0;
@@ -19,9 +19,7 @@ export type VersionItemType = {
 export default async function getVersion() {
   const url = `/admin-office/app/versions`;
 
-  const response = await AxiosInstance.get<ResponseType<VersionItemType[]>>(
-    url
-  );
+  const response = await fetchData<ResponseType<VersionItemType[]>>({ url });
 
-  return response.data.data;
+  return response.data;
 }

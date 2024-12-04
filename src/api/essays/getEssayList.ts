@@ -1,8 +1,8 @@
 import { ResponsePaginationType, ResponseType } from "..";
 
-import AxiosInstance from "../AxiosInstance";
 import { EssayListType } from "./index.d";
 import { ListParams } from "../../types/params";
+import fetchData from "../fetchData";
 
 export type EssayListResponseType = {
   essays: EssayListType[];
@@ -16,9 +16,9 @@ export default async function getEssayList(params: ListParams) {
     ? `/admin-management/essays/search?page=${page}&limit=${perPage}&keyword=${keyword}`
     : `/admin-management/essays?page=${page}&limit=${perPage}`;
 
-  const response = await AxiosInstance.get<ResponseType<EssayListResponseType>>(
-    url
-  );
+  const response = await fetchData<ResponseType<EssayListResponseType>>({
+    url,
+  });
 
   return response.data;
 }

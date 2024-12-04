@@ -1,4 +1,4 @@
-import AxiosInstance from "../AxiosInstance";
+import fetchData from "../fetchData";
 
 export type RegisterBodyType = {
   email: string;
@@ -9,7 +9,7 @@ export type RegisterBodyType = {
 export default async function postRegister(registerBody: RegisterBodyType) {
   const url = `/admin-auth/register`;
 
-  const response = await AxiosInstance.post(url, registerBody);
+  const response = await fetchData({ url, method: "POST", body: registerBody });
 
   return response;
 }

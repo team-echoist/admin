@@ -1,8 +1,8 @@
 import { ResponsePaginationType, ResponseType } from "..";
 
-import AxiosInstance from "../AxiosInstance";
 import { ListParams } from "../../types/params";
 import { NoticeType } from ".";
+import fetchData from "../fetchData";
 
 export type NoticeListResponseType = {
   Notices: NoticeType[];
@@ -13,8 +13,8 @@ export default async function getNoticeList(params: ListParams) {
   const filter = "all";
   const url = `/admin-support/notices?page=${page}&limit=${perPage}&filter=${filter}`;
 
-  const response = await AxiosInstance.get<
-    ResponseType<NoticeListResponseType>
-  >(url);
-  return response.data.data;
+  const response = await fetchData<ResponseType<NoticeListResponseType>>({
+    url,
+  });
+  return response.data;
 }

@@ -8,7 +8,6 @@ import {
 } from "../../components/ui/dialog";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-import { AxiosResponse } from "axios";
 import Blank from "../../components/fallback/Blank";
 import { Button } from "../../components/ui/button";
 import ErrorFallback from "../../components/fallback/ErrorFallback";
@@ -16,6 +15,7 @@ import { GeulroquisType } from "../../api/geulroquis";
 import { Input } from "../../components/ui/input";
 import LoadingFallback from "../../components/fallback/LoadingFallback";
 import Pagination from "../../components/Pagination";
+import { ResponseType } from "../../api";
 import UIErrorBoundary from "../../components/fallback/UIErrorBoundary";
 import UploadForm from "./UploadForm";
 import geulroquisQueryOptions from "../../queries/geulroquisQueryOptions";
@@ -115,7 +115,7 @@ const GeulroquisListItem = ({ id, url }: GeulroquisListItemProps) => {
 
   const { register, handleSubmit, reset } = useForm<{ geulroquisId: number }>();
 
-  const mutation = useMutation<AxiosResponse, Error, number>({
+  const mutation = useMutation<ResponseType<number>, Error, number>({
     mutationFn: (data: number) => putNextGeulroquis(data),
     onSuccess: () => {
       const queryKey = geulroquisQueryOptions.getGeulroquisList({

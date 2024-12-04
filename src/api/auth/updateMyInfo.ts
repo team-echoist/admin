@@ -1,5 +1,6 @@
-import AxiosInstance from "../AxiosInstance";
 import { ManagerType } from "../manager";
+import { ResponseType } from "..";
+import fetchData from "../fetchData";
 
 export type UpdateMyInfoBodyType = {
   password: string;
@@ -8,7 +9,9 @@ export type UpdateMyInfoBodyType = {
 export default async function updateMyInfo(body: UpdateMyInfoBodyType) {
   const url = `/admin-info`;
 
-  const response = await AxiosInstance.put(url, body);
+  const response = await fetchData<ResponseType<unknown>, UpdateMyInfoBodyType>(
+    { url, method: "PUT", body }
+  );
 
   return response;
 }

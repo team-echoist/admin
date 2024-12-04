@@ -1,4 +1,5 @@
-import AxiosInstance from "../AxiosInstance";
+import { ResponseType } from "..";
+import fetchData from "../fetchData";
 
 export default async function updateMyProfile(image: File) {
   const url = `/admin-info/images`;
@@ -6,5 +7,9 @@ export default async function updateMyProfile(image: File) {
   const formData = new FormData();
   formData.append("image", image);
 
-  return AxiosInstance.post(url, formData);
+  return fetchData<ResponseType<unknown>, FormData>({
+    url,
+    method: "POST",
+    body: formData,
+  });
 }

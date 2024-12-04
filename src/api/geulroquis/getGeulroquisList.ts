@@ -1,8 +1,8 @@
 import { ResponsePaginationType, ResponseType } from "..";
 
-import AxiosInstance from "../AxiosInstance";
 import { GeulroquisType } from "./index.d";
 import { ListParams } from "../../types/params";
+import fetchData from "../fetchData";
 
 export type GeulroquisResponseType = {
   quleroquisDto: GeulroquisType[];
@@ -13,9 +13,9 @@ export default async function getGeulroquisList(params: ListParams) {
 
   const url = `/admin-office/geulroquis?page=${page}&limit=${perPage}`;
 
-  const response = await AxiosInstance.get<
-    ResponseType<GeulroquisResponseType>
-  >(url);
+  const response = await fetchData<ResponseType<GeulroquisResponseType>>({
+    url,
+  });
 
-  return response.data.data;
+  return response.data;
 }

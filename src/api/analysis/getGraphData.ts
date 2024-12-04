@@ -1,5 +1,5 @@
-import AxiosInstance from "../AxiosInstance";
 import { ResponseType } from "..";
+import fetchData from "../fetchData";
 
 export default async function getGraphData() {
   const urls = [
@@ -14,22 +14,22 @@ export default async function getGraphData() {
   try {
     const responses = await Promise.all(
       urls.map((url) =>
-        AxiosInstance.get<ResponseType<{ [key: string]: number }>>(url)
+        fetchData<ResponseType<{ [key: string]: number }>>({ url })
       )
     );
 
     return {
       essays: {
-        daily: responses[0].data.data,
-        monthly: responses[1].data.data,
+        daily: responses[0].data,
+        monthly: responses[1].data,
       },
       users: {
-        daily: responses[2].data.data,
-        monthly: responses[3].data.data,
+        daily: responses[2].data,
+        monthly: responses[3].data,
       },
       payments: {
-        daily: responses[4].data.data,
-        monthly: responses[5].data.data,
+        daily: responses[4].data,
+        monthly: responses[5].data,
       },
     };
   } catch (error) {

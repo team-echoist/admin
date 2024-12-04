@@ -50,13 +50,13 @@ const EssayListContent = () => {
     return;
   }
 
-  if (!data?.data) {
+  if (!data) {
     return null;
   }
 
   return (
     <List>
-      <List.Header totalCount={data.data.total} label="에세이">
+      <List.Header totalCount={data.total} label="에세이">
         <KeywordSearch
           keyword={essaySearchKeyword}
           onKeywordChange={setEssaySearchKeyword}
@@ -64,12 +64,12 @@ const EssayListContent = () => {
       </List.Header>
       <List.ColumnContainer headers={EssayListColumns} row={5} />
       <List.RowContainer row={10}>
-        {data.data.essays.map((essay) => (
+        {data.essays.map((essay) => (
           <EssayListItem key={essay.id} {...essay} />
         ))}
       </List.RowContainer>
       <Pagination
-        totalPages={data.data.totalPage}
+        totalPages={data.totalPage}
         currentPage={currentPage}
         handlePaginationEvent={handlePaginationEvent}
       />

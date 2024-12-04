@@ -1,10 +1,10 @@
 import { UseFormRegisterReturn, useForm } from "react-hook-form";
 import postTheme, { ThemePostBody } from "../../api/theme/postTheme";
 
-import { AxiosResponse } from "axios";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
+import { ResponseType } from "../../api";
 import { queryClient } from "../../App";
 import themeQueryOptions from "../../queries/themeQueryOptions";
 import { useMutation } from "@tanstack/react-query";
@@ -14,7 +14,7 @@ type UploadFormProps = { onCloseFormDialog: () => void };
 export default function UploadForm({ onCloseFormDialog }: UploadFormProps) {
   const { register, handleSubmit, reset } = useForm<ThemePostBody>();
 
-  const mutation = useMutation<AxiosResponse, Error, ThemePostBody>({
+  const mutation = useMutation<ResponseType<unknown>, Error, ThemePostBody>({
     mutationFn: (data: ThemePostBody) => postTheme(data),
     onSuccess: () => {
       const queryKey = themeQueryOptions.getThemeList().queryKey;

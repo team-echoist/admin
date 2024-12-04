@@ -1,5 +1,5 @@
-import { AxiosResponse } from "axios";
 import { Button } from "../../components/ui/button";
+import { ResponseType } from "../../api";
 import geulroquisQueryOptions from "../../queries/geulroquisQueryOptions";
 import postGeulroquis from "../../api/geulroquis/postGeulroquis";
 import { queryClient } from "../../App";
@@ -15,7 +15,7 @@ type FormValues = {
 export default function UploadForm({ onCloseFormDialog }: UploadFormType) {
   const { register, handleSubmit, reset } = useForm<FormValues>();
 
-  const mutation = useMutation<AxiosResponse, Error, FormData>({
+  const mutation = useMutation<ResponseType<unknown>, Error, FormData>({
     mutationFn: (data: FormData) => postGeulroquis(data),
     onSuccess: () => {
       const queryKey = geulroquisQueryOptions.getGeulroquisList({
