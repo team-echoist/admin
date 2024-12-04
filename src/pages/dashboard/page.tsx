@@ -1,5 +1,9 @@
-import MonthlyChart from "../../components/Chart/MonthlyChart";
-import YearChart from "../../components/Chart/YearChart";
+import {
+  formatMonthlyData,
+  formatYearlyData,
+} from "../../components/Chart/index.utils";
+
+import Chart from "../../components/Chart";
 import { cn } from "../../lib/utils";
 import dashboardQueryOptions from "../../queries/dashboardQueryOptions";
 import { useQuery } from "@tanstack/react-query";
@@ -195,9 +199,13 @@ type DashboardChartItemProps = {
 
 function DashboardChartItem({ label, data }: DashboardChartItemProps) {
   const hasAnnualData = Object.prototype.hasOwnProperty.call(data, "30");
+  const formattedData = hasAnnualData
+    ? formatMonthlyData(data)
+    : formatYearlyData(data);
+
   return (
     <div className="flex flex-col">
-      {hasAnnualData ? <MonthlyChart data={data} /> : <YearChart data={data} />}
+      <Chart data={formattedData} />
       <label>{label}</label>
     </div>
   );
