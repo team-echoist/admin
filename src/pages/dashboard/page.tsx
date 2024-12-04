@@ -1,5 +1,9 @@
-import MonthlyChart from "../../components/Chart/MonthlyChart";
-import YearChart from "../../components/Chart/YearChart";
+import {
+  formatMonthlyData,
+  formatYearlyData,
+} from "../../components/Chart/index.utils";
+
+import Chart from "../../components/Chart";
 import { cn } from "../../lib/utils";
 import dashboardQueryOptions from "../../queries/dashboardQueryOptions";
 import { useQuery } from "@tanstack/react-query";
@@ -124,11 +128,11 @@ export default function Dashboard() {
               data={grahpData.essays.daily}
             />
             <DashboardChartItem
-              label={`에세이 작성 수`}
+              label={`유저 가입 수`}
               data={grahpData.users.daily}
             />
             <DashboardChartItem
-              label={`에세이 작성 수`}
+              label={`구독자 수`}
               data={grahpData.payments.daily}
             />
           </div>
@@ -139,11 +143,11 @@ export default function Dashboard() {
               data={grahpData.essays.monthly}
             />
             <DashboardChartItem
-              label={`에세이 작성 수`}
+              label={`유저 가입 수`}
               data={grahpData.users.monthly}
             />
             <DashboardChartItem
-              label={`에세이 작성 수`}
+              label={`구독자 수`}
               data={grahpData.payments.monthly}
             />
           </div>
@@ -172,7 +176,7 @@ function DashboardTextItem({
         {type && (
           <span
             className={cn(
-              "bg-gray-100 text-blue text-xs rounded-[8px] py-[2px] px-[7px] mr-[5px]",
+              "bg-lightGray text-blue text-xs rounded-[8px] py-[2px] px-[7px] mr-[5px]",
               type === "today" ? "font-bold" : ""
             )}
           >
@@ -195,9 +199,13 @@ type DashboardChartItemProps = {
 
 function DashboardChartItem({ label, data }: DashboardChartItemProps) {
   const hasAnnualData = Object.prototype.hasOwnProperty.call(data, "30");
+  const formattedData = hasAnnualData
+    ? formatMonthlyData(data)
+    : formatYearlyData(data);
+
   return (
     <div className="flex flex-col">
-      {hasAnnualData ? <MonthlyChart data={data} /> : <YearChart data={data} />}
+      <Chart data={formattedData} />
       <label>{label}</label>
     </div>
   );
