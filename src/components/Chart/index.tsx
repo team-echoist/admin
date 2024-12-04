@@ -47,7 +47,11 @@ export default function Chart({
           seriesData.forEach((value, index) => {
             const x = padding + xStep * index;
             const y =
-              height - padding - (value / maxValue) * (height - 2 * padding);
+              value === 0
+                ? height - padding
+                : height -
+                  padding -
+                  (value / maxValue) * (height - 2 * padding);
             if (index === 0) {
               ctx.moveTo(x, y);
             } else {
