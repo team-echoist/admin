@@ -20,16 +20,16 @@ export default async function getGraphData() {
 
     return {
       essays: {
-        daily: responses[0].data.data,
-        monthly: responses[1].data.data,
+        daily: responses[0].data,
+        monthly: responses[1].data,
       },
       users: {
-        daily: responses[2].data.data,
-        monthly: responses[3].data.data,
+        daily: responses[2].data,
+        monthly: responses[3].data,
       },
       payments: {
-        daily: responses[4].data.data,
-        monthly: responses[5].data.data,
+        daily: responses[4].data,
+        monthly: responses[5].data,
       },
     };
   } catch (error) {

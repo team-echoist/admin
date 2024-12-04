@@ -1,9 +1,9 @@
-import AxiosInstance from "../AxiosInstance";
+import fetchData from "../fetchData";
 
 export default async function putNextGeulroquis(geulroquisId: number) {
   const url = `/admin-office/geulroquis/${geulroquisId}`;
 
-  const response = await AxiosInstance.put(url);
+  const response = await fetchData({ url, method: "PUT" });
 
   return response;
 }

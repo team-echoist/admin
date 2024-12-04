@@ -1,16 +1,19 @@
 const apiUrl = "https://linkedoutapp.com/api";
 
-type FetchDataProps<T> = {
+type FetchDataProps<RequestBodyType> = {
   url: string;
   method?: "GET" | "POST" | "PUT" | "DELETE";
-  body?: T;
+  body?: RequestBodyType;
 };
 
-export default async function fetchData<T>({
+export default async function fetchData<
+  ResponseType = unknown,
+  RequestBodyType = undefined
+>({
   url,
   method = "GET",
   body,
-}: FetchDataProps<T>): Promise<T> {
+}: FetchDataProps<RequestBodyType>): Promise<ResponseType> {
   const headers = getAuthHeaders();
 
   const fetchOptions: RequestInit = {
@@ -19,8 +22,12 @@ export default async function fetchData<T>({
   };
 
   if (method === "POST" || method === "PUT") {
-    fetchOptions.body = JSON.stringify(body);
-    headers.append("Content-Type", "application/json");
+    if (body instanceof FormData) {
+      fetchOptions.body = body;
+    } else if (body) {
+      fetchOptions.body = JSON.stringify(body);
+      headers.append("Content-Type", "application/json");
+    }
   }
 
   try {

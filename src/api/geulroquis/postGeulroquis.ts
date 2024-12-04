@@ -1,9 +1,9 @@
-import AxiosInstance from "../AxiosInstance";
+import fetchData from "../fetchData";
 
 export default async function postGeulroquis(body: FormData) {
   const url = `/admin-office/geulroquis`;
 
-  const response = await AxiosInstance.post(url, body);
+  const response = await fetchData({ url, method: "POST", body });
 
   return response;
 }

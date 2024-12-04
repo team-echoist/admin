@@ -1,4 +1,4 @@
-import AxiosInstance from "../AxiosInstance";
+import fetchData from "../fetchData";
 import { z } from "zod";
 
 export const PostNoticeSchema = z.object({
@@ -13,7 +13,7 @@ export type PostNoticeBodyType = z.infer<typeof PostNoticeSchema>;
 export default async function postNotice(body: PostNoticeBodyType) {
   const url = `/admin-support/notices`;
 
-  const response = await AxiosInstance.post(url, body);
+  const response = await fetchData({ url, method: "POST", body });
 
   return response;
 }
