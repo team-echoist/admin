@@ -128,11 +128,11 @@ export default function Dashboard() {
               data={grahpData.essays.daily}
             />
             <DashboardChartItem
-              label={`에세이 작성 수`}
+              label={`유저 가입 수`}
               data={grahpData.users.daily}
             />
             <DashboardChartItem
-              label={`에세이 작성 수`}
+              label={`구독자 수`}
               data={grahpData.payments.daily}
             />
           </div>
@@ -143,11 +143,11 @@ export default function Dashboard() {
               data={grahpData.essays.monthly}
             />
             <DashboardChartItem
-              label={`에세이 작성 수`}
+              label={`유저 가입 수`}
               data={grahpData.users.monthly}
             />
             <DashboardChartItem
-              label={`에세이 작성 수`}
+              label={`구독자 수`}
               data={grahpData.payments.monthly}
             />
           </div>
