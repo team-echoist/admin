@@ -2,10 +2,10 @@ import updateMyInfo, {
   UpdateMyInfoBodyType,
 } from "../../api/auth/updateMyInfo";
 
-import { AxiosResponse } from "axios";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import ItemContainer from "../../components/Detail/ItemContainer";
+import { ResponseType } from "../../api";
 import authQueryOptions from "../../queries/authQueryOptions";
 import { omit } from "lodash-es";
 import { queryClient } from "../../App";
@@ -22,7 +22,11 @@ type InfoEditFormProps = { onCloseFormDialog: () => void };
 export default function InfoEditForm({ onCloseFormDialog }: InfoEditFormProps) {
   const { register, handleSubmit, reset } = useForm<InfoEditFormValues>();
 
-  const infoMutation = useMutation<AxiosResponse, Error, UpdateMyInfoBodyType>({
+  const infoMutation = useMutation<
+    ResponseType<unknown>,
+    Error,
+    UpdateMyInfoBodyType
+  >({
     mutationFn: (data) => updateMyInfo(data),
     onSuccess: () => {
       const queryKey = authQueryOptions.getMyInfo().queryKey;
@@ -36,7 +40,7 @@ export default function InfoEditForm({ onCloseFormDialog }: InfoEditFormProps) {
     },
   });
 
-  const imgMutation = useMutation<AxiosResponse, Error, File>({
+  const imgMutation = useMutation<ResponseType<unknown>, Error, File>({
     mutationFn: (data) => updateMyProfile(data),
   });
 

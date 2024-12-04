@@ -1,3 +1,4 @@
+import { ResponseType } from "..";
 import fetchData from "../fetchData";
 
 export default async function updateMyProfile(image: File) {
@@ -6,5 +7,9 @@ export default async function updateMyProfile(image: File) {
   const formData = new FormData();
   formData.append("image", image);
 
-  return fetchData({ url, method: "POST", body: formData });
+  return fetchData<ResponseType<unknown>, FormData>({
+    url,
+    method: "POST",
+    body: formData,
+  });
 }
