@@ -1,8 +1,4 @@
-import APIErrorProvider, {
-  useAPIError,
-} from "../../components/fallback/APIErrorProvider";
-
-import APILoadingProvider from "../../components/fallback/APILoadingProvider";
+import ErrorFallback from "../../components/fallback/ErrorFallback";
 import { EssayListType } from "../../api/essays";
 import KeywordSearch from "../../components/Filter/KeywordSearch";
 import { Link } from "react-router-dom";
@@ -20,17 +16,12 @@ const EssayListColumns = ["ID", "에세이 제목", "저자", "발행일자", "�
 export default function EssayList() {
   return (
     <UIErrorBoundary>
-      <APILoadingProvider>
-        <APIErrorProvider>
-          <EssayListContent />
-        </APIErrorProvider>
-      </APILoadingProvider>
+      <EssayListContent />
     </UIErrorBoundary>
   );
 }
 
 const EssayListContent = () => {
-  const { setAPIError } = useAPIError();
   const [essaySearchKeyword, setEssaySearchKeyword] = useState("");
   const { currentPage, handlePaginationEvent } = usePagination();
 
@@ -45,9 +36,8 @@ const EssayListContent = () => {
     return <LoadingFallback />;
   }
 
-  if (error instanceof Error) {
-    setAPIError(error.message);
-    return;
+  if (error) {
+    return <ErrorFallback />;
   }
 
   if (!data) {
