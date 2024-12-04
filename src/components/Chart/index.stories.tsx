@@ -1,6 +1,7 @@
+import { formatMonthlyData, formatYearlyData } from "./index.utils";
+
+import Chart from ".";
 import type { Meta } from "@storybook/react";
-import MonthlyChart from "./MonthlyChart";
-import YearChart from "./YearChart";
 
 const meta: Meta = {
   title: "components/chart",
@@ -22,7 +23,9 @@ export const Monthly = {
       monthlyChartData[i] = Math.floor(Math.random() * 50);
     }
 
-    return <MonthlyChart data={monthlyChartData} />;
+    const formattedData = formatMonthlyData(monthlyChartData);
+
+    return <Chart data={formattedData} />;
   },
 };
 
@@ -34,6 +37,8 @@ export const Year = {
       yearChartData[i] = Math.floor(Math.random() * 50);
     }
 
-    return <YearChart data={yearChartData} />;
+    const formattedData = formatYearlyData(yearChartData);
+
+    return <Chart data={formattedData} />;
   },
 };
