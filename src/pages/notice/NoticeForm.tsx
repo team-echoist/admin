@@ -1,4 +1,5 @@
 import { Controller, useForm } from "react-hook-form";
+import { Suspense, lazy } from "react";
 import postNotice, {
   PostNoticeBodyType,
   PostNoticeSchema,
@@ -7,10 +8,12 @@ import postNotice, {
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import ItemContainer from "../../components/Detail/ItemContainer";
-import ReactQuill from "react-quill-new";
+import LoadingFallback from "../../components/fallback/LoadingFallback";
 import noticeQueryOptions from "../../queries/noticeQueryOptions";
 import { queryClient } from "../../App";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+const ReactQuill = lazy(() => import("react-quill-new"));
 
 type NoticeFormType = { onCloseNoticeFormDialog: () => void };
 export default function NoticeForm({
@@ -60,22 +63,24 @@ export default function NoticeForm({
         )}
       </div>
       <ItemContainer label="내용" className="h-[500px]">
-        <Controller
-          name="content"
-          control={control}
-          render={({ field }) => (
-            <ReactQuill
-              {...field}
-              className="mt-[20px] h-[430px]"
-              placeholder="공지사항의 내용을 입력해주세요"
-              theme="snow"
-              onChange={(value) => field.onChange(value)}
-            />
+        <Suspense fallback={<LoadingFallback />}>
+          <Controller
+            name="content"
+            control={control}
+            render={({ field }) => (
+              <ReactQuill
+                {...field}
+                className="mt-[20px] h-[430px]"
+                placeholder="공지사항의 내용을 입력해주세요"
+                theme="snow"
+                onChange={(value) => field.onChange(value)}
+              />
+            )}
+          />
+          {errors.content && (
+            <span className="text-red-500">{errors.content.message}</span>
           )}
-        />
-        {errors.content && (
-          <span className="text-red-500">{errors.content.message}</span>
-        )}
+        </Suspense>
       </ItemContainer>
       <div className="flex gap-[20px]">
         <Button
