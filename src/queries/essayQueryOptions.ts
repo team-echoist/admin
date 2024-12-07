@@ -7,7 +7,13 @@ import { queryOptions } from "@tanstack/react-query";
 const essayQueryOptions = {
   getEssayList: (params: ListParams) =>
     queryOptions({
-      queryKey: ["essay", "list", params],
+      queryKey: [
+        "essay",
+        "list",
+        params.pagination.page,
+        params.pagination.perPage,
+        params.filter?.keyword || "",
+      ],
       queryFn: () => getEssayList(params),
     }),
   getEssayDetail: (params: DetailParams) =>
