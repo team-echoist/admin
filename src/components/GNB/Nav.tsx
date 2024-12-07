@@ -1,13 +1,12 @@
+import { QueryFunction, useQueryClient } from "@tanstack/react-query";
 import { useRef, useState } from "react";
 
 import { DefaultPaths } from "../../router/paths";
 import { Link } from "react-router-dom";
-import { QueryFunction } from "@tanstack/react-query";
 import { cn } from "../../lib/utils";
 import essayQueryOptions from "../../queries/essayQueryOptions";
 import geulroquisQueryOptions from "../../queries/geulroquisQueryOptions";
 import managerQueryOptions from "../../queries/managerQueryOptions";
-import { queryClient } from "../../App";
 import sprite from "../../assets/SVGsprite.svg";
 import themeQueryOptions from "../../queries/themeQueryOptions";
 import userQueryOptions from "../../queries/userQueryOptions";
@@ -43,7 +42,6 @@ const items: NavItemType[] = [
     }).queryKey,
     queryFn: essayQueryOptions.getEssayList({
       pagination: { page: 1, perPage: 10 },
-      filter: { keyword: "" },
     }).queryFn,
   },
   { iconId: "report-list", label: "레포트 목록", to: DefaultPaths.REPORT.LIST },
@@ -123,6 +121,7 @@ const Nav = () => {
 export default Nav;
 
 const NavItem = ({ iconId, label, to, queryKey, queryFn }: NavItemType) => {
+  const queryClient = useQueryClient();
   const abortControllerRef = useRef<AbortController | null>(null);
 
   const handleMouseOver = () => {
@@ -134,7 +133,6 @@ const NavItem = ({ iconId, label, to, queryKey, queryFn }: NavItemType) => {
 
     const controller = new AbortController();
     abortControllerRef.current = controller;
-    console.log("Fetching with AbortController signal:", controller.signal);
     queryClient.fetchQuery({
       queryKey,
       queryFn: () =>
@@ -143,6 +141,8 @@ const NavItem = ({ iconId, label, to, queryKey, queryFn }: NavItemType) => {
           queryKey,
           meta: undefined,
         }),
+      staleTime: 1000 * 60 * 5,
+      gcTime: 1000 * 60 * 10,
     });
   };
 
