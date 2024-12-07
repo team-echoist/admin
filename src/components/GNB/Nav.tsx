@@ -1,5 +1,8 @@
+import { useRef, useState } from "react";
+
 import { DefaultPaths } from "../../router/paths";
 import { Link } from "react-router-dom";
+import { QueryFunction } from "@tanstack/react-query";
 import { cn } from "../../lib/utils";
 import essayQueryOptions from "../../queries/essayQueryOptions";
 import geulroquisQueryOptions from "../../queries/geulroquisQueryOptions";
@@ -7,7 +10,6 @@ import managerQueryOptions from "../../queries/managerQueryOptions";
 import { queryClient } from "../../App";
 import sprite from "../../assets/SVGsprite.svg";
 import themeQueryOptions from "../../queries/themeQueryOptions";
-import { useState } from "react";
 import userQueryOptions from "../../queries/userQueryOptions";
 
 type NavItemType = {
@@ -15,6 +17,8 @@ type NavItemType = {
   label: string;
   to: string;
   queryKey?: readonly unknown[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  queryFn?: QueryFunction<any>;
 };
 
 const items: NavItemType[] = [
@@ -24,16 +28,23 @@ const items: NavItemType[] = [
     label: "사용자 목록",
     to: DefaultPaths.USER.LIST,
     queryKey: userQueryOptions.getUserList({
-      pagination: { page: 0, perPage: 10 },
+      pagination: { page: 1, perPage: 10 },
     }).queryKey,
+    queryFn: userQueryOptions.getUserList({
+      pagination: { page: 1, perPage: 10 },
+    }).queryFn,
   },
   {
     iconId: "edit",
     label: "에세이 목록",
     to: DefaultPaths.ESSAY.LIST,
     queryKey: essayQueryOptions.getEssayList({
-      pagination: { page: 0, perPage: 10 },
+      pagination: { page: 1, perPage: 10 },
     }).queryKey,
+    queryFn: essayQueryOptions.getEssayList({
+      pagination: { page: 1, perPage: 10 },
+      filter: { keyword: "" },
+    }).queryFn,
   },
   { iconId: "report-list", label: "레포트 목록", to: DefaultPaths.REPORT.LIST },
   {
@@ -53,16 +64,22 @@ const items: NavItemType[] = [
     label: "관리자 기록",
     to: DefaultPaths.MANAGER.HISTORY,
     queryKey: managerQueryOptions.getManagerList({
-      pagination: { page: 0, perPage: 10 },
+      pagination: { page: 1, perPage: 10 },
     }).queryKey,
+    queryFn: managerQueryOptions.getManagerList({
+      pagination: { page: 1, perPage: 10 },
+    }).queryFn,
   },
   {
     iconId: "gifts",
     label: "글로키 목록",
     to: DefaultPaths.GEULROQUIS.LIST,
     queryKey: geulroquisQueryOptions.getGeulroquisList({
-      pagination: { page: 0, perPage: 10 },
+      pagination: { page: 1, perPage: 10 },
     }).queryKey,
+    queryFn: geulroquisQueryOptions.getGeulroquisList({
+      pagination: { page: 1, perPage: 10 },
+    }).queryFn,
   },
   {
     iconId: "smile",
@@ -105,17 +122,43 @@ const Nav = () => {
 
 export default Nav;
 
-const NavItem = ({ iconId, label, to, queryKey }: NavItemType) => {
-  const handleClick = () => {
-    if (queryKey) {
-      queryClient.prefetchQuery({ queryKey });
+const NavItem = ({ iconId, label, to, queryKey, queryFn }: NavItemType) => {
+  const abortControllerRef = useRef<AbortController | null>(null);
+
+  const handleMouseOver = () => {
+    if (!queryKey || !queryFn) return;
+
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+    console.log("Fetching with AbortController signal:", controller.signal);
+    queryClient.fetchQuery({
+      queryKey,
+      queryFn: () =>
+        queryFn({
+          signal: controller.signal,
+          queryKey,
+          meta: undefined,
+        }),
+    });
+  };
+
+  const handleMouseOut = () => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
     }
   };
+
   return (
     <Link
       className="flex gap-[15px] items-center px-[15px] py-[10px]"
       to={to}
-      onMouseOver={handleClick}
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
     >
       <svg width={30} height={30}>
         <use href={`${sprite}#${iconId}`}></use>
