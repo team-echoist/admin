@@ -24,8 +24,8 @@ test.describe("레포트 리스트 페이지", () => {
   }) => {
     await page.click('a:has-text("6")');
 
-    await page.goto("http://localhost:5173/essays/47");
+    await page.goto("http://localhost:5173/essays/47#report");
 
-    await expect(page).toHaveURL("http://localhost:5173/essay/47");
+    await expect(page).toHaveURL("http://localhost:5173/essay/47#report");
   });
 });
