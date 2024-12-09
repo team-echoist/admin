@@ -196,19 +196,19 @@ function EssayDetailContent() {
       </div>
       <hr className="my-[20px] border" />
       <div>
-        <DetailList label="스토리 목록" />
-        <DetailList label="리뷰 목록" />
-        <DetailList label="레포트 목록" />
+        <DetailList label="스토리 목록" id="stories" />
+        <DetailList label="리뷰 목록" id="review" />
+        <DetailList label="레포트 목록" id="report" />
       </div>
     </div>
   );
 }
 
-type DetailListProps = { label: string };
+type DetailListProps = { label: string; id: string };
 
-function DetailList({ label }: DetailListProps) {
+function DetailList({ label, id }: DetailListProps) {
   return (
-    <div className="col">
+    <div id={id} className="col">
       <Label>{label}</Label>
       <Blank />
     </div>
