@@ -8,7 +8,7 @@ export const DefaultPaths = {
   ESSAY: { LIST: "essays", DETAIL: "essays/:id" },
   NOTICE: { LIST: "notices", DETAIL: "notices/:id" },
   USER: { LIST: "users", DETAIL: "users/:id" },
-  REPORT: { LIST: "reports", DETAIL: "reports/:id" },
+  REPORT: { LIST: "reports" },
   RELEASE: { LIST: "releases", DETAIL: "releases/:id" },
   QUERY: { LIST: "queries", DETAIL: "queries/:id" },
   ITEM: { LIST: "items", DETAIL: "items/:id" },

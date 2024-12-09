@@ -74,7 +74,7 @@ const ReportListItem = ({
 }: ReportListItemProps) => {
   return (
     <Link
-      to={`/reports/${id}`}
+      to={`/essays/${id}`}
       className="grid grid-cols-5 items-center h-[50px] m-[10px] hover:bg-lightGray rounded-[8px]"
     >
       <div className="text-center">{id}</div>

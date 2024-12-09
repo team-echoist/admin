@@ -17,6 +17,7 @@ import NotFound from "../pages/errors/NotFound";
 import NoticeDetail from "../pages/notice/Detail";
 import NoticeList from "../pages/notice/List";
 import RegisterPage from "../pages/auth/Regsiter";
+import ReportList from "../pages/report/List";
 import ThemeList from "../pages/theme/List";
 import UserDetail from "../pages/user/Detail";
 import UserList from "../pages/user/List";
@@ -82,11 +83,7 @@ const router = createBrowserRouter([
       },
       {
         path: DefaultPaths.REPORT.LIST,
-        element: <div>레포트 리스트 페이지</div>,
-      },
-      {
-        path: DefaultPaths.REPORT.DETAIL,
-        element: <div>레포트 리스트 페이지</div>,
+        element: <ReportList />,
       },
       {
         path: DefaultPaths.RELEASE.LIST,
