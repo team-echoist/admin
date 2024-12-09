@@ -1,3 +1,8 @@
+import {
+  dashboardGraphData,
+  generateDashboardMonthlyCountMock,
+  generateDashboardYearlyCountMock,
+} from "../__mocks__/dashboard";
 import { expect, test } from "@playwright/test";
 
 test.describe("대시보드 페이지", () => {
@@ -23,23 +28,8 @@ test.describe("대시보드 페이지", () => {
         }),
       })
     );
-    await page.route("https://linkedoutapp.com/api/admin-dashboard", (route) =>
-      route.fulfill({
-        status: 200,
-        contentType: "application/json",
-        body: JSON.stringify({
-          data: {
-            totalUser: 1000,
-            totalEssays: 2000,
-            todaySubscribers: 50,
-            todayEssays: 100,
-            linkedOutEssays: 300,
-            publishedEssays: 400,
-            unprocessedReports: 10,
-            unprocessedReviews: 5,
-          },
-        }),
-      })
+    await page.route(dashboardGraphData.url, (route) =>
+      route.fulfill(dashboardGraphData.apiResponse)
     );
     await page.route(
       "https://linkedoutapp.com/api/admin-dashboard/stats/essays/daily",
@@ -47,41 +37,7 @@ test.describe("대시보드 페이지", () => {
         route.fulfill({
           status: 200,
           contentType: "application/json",
-          body: JSON.stringify({
-            data: {
-              "1": 0,
-              "2": 0,
-              "3": 0,
-              "4": 0,
-              "5": 0,
-              "6": 0,
-              "7": 0,
-              "8": 0,
-              "9": 0,
-              "10": 0,
-              "11": 0,
-              "12": 0,
-              "13": 0,
-              "14": 0,
-              "15": 0,
-              "16": 0,
-              "17": 0,
-              "18": 0,
-              "19": 0,
-              "20": 0,
-              "21": 0,
-              "22": 0,
-              "23": 0,
-              "24": 0,
-              "25": 0,
-              "26": 0,
-              "27": 0,
-              "28": 0,
-              "29": 0,
-              "30": 0,
-              "31": 0,
-            },
-          }),
+          body: JSON.stringify(generateDashboardMonthlyCountMock()),
         })
     );
 
@@ -91,22 +47,7 @@ test.describe("대시보드 페이지", () => {
         route.fulfill({
           status: 200,
           contentType: "application/json",
-          body: JSON.stringify({
-            data: {
-              "1": 0,
-              "2": 0,
-              "3": 0,
-              "4": 0,
-              "5": 0,
-              "6": 0,
-              "7": 0,
-              "8": 0,
-              "9": 0,
-              "10": 0,
-              "11": 25,
-              "12": 0,
-            },
-          }),
+          body: JSON.stringify(generateDashboardYearlyCountMock()),
         })
     );
 
@@ -116,41 +57,7 @@ test.describe("대시보드 페이지", () => {
         route.fulfill({
           status: 200,
           contentType: "application/json",
-          body: JSON.stringify({
-            data: {
-              "1": 0,
-              "2": 0,
-              "3": 0,
-              "4": 0,
-              "5": 0,
-              "6": 0,
-              "7": 0,
-              "8": 0,
-              "9": 0,
-              "10": 0,
-              "11": 0,
-              "12": 0,
-              "13": 0,
-              "14": 0,
-              "15": 0,
-              "16": 0,
-              "17": 0,
-              "18": 0,
-              "19": 0,
-              "20": 0,
-              "21": 0,
-              "22": 0,
-              "23": 0,
-              "24": 0,
-              "25": 0,
-              "26": 0,
-              "27": 0,
-              "28": 0,
-              "29": 0,
-              "30": 0,
-              "31": 0,
-            },
-          }),
+          body: JSON.stringify(generateDashboardMonthlyCountMock()),
         })
     );
 
@@ -160,22 +67,7 @@ test.describe("대시보드 페이지", () => {
         route.fulfill({
           status: 200,
           contentType: "application/json",
-          body: JSON.stringify({
-            data: {
-              "1": 0,
-              "2": 0,
-              "3": 0,
-              "4": 0,
-              "5": 0,
-              "6": 0,
-              "7": 0,
-              "8": 0,
-              "9": 0,
-              "10": 0,
-              "11": 25,
-              "12": 0,
-            },
-          }),
+          body: JSON.stringify(generateDashboardYearlyCountMock()),
         })
     );
 
@@ -185,41 +77,7 @@ test.describe("대시보드 페이지", () => {
         route.fulfill({
           status: 200,
           contentType: "application/json",
-          body: JSON.stringify({
-            data: {
-              "1": 0,
-              "2": 0,
-              "3": 0,
-              "4": 0,
-              "5": 0,
-              "6": 0,
-              "7": 0,
-              "8": 0,
-              "9": 0,
-              "10": 0,
-              "11": 0,
-              "12": 0,
-              "13": 0,
-              "14": 0,
-              "15": 0,
-              "16": 0,
-              "17": 0,
-              "18": 0,
-              "19": 0,
-              "20": 0,
-              "21": 0,
-              "22": 0,
-              "23": 0,
-              "24": 0,
-              "25": 0,
-              "26": 0,
-              "27": 0,
-              "28": 0,
-              "29": 0,
-              "30": 0,
-              "31": 0,
-            },
-          }),
+          body: JSON.stringify(generateDashboardMonthlyCountMock()),
         })
     );
 
@@ -229,22 +87,7 @@ test.describe("대시보드 페이지", () => {
         route.fulfill({
           status: 200,
           contentType: "application/json",
-          body: JSON.stringify({
-            data: {
-              "1": 0,
-              "2": 0,
-              "3": 0,
-              "4": 0,
-              "5": 0,
-              "6": 0,
-              "7": 0,
-              "8": 0,
-              "9": 0,
-              "10": 0,
-              "11": 25,
-              "12": 0,
-            },
-          }),
+          body: JSON.stringify(generateDashboardYearlyCountMock()),
         })
     );
   });
