@@ -44,4 +44,25 @@ test.describe("에세이 디테일 페이지 테스트", () => {
     await expect(page.getByText("제목")).toBeVisible();
     await expect(page.getByText("내용")).toBeVisible();
   });
+
+  test("id가 있으면 해당 파트로 이동한다.", async ({ page }) => {
+    await page.goto("http://localhost:5173/essays/47#report");
+
+    const reportSection = await page.$("#report");
+
+    expect(reportSection).not.toBeNull();
+
+    const isVisible = await reportSection?.isVisible();
+    expect(isVisible).toBeTruthy();
+
+    const boundingBox = await reportSection?.boundingBox();
+    expect(boundingBox).not.toBeNull();
+
+    if (boundingBox) {
+      expect(boundingBox.y).toBeGreaterThanOrEqual(0);
+      expect(boundingBox.y).toBeLessThanOrEqual(
+        (await page.viewportSize()?.height) || 0
+      );
+    }
+  });
 });
