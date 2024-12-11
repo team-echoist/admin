@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import List from "../../components/List";
 import LoadingFallback from "../../components/fallback/LoadingFallback";
 import Pagination from "../../components/Pagination";
-import { ReportListType } from "../../api/report";
+import { ReportListType } from "../../api/essays";
 import UIErrorBoundary from "../../components/fallback/UIErrorBoundary";
-import reportQueryOptions from "../../queries/reportQueryOptions";
+import essayQueryOptions from "../../queries/essayQueryOptions";
 import usePagination from "../../components/Pagination/usePagination";
 import { useQuery } from "@tanstack/react-query";
 
@@ -29,7 +29,7 @@ const ReportListContent = () => {
   const { currentPage, handlePaginationEvent } = usePagination();
 
   const { data, error, isLoading } = useQuery({
-    ...reportQueryOptions.getReportList({
+    ...essayQueryOptions.getReportList({
       pagination: { page: currentPage, perPage: 10 },
     }),
   });
