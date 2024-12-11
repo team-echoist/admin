@@ -15,10 +15,10 @@ import {
 import { EssayStatusType, EssayType } from "../../api/essays";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-import Blank from "../../components/fallback/Blank";
 import { Button } from "../../components/ui/button";
+import Container from "./_components/Container";
 import ItemContainer from "../../components/Detail/ItemContainer";
-import { Label } from "../../components/ui/label";
+import ReportBox from "./_components/ReportBox";
 import UIErrorBoundary from "../../components/fallback/UIErrorBoundary";
 import deleteEssay from "../../api/essays/deleteEssay";
 import essayQueryOptions from "../../queries/essayQueryOptions";
@@ -50,6 +50,14 @@ function EssayDetailContent() {
   const { data, error, isLoading } = useQuery({
     ...essayQueryOptions.getEssayDetail({ id }),
     initialData: essayData,
+  });
+
+  const {
+    data: reportData,
+    error: reportError,
+    isLoading: reportIsLoading,
+  } = useQuery({
+    ...essayQueryOptions.getReportDetail({ id }),
   });
 
   const deleteMutation = useMutation({
@@ -84,12 +92,12 @@ function EssayDetailContent() {
     },
   });
 
-  if (isLoading) {
+  if (isLoading || reportIsLoading) {
     setAPILoading();
     return;
   }
-  if (error instanceof Error) {
-    setAPIError(error.message);
+  if (error instanceof Error || reportError instanceof Error) {
+    setAPIError(error?.message ?? reportError?.message ?? "");
     return;
   }
 
@@ -196,21 +204,12 @@ function EssayDetailContent() {
       </div>
       <hr className="my-[20px] border" />
       <div>
-        <DetailList label="스토리 목록" id="stories" />
-        <DetailList label="리뷰 목록" id="review" />
-        <DetailList label="레포트 목록" id="report" />
+        <Container label="레포트 목록">
+          {reportData?.map((report) => (
+            <ReportBox key={report.reporterId} {...report} />
+          ))}
+        </Container>
       </div>
-    </div>
-  );
-}
-
-type DetailListProps = { label: string; id: string };
-
-function DetailList({ label, id }: DetailListProps) {
-  return (
-    <div id={id} className="col">
-      <Label>{label}</Label>
-      <Blank />
     </div>
   );
 }
