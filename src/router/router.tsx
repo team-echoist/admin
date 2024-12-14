@@ -25,7 +25,6 @@ import Version from "../pages/version/Version";
 import { VersionLoader } from "../pages/version/VersionLoader";
 import authCheckLoader from "../layouts/authCheckLoader";
 import { createBrowserRouter } from "react-router-dom";
-import { essayDetailLoader } from "../pages/essay/DetailLoader";
 import { managerDetailLoader } from "../pages/manager/DetailLoader";
 import { noticeDetailLoader } from "../pages/notice/DetailLoader";
 import { userDetailLoader } from "../pages/user/DetailLoader";
@@ -44,7 +43,6 @@ const router = createBrowserRouter([
       {
         path: DefaultPaths.ESSAY.DETAIL,
         element: <EssayDetail />,
-        loader: essayDetailLoader,
       },
       {
         path: DefaultPaths.NOTICE.LIST,
