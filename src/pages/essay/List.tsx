@@ -1,3 +1,4 @@
+import { DefaultPaths } from "../../router/paths";
 import ErrorFallback from "../../components/fallback/ErrorFallback";
 import { EssayListType } from "../../api/essays";
 import KeywordSearch from "../../components/Filter/KeywordSearch";
@@ -6,6 +7,7 @@ import List from "../../components/List";
 import LoadingFallback from "../../components/fallback/LoadingFallback";
 import Pagination from "../../components/Pagination";
 import UIErrorBoundary from "../../components/fallback/UIErrorBoundary";
+import { createPath } from "../../lib/path.utils";
 import essayQueryOptions from "../../queries/essayQueryOptions";
 import usePagination from "../../components/Pagination/usePagination";
 import { useQuery } from "@tanstack/react-query";
@@ -78,7 +80,7 @@ const EssayListItem = ({
 }: EssayListItemProps) => {
   return (
     <Link
-      to={`/essays/${id}`}
+      to={createPath(DefaultPaths.ESSAY.DETAIL, { id })}
       className="grid grid-cols-5 items-center h-[50px] m-[10px] hover:bg-lightGray rounded-[8px]"
     >
       <div className="text-center">{id}</div>

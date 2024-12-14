@@ -1,9 +1,3 @@
-import APIErrorProvider, {
-  useAPIError,
-} from "../../components/fallback/APIErrorProvider";
-import APILoadingProvider, {
-  useAPILoading,
-} from "../../components/fallback/APILoadingProvider";
 import {
   Dialog,
   DialogContent,
@@ -12,95 +6,71 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../../components/ui/dialog";
-import { EssayStatusType, EssayType } from "../../api/essays";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { Button } from "../../components/ui/button";
 import Container from "./_components/Container";
+import { DefaultPaths } from "../../router/paths";
+import { EssayStatusType } from "../../api/essays";
 import ItemContainer from "../../components/Detail/ItemContainer";
 import ReportBox from "./_components/ReportBox";
 import UIErrorBoundary from "../../components/fallback/UIErrorBoundary";
 import deleteEssay from "../../api/essays/deleteEssay";
 import essayQueryOptions from "../../queries/essayQueryOptions";
+import { getParamsFromPath } from "../../lib/path.utils";
 import { queryClient } from "../../App";
 import sprite from "../../assets/SVGsprite.svg";
 import updateEssayStatus from "../../api/essays/updateEssayStatus";
-import { useLoaderData } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default function EssayDetail() {
   return (
     <UIErrorBoundary>
-      <APIErrorProvider>
-        <APILoadingProvider>
-          <EssayDetailContent />
-        </APILoadingProvider>
-      </APIErrorProvider>
+      <EssayDetailContent />
     </UIErrorBoundary>
   );
 }
 
 function EssayDetailContent() {
-  const { setAPIError } = useAPIError();
-  const { setAPILoading, clearAPILoading } = useAPILoading();
-  const { data: essayData, id } = useLoaderData<{
-    data: EssayType;
-    id: number;
-  }>();
+  const { pathname } = useLocation();
+  const id = +getParamsFromPath(DefaultPaths.ESSAY.DETAIL, pathname);
 
   const { data, error, isLoading } = useQuery({
     ...essayQueryOptions.getEssayDetail({ id }),
-    initialData: essayData,
   });
 
-  const {
-    data: reportData,
-    error: reportError,
-    isLoading: reportIsLoading,
-  } = useQuery({
+  const { data: reportData } = useQuery({
     ...essayQueryOptions.getReportDetail({ id }),
   });
 
   const deleteMutation = useMutation({
     mutationFn: () => deleteEssay(id),
-    onMutate: () => {
-      setAPILoading();
-    },
+
     onSuccess: () => {
-      clearAPILoading();
       const queryKey = essayQueryOptions.getEssayDetail({ id }).queryKey;
       queryClient.resetQueries({ queryKey });
-    },
-    onError: (error: Error) => {
-      clearAPILoading();
-      setAPIError(error.message || "에세이 삭제 중 오류가 발생했습니다.");
     },
   });
 
   const updateStatusTypeMutation = useMutation({
     mutationFn: (status: EssayStatusType) => updateEssayStatus(id, status),
-    onMutate: () => {
-      setAPILoading();
-    },
+
     onSuccess: () => {
-      clearAPILoading();
       const queryKey = essayQueryOptions.getEssayDetail({ id }).queryKey;
       queryClient.resetQueries({ queryKey });
     },
-    onError: (error: Error) => {
-      clearAPILoading();
-      setAPIError(error.message || "에세이 삭제 중 오류가 발생했습니다.");
-    },
   });
 
-  if (isLoading || reportIsLoading) {
-    setAPILoading();
+  if (isLoading) {
     return;
   }
-  if (error instanceof Error || reportError instanceof Error) {
-    setAPIError(error?.message ?? reportError?.message ?? "");
+  if (error instanceof Error) {
     return;
   }
 
+  if (!data || !reportData) {
+    return;
+  }
   const onClickDeleteEssayButton = () => {
     deleteMutation.mutate();
   };
@@ -205,9 +175,11 @@ function EssayDetailContent() {
       <hr className="my-[20px] border" />
       <div>
         <Container label="레포트 목록">
-          {reportData?.map((report) => (
-            <ReportBox key={report.reporterId} {...report} />
-          ))}
+          {reportData &&
+            reportData.length !== 0 &&
+            reportData.map((report) => (
+              <ReportBox key={report.reporterId} {...report} />
+            ))}
         </Container>
       </div>
     </div>
