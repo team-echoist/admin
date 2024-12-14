@@ -20,11 +20,13 @@ export const getParamsFromPath = (
   path: string,
   url: string
 ): Record<string, string | number> => {
-  const pathSegments = path.split("/");
-  const urlSegments = url.split("/");
+  const pathSegments = path.split("/").filter((segment) => segment !== "");
+  const urlSegments = url.split("/").filter((segment) => segment !== "");
 
   if (pathSegments.length !== urlSegments.length) {
-    throw new Error("경로 길이가 일치하지 않습니다.");
+    throw new Error(
+      `${pathSegments} | ${urlSegments}경로 길이가 일치하지 않습니다.`
+    );
   }
 
   const params: Record<string, string | number> = {};
