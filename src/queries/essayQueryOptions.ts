@@ -20,7 +20,7 @@ const essayQueryOptions = {
     }),
   getEssayDetail: (params: DetailParams) =>
     queryOptions({
-      queryKey: ["dashboard", "essays"],
+      queryKey: ["essays", params.id],
       queryFn: () => getEssayDetail(params),
     }),
   getReportList: (params: ListParams) =>

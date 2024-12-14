@@ -1,13 +1,9 @@
-export type Paths<T extends string = string> = {
-  [key: string]: T | { [subKey: string]: T };
-};
-
-export const AuthPaths: Paths = {
+export const AuthPaths = {
   LOGIN: "login",
   REGISTER: "register",
 };
 
-export const DefaultPaths: Paths = {
+export const DefaultPaths = {
   DASHBOARD: "dashboard",
   ESSAY: { LIST: "essays", DETAIL: "essays/:id" },
   NOTICE: { LIST: "notices", DETAIL: "notices/:id" },
