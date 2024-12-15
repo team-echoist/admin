@@ -1,5 +1,6 @@
 import { Button } from "../../components/ui/button";
 import { ResponseType } from "../../api";
+import { convertToWebp } from "../../lib/file.utils";
 import geulroquisQueryOptions from "../../queries/geulroquisQueryOptions";
 import postGeulroquis from "../../api/geulroquis/postGeulroquis";
 import { queryClient } from "../../App";
@@ -31,11 +32,22 @@ export default function UploadForm({ onCloseFormDialog }: UploadFormType) {
     },
   });
 
-  const onSubmit = (formData: FormValues) => {
+  const onSubmit = async (formData: FormValues) => {
     const data = new FormData();
-    Array.from(formData.images).forEach((file) => {
-      data.append("images", file);
-    });
+
+    for (let i = 0; i < formData.images.length; i++) {
+      const file = formData.images[i];
+      try {
+        const webpBlob = await convertToWebp(file);
+        data.append(
+          "images",
+          webpBlob,
+          file.name.replace(/\.[^/.]+$/, ".webp")
+        );
+      } catch (error) {
+        console.error("이미지 변환 실패:", error);
+      }
+    }
 
     mutation.mutate(data);
   };
