@@ -2,7 +2,6 @@ import { VitePWA } from "vite-plugin-pwa";
 import { defineConfig } from "vite";
 import path from "path";
 import react from "@vitejs/plugin-react";
-import { visualizer } from "rollup-plugin-visualizer";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -40,13 +39,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      plugins: [
-        visualizer({
-          open: true,
-          filename: "bundle-visualizer.html",
-          template: "treemap",
-        }),
-      ],
+      plugins: [],
     },
   },
 });
