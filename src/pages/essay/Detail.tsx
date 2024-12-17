@@ -33,14 +33,10 @@ export default function EssayDetail() {
 
 function EssayDetailContent() {
   const { pathname } = useLocation();
-  const id = +getParamsFromPath(DefaultPaths.ESSAY.DETAIL, pathname);
+  const id = +getParamsFromPath(DefaultPaths.ESSAY.DETAIL, pathname).id;
 
   const { data, error, isLoading } = useQuery({
     ...essayQueryOptions.getEssayDetail({ id }),
-  });
-
-  const { data: reportData } = useQuery({
-    ...essayQueryOptions.getReportDetail({ id }),
   });
 
   const deleteMutation = useMutation({
@@ -68,9 +64,10 @@ function EssayDetailContent() {
     return;
   }
 
-  if (!data || !reportData) {
+  if (!data) {
     return;
   }
+
   const onClickDeleteEssayButton = () => {
     deleteMutation.mutate();
   };
@@ -174,14 +171,39 @@ function EssayDetailContent() {
       </div>
       <hr className="my-[20px] border" />
       <div>
-        <Container label="레포트 목록">
-          {reportData &&
-            reportData.length !== 0 &&
-            reportData.map((report) => (
-              <ReportBox key={report.reporterId} {...report} />
-            ))}
-        </Container>
+        <ReportContainer id={id} />
       </div>
     </div>
+  );
+}
+
+function ReportContainer({ id }: { id: number }) {
+  const {
+    data: reportData,
+    error: reportError,
+    isLoading,
+  } = useQuery({
+    ...essayQueryOptions.getReportDetail({ id }),
+  });
+
+  if (isLoading) {
+    return;
+  }
+  if (reportError instanceof Error) {
+    return;
+  }
+
+  if (!reportData) {
+    return;
+  }
+  return (
+    <Container label="레포트 목록" id="report">
+      {!reportError &&
+        reportData &&
+        reportData.length !== 0 &&
+        reportData.map((report) => (
+          <ReportBox key={report.reporterId} {...report} />
+        ))}
+    </Container>
   );
 }

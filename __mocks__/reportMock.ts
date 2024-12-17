@@ -223,3 +223,26 @@ export const reportListMock = {
     }),
   },
 };
+
+export const reportDetailMock = {
+  url: "https://linkedoutapp.com/api/admin-task/reports/47",
+  apiResponse: {
+    status: 200,
+    contentType: "application/json",
+    body: JSON.stringify({
+      data: {
+        id: 11,
+        title: "제목 없음",
+        content: "<p>제목없음</p>",
+        linkedOutGauge: 0,
+        createdDate: "2024-11-01T16:04:18.145+09:00",
+        updatedDate: "2024-11-01T16:29:24.215+09:00",
+        thumbnail: null,
+        views: 0,
+        status: "private",
+        authorId: 1,
+        reports: [],
+      },
+    }),
+  },
+};

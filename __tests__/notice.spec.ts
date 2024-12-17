@@ -31,6 +31,8 @@ test.describe("공지사항 리스트 페이지", () => {
   test("공지사항 작성하기를 클릭하면 작성 폼을 보여준다", async ({ page }) => {
     await page.click('button:has-text("공지사항 작성하기")');
 
-    await expect(page.getByText("공지사항 작성하기")).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "공지사항 작성하기" })
+    ).toBeVisible();
   });
 });
