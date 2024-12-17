@@ -13,7 +13,7 @@ export const geulroquisCountMock = {
 };
 
 export const geulroquisListMock = {
-  url: "https://linkedoutapp.com/api/admin-office/geulroquis?page=1&limit=10",
+  url: "https://linkedoutapp.com/api/admin-office/geulroquis?page=1&limit=9",
   apiResponse: {
     status: 200,
     contentType: "application/json",

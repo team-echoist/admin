@@ -17,7 +17,7 @@ test.describe("관리자 목록 페이지", () => {
   });
 
   test("관리자 목록 페이지를 보여준다.", async ({ page }) => {
-    await expect(page.getByText("총 관리자 수 6")).toBeVisible();
+    await expect(page.getByText("총 관리자 수 5")).toBeVisible();
   });
 
   test("관리자를 클릭하면 에세이 해당 관리자의 페이지로 이동한다", async ({

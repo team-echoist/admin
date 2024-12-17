@@ -327,7 +327,7 @@ export const essayListMock = {
 };
 
 export const essayDetailMock = {
-  url: "https://linkedoutapp.com/api/admin-info/my",
+  url: "https://linkedoutapp.com/api/admin-management/essays/47",
   apiResponse: {
     status: 200,
     contentType: "application/json",
