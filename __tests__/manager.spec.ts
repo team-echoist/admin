@@ -4,11 +4,18 @@ import {
   managerListMock,
 } from "../__mocks__/managerMock";
 
+import { permissionAvailableMock } from "../__mocks__/permissionMock";
+
 test.describe("관리자 목록 페이지", () => {
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ context, page }) => {
     await page.addInitScript(() => {
       localStorage.setItem("accessToken", "token");
     });
+
+    await context.route(permissionAvailableMock.url, (route) =>
+      route.fulfill(permissionAvailableMock.apiResponse)
+    );
+
     await page.goto("http://localhost:5173/managers");
 
     await page.route(managerListMock.url, (route) =>
@@ -32,10 +39,14 @@ test.describe("관리자 목록 페이지", () => {
 });
 
 test.describe("관리자 로그 리스트 페이지", () => {
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ context, page }) => {
     await page.addInitScript(() => {
       localStorage.setItem("accessToken", "token");
     });
+
+    await context.route(permissionAvailableMock.url, (route) =>
+      route.fulfill(permissionAvailableMock.apiResponse)
+    );
     await page.goto("http://localhost:5173/manager-history");
 
     await page.route(managerHistoryListMock.url, (route) =>

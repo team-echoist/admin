@@ -2,13 +2,19 @@ import { essayDetailMock, essayListMock } from "../__mocks__/essayMock";
 import { expect, test } from "@chromatic-com/playwright";
 
 import { authMock } from "../__mocks__/authMock";
+import { permissionAvailableMock } from "../__mocks__/permissionMock";
 import { reportDetailMock } from "../__mocks__/reportMock";
 
 test.describe("에세이 리스트 페이지", () => {
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ context, page }) => {
     await page.addInitScript(() => {
       localStorage.setItem("accessToken", "token");
     });
+
+    await context.route(permissionAvailableMock.url, (route) =>
+      route.fulfill(permissionAvailableMock.apiResponse)
+    );
+
     await page.goto("http://localhost:5173/essays");
 
     await page.route(essayListMock.url, (route) =>

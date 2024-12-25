@@ -4,11 +4,17 @@ import {
   geulroquisListMock,
 } from "../__mocks__/geulroquis";
 
+import { permissionAvailableMock } from "../__mocks__/permissionMock";
+
 test.describe("글로키 리스트 페이지", () => {
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ context, page }) => {
     await page.addInitScript(() => {
       localStorage.setItem("accessToken", "token");
     });
+
+    await context.route(permissionAvailableMock.url, (route) =>
+      route.fulfill(permissionAvailableMock.apiResponse)
+    );
 
     await page.goto("http://localhost:5173/geulroquis");
 
