@@ -5,29 +5,20 @@ import {
 } from "../__mocks__/dashboard";
 import { expect, test } from "@playwright/test";
 
+import { permissionAvailableMock } from "../__mocks__/permissionMock";
+
 test.describe("대시보드 페이지", () => {
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ context, page }) => {
     await page.addInitScript(() => {
       localStorage.setItem("accessToken", "token");
     });
+
+    await context.route(permissionAvailableMock.url, (route) =>
+      route.fulfill(permissionAvailableMock.apiResponse)
+    );
+
     await page.goto("http://localhost:5173/dashboard");
 
-    await page.route("https://linkedoutapp.com/api/admin-info/my", (route) =>
-      route.fulfill({
-        status: 200,
-        contentType: "application/json",
-        body: JSON.stringify({
-          data: {
-            id: 0,
-            email: "test@example.com",
-            name: "테스트",
-            profileImage: null,
-            activated: true,
-            info: null,
-          },
-        }),
-      })
-    );
     await page.route(dashboardGraphData.url, (route) =>
       route.fulfill(dashboardGraphData.apiResponse)
     );

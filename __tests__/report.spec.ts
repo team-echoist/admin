@@ -1,16 +1,31 @@
 import { expect, test } from "@chromatic-com/playwright";
+import { reportDetailMock, reportListMock } from "../__mocks__/reportMock";
 
-import { reportListMock } from "../__mocks__/reportMock";
+import { essayDetailMock } from "../__mocks__/essayMock";
+import { permissionAvailableMock } from "../__mocks__/permissionMock";
 
 test.describe("레포트 리스트 페이지", () => {
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ context, page }) => {
     await page.addInitScript(() => {
       localStorage.setItem("accessToken", "token");
     });
+
+    await context.route(permissionAvailableMock.url, (route) =>
+      route.fulfill(permissionAvailableMock.apiResponse)
+    );
+
     await page.goto("http://localhost:5173/reports");
 
     await page.route(reportListMock.url, (route) =>
       route.fulfill(reportListMock.apiResponse)
+    );
+
+    await page.route(reportDetailMock.url, (route) =>
+      route.fulfill(reportDetailMock.apiResponse)
+    );
+
+    await page.route(essayDetailMock.url, (route) =>
+      route.fulfill(essayDetailMock.apiResponse)
     );
   });
 
@@ -26,6 +41,6 @@ test.describe("레포트 리스트 페이지", () => {
 
     await page.goto("http://localhost:5173/essays/47#report");
 
-    await expect(page).toHaveURL("http://localhost:5173/essay/47#report");
+    await expect(page).toHaveURL("http://localhost:5173/essays/47#report");
   });
 });

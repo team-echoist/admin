@@ -6,6 +6,8 @@ import fetchData from "../fetchData";
 
 export type ReportListResponseType = {
   reports: ReportListType[];
+  totalReports: number;
+  totalEssay: number;
 } & ResponsePaginationType;
 
 export default async function getReportList(params: ListParams) {

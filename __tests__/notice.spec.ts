@@ -1,12 +1,18 @@
 import { expect, test } from "@chromatic-com/playwright";
 
 import { noticeListMock } from "../__mocks__/noticeMock";
+import { permissionAvailableMock } from "../__mocks__/permissionMock";
 
 test.describe("공지사항 리스트 페이지", () => {
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ context, page }) => {
     await page.addInitScript(() => {
       localStorage.setItem("accessToken", "token");
     });
+
+    await context.route(permissionAvailableMock.url, (route) =>
+      route.fulfill(permissionAvailableMock.apiResponse)
+    );
+
     await page.goto("http://localhost:5173/notices");
 
     await page.route(noticeListMock.url, (route) =>

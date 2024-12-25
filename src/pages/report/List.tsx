@@ -48,7 +48,11 @@ const ReportListContent = () => {
 
   return (
     <List>
-      <List.Header totalCount={data.total} label="에세이" />
+      <List.Header
+        totalCount={data.totalReports}
+        label="레포트"
+        sub={`총 에세이 수 ${data.totalEssay}`}
+      ></List.Header>
       <List.ColumnContainer headers={ReportListColumns} row={5} />
       <List.RowContainer row={10}>
         {data.reports.map((report) => (

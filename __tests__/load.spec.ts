@@ -54,13 +54,15 @@ test.describe("페이지 접근 리다이렉트 테스트", () => {
       localStorage.setItem("accessToken", "token");
     });
 
+    await page.goto("http://localhost:5173/");
+
     await page.route("https://linkedoutapp.com/api/admin-info/my", (route) => {
       route.fulfill({
         status: 401,
+        contentType: "application/json",
+        body: JSON.stringify({ error: "Unauthorized" }),
       });
     });
-
-    await page.goto("http://localhost:5173/");
 
     await expect(page).toHaveURL("http://localhost:5173/auth/login");
   });
