@@ -1,9 +1,16 @@
+import { AuthPaths } from "../router/paths";
+
 const apiUrl = "https://linkedoutapp.com/api";
+
+type ErrorBody = {
+  error: string;
+  message: string;
+};
 
 type FetchDataProps<RequestBodyType> = {
   url: string;
   method?: "GET" | "POST" | "PUT" | "DELETE";
-  body?: RequestBodyType;
+  body?: RequestBodyType | ErrorBody;
 };
 
 export default async function fetchData<
@@ -44,7 +51,7 @@ export default async function fetchData<
     }
 
     if (!response.ok) {
-      throw new Error("API 요청에 실패했습니다.");
+      window.location.href = `/auth/${AuthPaths.LOGIN}`;
     }
 
     return response.json();
