@@ -1,9 +1,7 @@
 {
-  "Print React Component": {
+  "React Component (Arrow Function)": {
     "prefix": "rcc",
     "body": [
-      "import React from 'react';",
-      "",
       "const $1 = () => {",
       "  return (",
       "    <div>",
@@ -14,7 +12,19 @@
       "",
       "export default $1;"
     ],
-    "description": "Create a React functional component"
+    "description": "Create a React functional component using arrow function"
+  },
+  "React Component (Function Declaration)": {
+    "prefix": "rcf",
+    "body": [
+      "export default function $1 () {",
+      "  return (",
+      "    <div>",
+      "    </div>",
+      "  );",
+      "};"
+    ],
+    "description": "Create a React functional component using function declaration"
   },
   "React useState Hook": {
     "prefix": "usf",
