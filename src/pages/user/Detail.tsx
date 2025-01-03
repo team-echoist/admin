@@ -4,10 +4,14 @@ import APIErrorProvider, {
 import APILoadingProvider, {
   useAPILoading,
 } from "../../components/fallback/APILoadingProvider";
+import { Dialog, DialogTrigger } from "../../components/ui/dialog";
 
+import { Button } from "../../components/ui/button";
+import DeleteDialog from "./DeleteDialog";
 import ItemContainer from "../../components/Detail/ItemContainer";
 import UIErrorBoundary from "../../components/fallback/UIErrorBoundary";
 import { UserType } from "../../api/user";
+import sprite from "../../assets/SVGsprite.svg";
 import { useLoaderData } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import userQueryOptions from "../../queries/userQueryOptions";
@@ -109,6 +113,17 @@ function UserDetailContent() {
             </ItemContainer>
           </div>
         </div>
+        <Dialog>
+          <DialogTrigger className="flex justify-end">
+            <Button variant="destructive">
+              <svg width={30} height={30}>
+                <use href={`${sprite}#trash`}></use>
+              </svg>
+              계정 삭제하기
+            </Button>
+          </DialogTrigger>
+          <DeleteDialog id={data.id} email={data.email} />
+        </Dialog>
       </div>
     </div>
   );
