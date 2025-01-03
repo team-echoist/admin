@@ -43,6 +43,7 @@ export default async function fetchData<
     if (response.status === 401) {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
+      window.location.href = `/auth/${AuthPaths.LOGIN}`;
     }
 
     const newAccessToken = response.headers.get("x-access-token");
@@ -51,7 +52,7 @@ export default async function fetchData<
     }
 
     if (!response.ok) {
-      window.location.href = `/auth/${AuthPaths.LOGIN}`;
+      throw new Error(`${response.status}`);
     }
 
     return response.json();
