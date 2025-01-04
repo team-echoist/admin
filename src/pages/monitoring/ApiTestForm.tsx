@@ -13,6 +13,16 @@ export default function ApiTestForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (method !== "GET") {
+      const confirmChange = window.confirm(
+        "⚠️ 이 요청은 실제 DB에 영향을 줄 수 있습니다. 진행하시겠습니까?"
+      );
+      if (!confirmChange) {
+        console.log("%c요청이 취소되었습니다.", "color: orange;");
+        return;
+      }
+    }
+
     try {
       const parsedBody = body ? JSON.parse(body) : undefined;
 
