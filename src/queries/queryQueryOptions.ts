@@ -11,13 +11,14 @@ const queryQueryOptions = {
         "query",
         "list",
         params.pagination.page,
-        params.filter?.keyword,
+        params.pagination.perPage,
+        params.filter?.status,
       ],
       queryFn: () => getQueryList(params),
     }),
   getQueryDetail: (params: DetailParams) =>
     queryOptions({
-      queryKey: ["query", params.id],
+      queryKey: ["query", "detail", params.id],
       queryFn: () => getQueryDetail(params),
     }),
 };

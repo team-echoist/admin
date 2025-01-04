@@ -14,4 +14,5 @@ export interface DetailParams {
 }
 export interface FilterParams {
   keyword: string;
+  status?: string;
 }

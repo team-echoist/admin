@@ -5,17 +5,12 @@ import List from "../../components/List";
 import LoadingFallback from "../../components/fallback/LoadingFallback";
 import Pagination from "../../components/Pagination";
 import { QueryListType } from "../../api/query";
-import UIErrorBoundary from "../../components/fallback/UIErrorBoundary";
 import queryQueryOptions from "../../queries/queryQueryOptions";
 import usePagination from "../../components/Pagination/usePagination";
 import { useQuery } from "@tanstack/react-query";
 
 export default function QueryList() {
-  return (
-    <UIErrorBoundary>
-      <QueryListContent />
-    </UIErrorBoundary>
-  );
+  return <QueryListContent />;
 }
 
 const QueryListContent = () => {
@@ -40,14 +35,16 @@ const QueryListContent = () => {
 
   return (
     <List>
-      <List.Header totalCount={data.total} label="공지사항" />
-
-      <List.ColumnContainer headers={[]} row={5} />
-      {data.quleroquisDto.length === 0 ? (
+      <List.Header totalCount={data.total} label="문의사항" />
+      <List.ColumnContainer
+        headers={["문의사항 번호", "문의사항 제목", "작성자명", "작성일"]}
+        row={4}
+      />
+      {data.inquiries.length === 0 ? (
         <Blank />
       ) : (
         <List.RowContainer row={10}>
-          {data.quleroquisDto.map((query) => (
+          {data.inquiries.map((query) => (
             <QueryListItem key={query.id} {...query} />
           ))}
         </List.RowContainer>
@@ -63,13 +60,21 @@ const QueryListContent = () => {
 
 type QueryListItemProps = QueryListType;
 
-const QueryListItem = ({ id }: QueryListItemProps) => {
+const QueryListItem = ({
+  id,
+  title,
+  user,
+  createdDate,
+}: QueryListItemProps) => {
   return (
     <Link
       to={`/queries/${id}`}
-      className="grid grid-cols-5 items-center h-[50px] m-[10px] hover:bg-lightGray rounded-[8px]"
+      className="grid grid-cols-4 items-center h-[50px] m-[10px] hover:bg-lightGray rounded-[8px]"
     >
       <div className="text-center">{id}</div>
+      <div className="text-center">{title}</div>
+      <div className="text-center">{user.nickname}</div>
+      <div>{createdDate}</div>
     </Link>
   );
 };
