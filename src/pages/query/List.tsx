@@ -37,8 +37,14 @@ const QueryListContent = () => {
     <List>
       <List.Header totalCount={data.total} label="문의사항" />
       <List.ColumnContainer
-        headers={["문의사항 번호", "문의사항 제목", "작성자명", "작성일"]}
-        row={4}
+        headers={[
+          "문의사항 번호",
+          "문의사항 제목",
+          "작성자명",
+          "작성일",
+          "답변여부",
+        ]}
+        row={5}
       />
       {data.inquiries.length === 0 ? (
         <Blank />
@@ -65,16 +71,18 @@ const QueryListItem = ({
   title,
   user,
   createdDate,
+  processed,
 }: QueryListItemProps) => {
   return (
     <Link
       to={`/queries/${id}`}
-      className="grid grid-cols-4 items-center h-[50px] m-[10px] hover:bg-lightGray rounded-[8px]"
+      className="grid grid-cols-5 items-center h-[50px] m-[10px] hover:bg-lightGray rounded-[8px]"
     >
       <div className="text-center">{id}</div>
       <div className="text-center">{title}</div>
       <div className="text-center">{user.nickname}</div>
-      <div>{createdDate}</div>
+      <div className="text-center">{createdDate}</div>
+      <div className="text-center">{processed ? "완료" : "미완료"}</div>
     </Link>
   );
 };

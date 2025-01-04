@@ -2,6 +2,7 @@ import { DefaultPaths } from "../../router/paths";
 import ErrorFallback from "../../components/fallback/ErrorFallback";
 import ItemContainer from "../../components/Detail/ItemContainer";
 import LoadingFallback from "../../components/fallback/LoadingFallback";
+import QueryAnswerForm from "./QueryAnswerForm";
 import { getParamsFromPath } from "../../lib/path.utils";
 import queryQueryOptions from "../../queries/queryQueryOptions";
 import { useLocation } from "react-router-dom";
@@ -52,6 +53,13 @@ function QueryDetailContent() {
           <div dangerouslySetInnerHTML={{ __html: data.content }} />
         </ItemContainer>
       </div>
+      {data?.answer ? (
+        <ItemContainer label="문의사항 답변 내용">
+          <div>{data.answer}</div>
+        </ItemContainer>
+      ) : (
+        <QueryAnswerForm />
+      )}
     </article>
   );
 }

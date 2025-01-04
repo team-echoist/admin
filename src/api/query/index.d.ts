@@ -13,6 +13,5 @@ export type QueryType = {
 
 export type QueryListType = Pick<
   QueryType,
-  "id" | "title" | "processed",
-  "user"
+  "id" | "title" | "processed" | "user" | "createdDate"
 >;
