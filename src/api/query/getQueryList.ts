@@ -5,13 +5,13 @@ import { QueryListType } from ".";
 import fetchData from "../fetchData";
 
 export type QueryListResponseType = {
-  quleroquisDto: QueryListType[];
+  inquiries: QueryListType[];
 } & ResponsePaginationType;
 
 export default async function getQueryList(params: ListParams) {
   const { page, perPage } = params.pagination;
   const filter = "all";
-  const url = `/admin-support/notices?page=${page}&limit=${perPage}&filter=${filter}`;
+  const url = `/admin-support/inquiries?page=${page}&limit=${perPage}&filter=${filter}`;
 
   const response = await fetchData<ResponseType<QueryListResponseType>>({
     url,

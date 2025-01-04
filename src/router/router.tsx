@@ -16,6 +16,8 @@ import MyPage from "../pages/my";
 import NotFound from "../pages/errors/NotFound";
 import NoticeDetail from "../pages/notice/Detail";
 import NoticeList from "../pages/notice/List";
+import QueryDetail from "../pages/query/Detail";
+import QueryList from "../pages/query/List";
 import RegisterPage from "../pages/auth/Regsiter";
 import ReportList from "../pages/report/List";
 import ThemeList from "../pages/theme/List";
@@ -101,11 +103,11 @@ const router = createBrowserRouter([
       },
       {
         path: DefaultPaths.QUERY.LIST,
-        element: <div>문의사항 리스트 페이지</div>,
+        element: <QueryList />,
       },
       {
         path: DefaultPaths.QUERY.DETAIL,
-        element: <div>문의사항 리스트 페이지</div>,
+        element: <QueryDetail />,
       },
       {
         path: DefaultPaths.VERSION,
