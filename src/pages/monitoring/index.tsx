@@ -1,6 +1,7 @@
 import { Metric, onCLS, onFCP, onINP, onLCP, onTTFB } from "web-vitals";
 import { useEffect, useState } from "react";
 
+import ApiTestForm from "./ApiTestForm";
 import ServerStatus from "./ServerStatus";
 import { cn } from "../../lib/utils";
 
@@ -47,6 +48,8 @@ export default function Monitoring() {
           <WebVitalItem key={key} label={key} value={value} />
         ))}
       </ul>
+      <h4 className="text-2xl">API 테스트: 결과 콘솔 확인(F12)</h4>
+      <ApiTestForm />
     </div>
   );
 }
