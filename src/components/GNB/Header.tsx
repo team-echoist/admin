@@ -20,12 +20,11 @@ const Header = () => {
         <div className="rounded-[8px] overflow-hidden">
           <img src={logo} alt="링크드아웃 로고" width={40} />
         </div>
-        <h1 className="text-white text-2xl">Linked Out Admin Page</h1>
+        <h1 className="text-white text-2xl">링크드아웃 관리자 페이지</h1>
       </div>
       <div className="flex gap-[15px] items-center">
         {isLogin ? (
           <>
-            <div className="text-white">My Page</div>
             <Button
               className="text-white"
               variant="ghost"
@@ -35,19 +34,19 @@ const Header = () => {
                 navigate(`/auth/${AuthPaths.LOGIN}`);
               }}
             >
-              Logout
+              로그아웃
             </Button>
           </>
         ) : (
           <>
             <Link to={`/auth/${AuthPaths.LOGIN}`}>
               <Button className="text-white" variant="ghost">
-                LOGIN
+                로그인
               </Button>
             </Link>
             <Link to={`/auth/${AuthPaths.REGISTER}`}>
               <Button className="text-white" variant="ghost">
-                REGISTER
+                회원가입
               </Button>
             </Link>
           </>
