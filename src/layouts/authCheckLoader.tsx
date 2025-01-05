@@ -7,14 +7,18 @@ import { redirect } from "react-router-dom";
 type LoaderContext = "AuthLayout" | "DefaultLayout";
 
 export default async function authCheckLoader(context: LoaderContext) {
-  const accessToken = localStorage.getItem("accessToken");
+  const tokenAvailable = localStorage.getItem("tokenAvailable");
+
+  if (tokenAvailable) {
+    redirect("/auth/login");
+  }
 
   const handleUnauthorized = () => {
     localStorage.removeItem("accessToken");
     return redirect(`/auth/${AuthPaths.LOGIN}`);
   };
 
-  if (!accessToken) {
+  if (!tokenAvailable || tokenAvailable === "false") {
     return context === "DefaultLayout" ? handleUnauthorized() : null;
   }
 
@@ -27,7 +31,6 @@ export default async function authCheckLoader(context: LoaderContext) {
     sessionStorage.setItem("redirected", "true");
 
     if (response?.id !== undefined) {
-      localStorage.setItem("isRootAccount", `${response.id === 0}`);
       if (context === "AuthLayout") {
         return redirect(`/${DefaultPaths.DASHBOARD}`);
       }
