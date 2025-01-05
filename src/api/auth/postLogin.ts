@@ -17,6 +17,7 @@ export default async function postLogin(loginBody: LoginBodyType) {
 
   localStorage.setItem("accessToken", accessToken);
   localStorage.setItem("refreshToken", refreshToken);
+  localStorage.setItem("tokenAvailable", "true");
 
   return response;
 }
