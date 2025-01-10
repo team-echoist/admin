@@ -1,4 +1,5 @@
 import { AuthPaths, DefaultPaths } from "./paths";
+import { Navigate, createBrowserRouter } from "react-router-dom";
 
 import AuthLayout from "../layouts/AuthLayout";
 import Dashboard from "../pages/dashboard/page";
@@ -26,7 +27,6 @@ import UserList from "../pages/user/List";
 import Version from "../pages/version/Version";
 import { VersionLoader } from "../pages/version/VersionLoader";
 import authCheckLoader from "../layouts/authCheckLoader";
-import { createBrowserRouter } from "react-router-dom";
 import { managerDetailLoader } from "../pages/manager/DetailLoader";
 import { noticeDetailLoader } from "../pages/notice/DetailLoader";
 import { userDetailLoader } from "../pages/user/DetailLoader";
@@ -37,6 +37,10 @@ const router = createBrowserRouter([
     element: <DefaultLayout />,
     loader: () => authCheckLoader("DefaultLayout"),
     children: [
+      {
+        index: true,
+        element: <Navigate to="/dashboard" />,
+      },
       { path: DefaultPaths.DASHBOARD, element: <Dashboard /> },
       {
         path: DefaultPaths.ESSAY.LIST,

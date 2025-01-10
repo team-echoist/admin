@@ -1,14 +1,11 @@
-import { AuthPaths, DefaultPaths } from "../router/paths";
-
-import { ResponseErrorType } from "../api";
-import getUserPermission from "../api/auth/getUserPermission";
+import { AuthPaths } from "../router/paths";
 import { redirect } from "react-router-dom";
 
 type LoaderContext = "AuthLayout" | "DefaultLayout";
 
 export default async function authCheckLoader(context: LoaderContext) {
   const tokenAvailable = localStorage.getItem("tokenAvailable");
-
+  console.log("hi");
   if (tokenAvailable) {
     redirect("/auth/login");
   }
@@ -22,25 +19,7 @@ export default async function authCheckLoader(context: LoaderContext) {
     return context === "DefaultLayout" ? handleUnauthorized() : null;
   }
 
-  try {
-    if (sessionStorage.getItem("redirected")) {
-      return null;
-    }
-
-    const response = await getUserPermission();
-    sessionStorage.setItem("redirected", "true");
-
-    if (response?.id !== undefined) {
-      if (context === "AuthLayout") {
-        return redirect(`/${DefaultPaths.DASHBOARD}`);
-      }
-    }
-  } catch (e) {
-    const error = e as ResponseErrorType;
-    if (error.status === 401) {
-      return handleUnauthorized();
-    }
-  }
+  console.log("dhi");
 
   return null;
 }
