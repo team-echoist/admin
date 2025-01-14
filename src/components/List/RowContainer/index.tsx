@@ -1,6 +1,5 @@
-import React, { PropsWithChildren } from "react";
-
 import Blank from "../../fallback/Blank";
+import { PropsWithChildren } from "react";
 import { cn } from "../../../lib/utils";
 import { hasValidChildren } from "../../../lib/node.utils";
 

@@ -23,6 +23,20 @@ export const Default = {
   ),
 };
 
+export const Blank = {
+  render: () => (
+    <List>
+      <List.Header totalCount={47} label="책" />
+      <List.ColumnContainer headers={headers} row={5} />
+      <List.RowContainer row={10}>
+        {no_books.map((book) => (
+          <ListItemStory key={book.id} {...book} />
+        ))}
+      </List.RowContainer>
+    </List>
+  ),
+};
+
 type BookItemType = {
   id: string;
   title: string;
@@ -104,6 +118,8 @@ const books: BookItemType[] = [
     etc: "Inspirational story",
   },
 ];
+
+const no_books: BookItemType[] = [];
 
 const ListItemStory = ({ id, title, author, publisher, etc }: BookItemType) => {
   return (
