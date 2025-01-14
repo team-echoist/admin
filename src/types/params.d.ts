@@ -13,6 +13,6 @@ export interface DetailParams {
   filter?: FilterParams;
 }
 export interface FilterParams {
-  keyword: string;
+  keyword?: string;
   status?: string;
 }
