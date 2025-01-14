@@ -7,14 +7,7 @@ import { queryOptions } from "@tanstack/react-query";
 const userQueryOptions = {
   getUserList: (params: ListParams) =>
     queryOptions({
-      queryKey: [
-        "user",
-        "list",
-        params.pagination.page,
-        params.pagination.perPage,
-        params.filter?.keyword || "",
-        params.filter?.status,
-      ],
+      queryKey: ["user", "list", params],
       queryFn: () => getUserList(params),
     }),
   getUserDetail: (params: DetailParams) =>
