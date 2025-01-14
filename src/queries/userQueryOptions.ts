@@ -13,6 +13,7 @@ const userQueryOptions = {
         params.pagination.page,
         params.pagination.perPage,
         params.filter?.keyword || "",
+        params.filter?.status,
       ],
       queryFn: () => getUserList(params),
     }),

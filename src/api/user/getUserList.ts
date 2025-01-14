@@ -14,7 +14,7 @@ export type UserListResponseType = {
 export default async function getUserList(params: ListParams) {
   const { page, perPage } = params.pagination;
   const keyword = params.filter?.keyword || "";
-  const filter = "all";
+  const filter = params.filter?.status;
 
   const url = keyword
     ? `/admin-management/users/search/${keyword}`
