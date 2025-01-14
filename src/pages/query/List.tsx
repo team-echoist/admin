@@ -1,4 +1,3 @@
-import Blank from "../../components/fallback/Blank";
 import ErrorFallback from "../../components/fallback/ErrorFallback";
 import { Link } from "react-router-dom";
 import List from "../../components/List";
@@ -60,15 +59,11 @@ const QueryListContent = () => {
         ]}
         row={5}
       />
-      {data.inquiries.length === 0 ? (
-        <Blank />
-      ) : (
-        <List.RowContainer row={10}>
-          {data.inquiries.map((query) => (
-            <QueryListItem key={query.id} {...query} />
-          ))}
-        </List.RowContainer>
-      )}
+      <List.RowContainer row={10}>
+        {data.inquiries.map((query) => (
+          <QueryListItem key={query.id} {...query} />
+        ))}
+      </List.RowContainer>
       <Pagination
         totalPages={data.totalPage}
         currentPage={currentPage}

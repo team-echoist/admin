@@ -80,11 +80,9 @@ const UserListContent = () => {
       </List.Header>
       <List.ColumnContainer headers={userListColumns} row={5} />
       <List.RowContainer row={10}>
-        {!data.users || data.users.length === 0 ? (
-          <Blank />
-        ) : (
-          data.users.map((user) => <UserListItem key={user.id} {...user} />)
-        )}
+        {data.users.map((user) => (
+          <UserListItem key={user.id} {...user} />
+        ))}
       </List.RowContainer>
       <Pagination
         totalPages={data.totalPage}
