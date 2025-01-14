@@ -5,9 +5,11 @@ import List from "../../components/List";
 import LoadingFallback from "../../components/fallback/LoadingFallback";
 import Pagination from "../../components/Pagination";
 import { QueryListType } from "../../api/query";
+import SortSelect from "../../components/SortSelect";
 import queryQueryOptions from "../../queries/queryQueryOptions";
 import usePagination from "../../components/Pagination/usePagination";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 export default function QueryList() {
   return <QueryListContent />;
@@ -15,10 +17,12 @@ export default function QueryList() {
 
 const QueryListContent = () => {
   const { currentPage, handlePaginationEvent } = usePagination();
+  const [currentFilter, setCurrentFilter] = useState("all");
 
   const { data, error, isLoading } = useQuery({
     ...queryQueryOptions.getQueryList({
       pagination: { page: currentPage, perPage: 10 },
+      filter: { status: currentFilter },
     }),
   });
 
@@ -35,7 +39,17 @@ const QueryListContent = () => {
 
   return (
     <List>
-      <List.Header totalCount={data.total} label="문의사항" />
+      <List.Header totalCount={data.total} label="문의사항">
+        <SortSelect
+          onChange={(value: string) => {
+            setCurrentFilter(value);
+          }}
+          options={[
+            { label: "답변 완료된 문의사항만 보기", value: "unprocessed" },
+          ]}
+          defaultValue="all"
+        />
+      </List.Header>
       <List.ColumnContainer
         headers={[
           "문의사항 번호",

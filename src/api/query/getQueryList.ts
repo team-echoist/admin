@@ -10,8 +10,8 @@ export type QueryListResponseType = {
 
 export default async function getQueryList(params: ListParams) {
   const { page, perPage } = params.pagination;
-  const filter = "all";
-  const url = `/admin-support/inquiries?page=${page}&limit=${perPage}&filter=${filter}`;
+  const filter = params.filter?.status ?? "all";
+  const url = `/admin-support/inquiries?page=${page}&limit=${perPage}&status=${filter}`;
 
   const response = await fetchData<ResponseType<QueryListResponseType>>({
     url,
