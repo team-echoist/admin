@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import List from "../../components/List";
 import LoadingFallback from "../../components/fallback/LoadingFallback";
 import Pagination from "../../components/Pagination";
+import SortSelect from "../../components/SortSelect";
 import UIErrorBoundary from "../../components/fallback/UIErrorBoundary";
 import { UserType } from "../../api/user";
 import usePagination from "../../components/Pagination/usePagination";
@@ -27,16 +28,28 @@ const userListColumns = [
   "사용자 상태",
   "가입날짜",
 ];
+
+const USER_FILTER = [
+  { value: "all", label: "전체보기" },
+  { value: "monitored", label: "monitored" },
+  { value: "activeSubscription", label: "구독자만 보기" },
+];
+
 const UserListContent = () => {
   const [userSearchKeyword, setUserSearchKeyword] = useState("");
+  const [userFilter, setUserFilter] = useState(USER_FILTER[0].value);
   const { currentPage, handlePaginationEvent } = usePagination();
 
   const { data, error, isLoading } = useQuery({
     ...userQueryOptions.getUserList({
       pagination: { page: currentPage, perPage: 10 },
-      filter: { keyword: userSearchKeyword },
+      filter: { keyword: userSearchKeyword, status: userFilter },
     }),
   });
+
+  const changeUserFilter = (filter: string) => {
+    setUserFilter(filter);
+  };
 
   if (isLoading) {
     return <LoadingFallback />;
@@ -52,17 +65,26 @@ const UserListContent = () => {
   return (
     <List>
       <List.Header totalCount={data.total} label="사용자">
-        <KeywordSearch
-          placeholder="이메일을 입력하세요"
-          keyword={userSearchKeyword}
-          onKeywordChange={setUserSearchKeyword}
-        />
+        <div className="flex gap-[20px]">
+          <SortSelect
+            options={USER_FILTER}
+            onChange={changeUserFilter}
+            defaultValue={USER_FILTER[0].value}
+          />
+          <KeywordSearch
+            placeholder="이메일을 입력하세요"
+            keyword={userSearchKeyword}
+            onKeywordChange={setUserSearchKeyword}
+          />
+        </div>
       </List.Header>
       <List.ColumnContainer headers={userListColumns} row={5} />
       <List.RowContainer row={10}>
-        {data.users.map((user) => (
-          <UserListItem key={user.id} {...user} />
-        ))}
+        {!data.users || data.users.length === 0 ? (
+          <Blank />
+        ) : (
+          data.users.map((user) => <UserListItem key={user.id} {...user} />)
+        )}
       </List.RowContainer>
       <Pagination
         totalPages={data.totalPage}
