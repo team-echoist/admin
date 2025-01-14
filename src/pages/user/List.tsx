@@ -66,7 +66,11 @@ const UserListContent = () => {
     <List>
       <List.Header totalCount={data.total} label="사용자">
         <div className="flex gap-[20px]">
-          <SortSelect options={USER_FILTER} onChange={changeUserFilter} />
+          <SortSelect
+            options={USER_FILTER}
+            onChange={changeUserFilter}
+            defaultValue={USER_FILTER[0].value}
+          />
           <KeywordSearch
             placeholder="이메일을 입력하세요"
             keyword={userSearchKeyword}
