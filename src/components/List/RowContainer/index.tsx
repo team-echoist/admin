@@ -1,5 +1,7 @@
+import Blank from "../../fallback/Blank";
 import { PropsWithChildren } from "react";
 import { cn } from "../../../lib/utils";
+import { hasValidChildren } from "../../../lib/node.utils";
 
 type RowContainerProps = {
   row: number;
@@ -11,6 +13,10 @@ export default function RowContainer({
   className,
   children,
 }: RowContainerProps) {
+  if (!hasValidChildren(children)) {
+    return <Blank />;
+  }
+
   return (
     <div className={cn(`grid grid-rows-${row}`, className)}>{children}</div>
   );
