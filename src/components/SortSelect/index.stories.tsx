@@ -25,3 +25,10 @@ export const Default: SortSelectStory = {
     defaultValue: "name",
   },
 };
+
+export const CheckBox: SortSelectStory = {
+  args: {
+    options: [{ value: "unread", label: "안읽은 메시지만 보기" }],
+    defaultValue: "all",
+  },
+};
